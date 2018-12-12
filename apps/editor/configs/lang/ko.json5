@@ -1,0 +1,90 @@
+{
+    title: '에디터',
+
+    moded: '편집됨',
+
+    preset: '프리셋',
+    userPreset: '유저 프리셋',
+    presetChanged: '프리셋이 변경되었습니다.',
+    presetReverted: '프리셋이 초기화되었습니다.',
+    presetSaved: '프리셋이 저장되었습니다.',
+
+    message: '메시지',
+    noMessage: '메시지가 없습니다.',
+
+    info: '정보',
+    copy: '복사',
+    paste: '붙여넣기',
+
+    // 앱 기능
+    shareMenu: '공유 메뉴',
+    share: {
+        download: '다운로드',
+        screenshot: '스크린샷',
+        link: '링크',
+        link_info: '플레이어의 URL을 클립보드에 복사할수 있습니다.',
+        share: 'SNS로 공유',
+        copyUrl: 'URL 복사',
+    },
+
+    cameraMenu: '카메라 메뉴',
+    camera: {
+        rotate: '카메라 회전',
+        pan: '카메라 이동',
+        zoom: '카메라 줌',
+        zoomIn: '카메라 확대',
+        zoomOut: '카메라 축소',
+        focus: '카메라 고정',
+        freeCamera: '자유 카메라',
+        fixedCamera: '고정 카메라',
+        calibratedCamera: '보정 카메라',
+        reset: '카메라 초기화',
+    },
+
+    playerMenu: '플레이어 메뉴',
+    player: {
+        time: '시간',
+        frame: '프레임',
+        realTime: '리얼타임',
+        keyFrame: '키프레임',
+        play: '재생',
+        playReverse: '역재생',
+        playForward: '재생',
+        playBackward: '역재생',
+        stop: '정지',
+        pause: '일시정지',
+        forward: '앞으로',
+        backward: '뒤로',
+        forwardPlay: '정방향',
+        backwardPlay: '역방향',
+        playSpeed: '재생속도',
+        loopMode: '반복모드',
+        repeat: '반복',
+        noRepeat: '반복 않음',
+        repeatOne: '한번 반복',
+        playMode: '재생모드',
+        repeatInfinity: '무한 반복',
+        repeatPingpong: '정역 반복',
+        tune: '애니메이션 설정',
+        tuneTimeScale: '타임스케일 설정',
+        tuneAnimation: '애니메이션 선택',
+        noAnimation: '애니메이션 없음',
+        autoStart: '자동 시작',
+        startTime: '시작 시간',
+    },
+
+    settingMenu: '설정 메뉴',
+    setting: {
+        help: '도움말',
+        display: '화면 설정',
+        rendering: '랜더링 설정',
+        fullscreen: '전체 화면',
+        setting: '뷰어 설정',
+        smoothing: '픽셀 보간',
+        fitScreen: '화면 맞춤',
+        resolution: '해상도',
+        pixelRatio: '픽셀 비율',
+        aspectRatio: '화면 비율',
+    }
+
+}

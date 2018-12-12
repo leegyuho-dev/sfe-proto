@@ -1,0 +1,25 @@
+{
+    korean: '한국어',
+    english: 'English',
+    japanese: '日本語',
+    chinese: '中文',
+    
+    app: '앱',
+    mode: '모드',
+    default: '기본',
+    start: '시작',
+
+    config: '구성',
+    setting: '설정',
+    preference: '환경설정',
+
+    button: '버튼',
+    menu: '메뉴',
+    page: '페이지',
+    tool: '툴',
+
+    user: '유저',
+    logIn: '로그인',
+    logOut: '로그아웃',
+    signUp: '회원가입',
+}

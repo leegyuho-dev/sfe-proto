@@ -1,0 +1,12 @@
+// TPLPATH 경로 (기본값 /tpl/<template>/)
+{
+	fonts: {},  
+	styles: [
+		'tplstyle.css',
+	],
+	scripts: {
+		// tplscript.js,
+	},
+	modules: {
+	}
+}

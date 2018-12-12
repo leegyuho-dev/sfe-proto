@@ -1,0 +1,15 @@
+{
+    "title": "빠른 시작",
+      
+    "moded": "편집됨",
+
+    "preset": "프리셋",
+    "userPreset": "유저 프리셋",
+    "presetChanged": " 프리셋으로 변경되었습니다.",
+    "presetChangedUser": "유저 프리셋으로 전환되었습니다.",
+    "presetReverted": " 프리셋이 초기화되었습니다.",
+    "presetSaved": " 프리셋이 저장되었습니다.",
+
+    "message": "메시지",
+    "noMessage": "메시지가 없습니다."
+}

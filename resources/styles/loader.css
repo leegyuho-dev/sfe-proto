@@ -1,0 +1,90 @@
+#loader {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+	z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#loader,
+#loader.middle {
+    width: 80px;
+    height: 80px;
+}
+#loader.large {
+    width: 120px;
+    height: 120px;
+}
+#loader.small {
+	width: 40px;
+    height: 40px;
+}
+#loader.fixed {
+    position: fixed;
+    top: 80px;
+}
+#loader:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid rgba(0, 0, 0, 0.2);
+    /* animation: spin 1s linear infinite; */
+    /* -webkit-mask-image: linear-gradient(to top, transparent 25%, black 75%); */
+}
+#loader:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    -webkit-mask-image: linear-gradient(to top, transparent 10%, black 80%);
+	mask-image: linear-gradient(to top, transparent 10%, black 80%);
+    /* animation: spin 1s linear infinite; */
+}
+#loader.blue:after {
+    border-top-color: #2191DD;
+    border-left-color: #2191DD;
+}
+#loader.loading {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+/* #loader.loading:after {
+	animation: spin 1s linear infinite;	
+}
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+} */
+/* https://stackoverflow.com/questions/6410730/how-to-do-a-webkit-css-endless-rotation-animation */
+#loader.loading:after {
+	-webkit-animation: rotate 1s linear infinite; 
+			animation: rotate 1s linear infinite; 
+}
+@-webkit-keyframes rotate{ to{-webkit-transform: rotate(360deg); } }
+@keyframes         rotate{ to{        transform: rotate(360deg); } }
+
+
+#loader #progress {
+	position: absolute;
+	height: 22px;
+	width: 100%;
+    font-size: 13px;
+	color: #ffffff;
+	text-align: center;
+}

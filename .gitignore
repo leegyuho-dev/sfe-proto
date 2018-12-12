@@ -1,0 +1,7 @@
+.vscode/
+node_modules/
+backup/
+
+package-lock.json
+gulpfile.js
+.htaccess

@@ -1,0 +1,33 @@
+// config.json5
+// 루트 설정파일. 기본값.
+// 사용자 설정은 config.user.json5 로 지정.
+{
+    // 엔진 정보
+    // package.json 에서 관리
+    // engineFullName: 'SunFlower Engine',
+    // engineName: 'sfe',
+    // engineDescription: 'Web Contents Authoring System',
+    // engineVersion: '0.0.1',
+    // engineLicense: 'MIT',
+
+    // 언어 설정
+    // 언어코드는 ISO_639 를 참고 
+    // https://ko.wikipedia.org/wiki/ISO_639
+    // TODO: 기본적인 다국어 지원을 위해 영어 파일 en.json 을 추가.
+    lang: 'ko',
+    // 시작 앱. 앱이 지정되지 않았을시의 기본앱.
+    // TODO: 앱이 여러개로 나뉜 이후 quickstart 로 지정함.
+    startApp: 'player',
+    // 템플릿. UI 스타일 전반의 테마를 결정.
+    template: 'prototype',
+    // 아이콘.
+    icon: 'sunflower',
+
+    // 사이트 정보
+    siteName: 'SunFlowerEngine',
+    // 사이트 소유자
+    siteOwner: 'LeeGyuho',
+    // 홈페이지
+    // 카피라이트, 라이센스, 저장소 등 용도로 쓰일수 있도록
+    homepage: 'https://twitter.com/leegyuho',
+}

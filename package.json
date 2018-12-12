@@ -1,0 +1,27 @@
+{
+  "fullName": "SunFlower Engine",
+  "name": "sfe",
+  "version": "0.0.1",
+  "codeName": "Prototype",
+  "description": "Web Contents Authoring System",
+  "author": {
+    "name": "LeeGyuho",
+    "email": "andrewgyuholee@gmail.com",
+    "url": "https://twitter.com/leegyuho"
+  },
+  "license": "MIT",
+  "private": true,
+  "main": "init.js",
+  "directories": {},
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-brotli": "^1.2.1",
+    "gulp-sass": "^4.0.2",
+    "rollup": "^0.67.4",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-terser": "^3.0.0",
+    "rollup-plugin-terser-js": "^1.0.2"
+  }
+}

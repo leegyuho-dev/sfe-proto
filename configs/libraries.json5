@@ -1,0 +1,48 @@
+{
+	// FONTS 경로 (기본값 /resources/fonts/)
+	fonts: {
+        sunflower: {
+            fontFamily: 'sunflower',
+            src: 'sunflower/sunflower.woff2',
+            css: 'sunflower/sunflower.css'
+        },
+        xeicon: {
+            fontFamily: 'xeicon',
+            src: 'xeicon/xeicon.woff2',
+            css: 'xeicon/xeicon.css',
+        },
+        /* 'NotoSansKR-Regular': {
+            fontFamily: 'Noto Sans KR',
+            src: 'common/NotoSansKR-Light.otf',
+			css: '',
+        },
+        'NotoSerifKR-Regular': {
+            fontFamily: 'Noto Serif KR',
+            src: 'common/NotoSerifKR-Regular.otf',
+			css: '',
+        } */
+	},
+	// STYLES 경로 (기본값 /resources/styles/)
+	styles: [
+		'fonts.css',
+		'common.css',
+		'template.css'
+	],
+	// SFE 경로 (기본값 /engine/)
+	SFEModules: {
+	},
+	SFEScripts: [
+		'build/sfe.js',
+	],
+	// MODULES 경로 (기본값 /libraries/modules/)
+	modules: {
+	},
+	// SCRIPTS 경로 (기본값 /libraries/scripts/)
+	scripts: [
+		// 'systemjs/system-0.21.5.js',
+		'vue.js/vue-2.5.17.js',
+		'localforage/localforage-1.7.3.js',
+		'common/js.cookie-2.2.0.js',
+		'common/json5-2.1.0.js'
+	],
+}

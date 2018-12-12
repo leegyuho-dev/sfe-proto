@@ -1,0 +1,35 @@
+{
+    main: {
+    },
+
+    icons: {
+        Fontset: {
+            css: 'webfonts.css'
+        },
+        sunflower: {
+            id: 'sunflower',
+            fontFamily: 'sunflower',
+            src: 'sunflower/sunflower.woff2',
+            css: 'sunflower/sunflower.css'
+        },
+        xeicon: {
+            id: 'xeicon',
+            fontFamily: 'xeicon',
+            src: 'xeicon/xeicon.woff2',
+            css: 'xeicon/xeicon.css',
+        }
+    },
+
+    contents: {
+        notosansRegular: {
+            id: 'NotoSansKR-Regular',
+            fontFamily: 'Noto Sans KR',
+            src: 'common/NotoSansKR-Light.otf',
+        },
+        notoserifRegular: {
+            id: 'NotoSerifKR-Regular',
+            fontFamily: 'Noto Serif KR',
+            src: 'common/NotoSerifKR-Regular.otf'
+        }
+    }
+}

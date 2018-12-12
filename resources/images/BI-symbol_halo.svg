@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="BI-symbol_halo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 2048 2048" style="enable-background:new 0 0 2048 2048;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:url(#SVGID_2_);}
+	.st2{fill:url(#SVGID_3_);}
+	.st3{fill:url(#SVGID_4_);}
+</style>
+<symbol  id="halo_base" viewBox="-38.68 -284.01 77.36 568.03">
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="16098.9863" y1="1.029894e-07" x2="16667.0137" y2="1.029894e-07" gradientTransform="matrix(4.489700e-11 1 -1 4.489700e-11 -3.677742e-07 -16383)">
+		<stop  offset="0" style="stop-color:#DAFAEA;stop-opacity:0.8"/>
+		<stop  offset="0.036" style="stop-color:#D1F9E9;stop-opacity:0.776"/>
+		<stop  offset="0.0948" style="stop-color:#B9F6E8;stop-opacity:0.7368"/>
+		<stop  offset="0.1691" style="stop-color:#91F1E5;stop-opacity:0.6873"/>
+		<stop  offset="0.255" style="stop-color:#5AEAE1;stop-opacity:0.63"/>
+		<stop  offset="0.3" style="stop-color:#3BE6DF;stop-opacity:0.6"/>
+		<stop  offset="0.5358" style="stop-color:#45CAF0;stop-opacity:0.2032"/>
+		<stop  offset="0.765" style="stop-color:#49BFF6;stop-opacity:0.02"/>
+		<stop  offset="1" style="stop-color:#4DB3FD;stop-opacity:0"/>
+	</linearGradient>
+	<path class="st0" d="M-20.94-160.16c6.65,8.61,13.65,17,20.94,25.17c7.29-8.17,14.29-16.56,20.94-25.17
+		c0-0.07-9.21-11.11-20.94-26.06C-11.73-171.27-20.93-160.23-20.94-160.16z M0-234.15c6.61,9.02,13.04,16.89,18.73,23.36
+		C12.41-202.21,5.89-193.72,0-186.22c-5.89-7.51-12.41-15.99-18.73-24.58C-13.04-217.26-6.61-225.13,0-234.15z M0-284.01
+		c5.27,8.86,10.9,17.23,16.62,25.03C11.15-249.99,5.51-241.67,0-234.15c-5.51-7.52-11.15-15.84-16.62-24.83
+		C-10.9-266.78-5.27-275.15,0-284.01z M0,80.3c9.65,9.44,20.66,19.55,32.75,30.06C22.63,120.82,11.66,131.69,0,142.74
+		c-11.66-11.05-22.63-21.92-32.75-32.39C-20.66,99.85-9.65,89.74,0,80.3z M0,21.11c9.98,9.85,20.05,19.31,30.09,28.36
+		C20.03,60.25,9.96,70.55,0,80.3c-9.96-9.75-20.03-20.04-30.09-30.83C-20.05,40.42-9.98,30.96,0,21.11z M0,210.75
+		c12.61,12.1,25.55,23.98,38.68,35.41C25.96,259.36,13.02,272.07,0,284.01c-13.02-11.94-25.96-24.66-38.68-37.85
+		C-25.55,234.73-12.61,222.85,0,210.75z M0,142.74c11.28,10.7,23.19,21.56,35.58,32.4C24.14,187.07,12.23,199.01,0,210.75
+		c-12.23-11.74-24.14-23.68-35.58-35.6C-23.19,164.31-11.28,153.44,0,142.74z M-23.09-110.77c7.97-7.85,15.69-15.92,23.09-24.22
+		c7.41,8.3,15.13,16.37,23.1,24.22c-7.42,8.71-15.14,17.2-23.09,25.48C-7.95-93.56-15.67-102.06-23.09-110.77z M0-33.73
+		C9.04-24.68,18.26-15.9,27.61-7.41C18.53,2.41,9.3,11.93,0,21.11c-9.3-9.18-18.53-18.7-27.61-28.52C-18.26-15.9-9.04-24.68,0-33.73
+		z M-25.29-60.38c8.65-8.06,17.11-16.37,25.31-24.9c8.2,8.53,16.64,16.83,25.29,24.89C17.08-51.27,8.63-42.38,0-33.73
+		C-8.62-42.37-17.07-51.26-25.29-60.38z"/>
+</symbol>
+<symbol  id="halo_center" viewBox="-28.82 -315.77 57.65 361.36">
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="16067.2314" y1="1.044482e-07" x2="16428.5957" y2="1.044482e-07" gradientTransform="matrix(4.489700e-11 1 -1 4.489700e-11 -3.677742e-07 -16383)">
+		<stop  offset="0" style="stop-color:#FFEEB9;stop-opacity:0.6"/>
+		<stop  offset="0.5468" style="stop-color:#F291E7;stop-opacity:0.4"/>
+		<stop  offset="0.6852" style="stop-color:#CAAFE5;stop-opacity:0.2931"/>
+		<stop  offset="0.8115" style="stop-color:#ADC4E4;stop-opacity:0.1956"/>
+		<stop  offset="0.9205" style="stop-color:#9BD1E3;stop-opacity:0.1114"/>
+		<stop  offset="1" style="stop-color:#95D6E3;stop-opacity:0.05"/>
+	</linearGradient>
+	<path class="st1" d="M0-315.77L0-315.77c4.69,9.41,9.94,18.39,15.51,26.89C10.63-279.79,5.38-271.19,0-263.15
+		c-5.38-8.04-10.63-16.64-15.52-25.73C-9.94-297.38-4.69-306.36,0-315.77L0-315.77z M19.78-191.18C8.72-175.73,0-164.3,0-164.23
+		c0-0.07-8.72-11.5-19.78-26.95c6.21-7.24,13.1-15.44,19.78-23.74C6.68-206.61,13.57-198.42,19.78-191.18z M28.82,15.95
+		C19.28,26.23,9.64,36.12,0,45.59c-9.64-9.48-19.28-19.37-28.82-29.64C-19.13,7.19-9.49-1.92,0-11.33
+		C9.49-1.92,19.13,7.19,28.82,15.95z M0-114.79c7.8,8.38,15.88,16.53,24.2,24.45C16.38-81.46,8.29-72.79,0-64.36
+		c-8.29-8.43-16.38-17.1-24.2-25.98C-15.88-98.26-7.8-106.41,0-114.79z"/>
+</symbol>
+<symbol  id="halo_side" viewBox="-26.43 -252.82 52.86 251.82">
+	
+		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="16130.1846" y1="1.016224e-07" x2="16382.002" y2="1.016224e-07" gradientTransform="matrix(4.489700e-11 1 -1 4.489700e-11 -3.677742e-07 -16383)">
+		<stop  offset="0" style="stop-color:#FFEEB9;stop-opacity:0.6"/>
+		<stop  offset="0.5846" style="stop-color:#F291E7;stop-opacity:0.4"/>
+		<stop  offset="1" style="stop-color:#99D3E3;stop-opacity:0.1"/>
+	</linearGradient>
+	<path class="st2" d="M0-153.89c-7.02,8.31-14.37,16.39-22.02,24.24c7.03,8.62,14.39,17.01,22.02,25.2
+		c7.62-8.19,14.98-16.59,22.02-25.2C14.37-137.51,7.02-145.58,0-153.89z M17.69-228.73C11.48-219.43,5.4-211.29,0-204.58
+		c-5.4-6.71-11.48-14.85-17.69-24.15C-11.85-236-5.85-244.07,0-252.82C5.85-244.07,11.85-236,17.69-228.73z M0-54.02
+		c8.61,8.76,17.44,17.27,26.43,25.52C17.8-19.06,8.96-9.89,0-1c-8.96-8.89-17.8-18.06-26.43-27.5C-17.44-36.75-8.61-45.27,0-54.02z"
+		/>
+</symbol>
+<radialGradient id="SVGID_4_" cx="1024" cy="1024" r="720" gradientUnits="userSpaceOnUse">
+	<stop  offset="0.5" style="stop-color:#FFD55B;stop-opacity:0.7"/>
+	<stop  offset="0.7507" style="stop-color:#FFE28A;stop-opacity:0.1"/>
+	<stop  offset="1" style="stop-color:#FFEEB9;stop-opacity:0"/>
+</radialGradient>
+<circle class="st3" cx="1024" cy="1024" r="720"/>
+<g>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" id="XMLID_22_" x="-38.68" y="-284.01" transform="matrix(0.999 0.0436 0.0436 -0.999 1051.9034 384.9055)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.6756 0.7373 0.7373 -0.6756 1495.6388 591.8227)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.0436 0.999 0.999 0.0436 1663.0945 1051.9034)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.7373 0.6756 0.6756 0.7373 1456.1774 1495.6388)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.999 -0.0436 -0.0436 0.999 996.0966 1663.0945)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.6756 -0.7373 -0.7373 0.6756 552.3612 1456.1774)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.0436 -0.999 -0.999 -0.0436 384.9055 996.0966)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.7373 -0.6756 -0.6756 -0.7373 591.8226 552.3612)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.9914 0.1305 0.1305 -0.9914 1107.498 389.7694)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.6088 0.7934 0.7934 -0.6088 1531.5107 634.5732)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.1305 0.9914 0.9914 0.1305 1658.2306 1107.498)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.7934 0.6088 0.6088 0.7934 1413.4268 1531.5107)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.9914 -0.1305 -0.1305 0.9914 940.502 1658.2306)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.6088 -0.7934 -0.7934 0.6088 516.4892 1413.4268)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.1305 -0.9914 -0.9914 -0.1305 389.7694 940.502)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.7934 -0.6088 -0.6088 -0.7934 634.5732 516.4892)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.9763 0.2164 0.2164 -0.9763 1162.4572 399.4601)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.5373 0.8434 0.8434 -0.5373 1563.5204 680.2876)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.2164 0.9763 0.9763 0.2164 1648.5398 1162.4572)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.8434 0.5373 0.5373 0.8434 1367.7124 1563.5204)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.9763 -0.2164 -0.2164 0.9763 885.5428 1648.5398)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.5373 -0.8434 -0.8434 0.5373 484.4796 1367.7124)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.2164 -0.9763 -0.9763 -0.2164 399.4601 885.5428)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.8434 -0.5373 -0.5373 -0.8434 680.2876 484.4796)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.9537 0.3007 0.3007 -0.9537 1216.3625 413.9041)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.4617 0.887 0.887 -0.4617 1591.4238 728.6179)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.3007 0.9537 0.9537 0.3007 1634.0959 1216.3625)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.887 0.4617 0.4617 0.887 1319.3822 1591.4238)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.9537 -0.3007 -0.3007 0.9537 831.6375 1634.0959)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.4617 -0.887 -0.887 0.4617 456.5762 1319.3822)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.3007 -0.9537 -0.9537 -0.3007 413.9041 831.6375)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.887 -0.4617 -0.4617 -0.887 728.6179 456.5762)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.9239 0.3827 0.3827 -0.9239 1268.8038 432.9911)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.3827 0.9239 0.9239 -0.3827 1615.0088 779.1961)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.3827 0.9239 0.9239 0.3827 1615.0089 1268.8038)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.9239 0.3827 0.3827 0.9239 1268.8038 1615.0088)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.9239 -0.3827 -0.3827 0.9239 779.1961 1615.0089)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.3827 -0.9239 -0.9239 0.3827 432.9911 1268.8038)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.3827 -0.9239 -0.9239 -0.3827 432.9911 779.1961)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.9239 -0.3827 -0.3827 -0.9239 779.1961 432.9911)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.887 0.4617 0.4617 -0.887 1319.3821 456.5762)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.3007 0.9537 0.9537 -0.3007 1634.0959 831.6375)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.4617 0.887 0.887 0.4617 1591.4238 1319.3821)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.9537 0.3007 0.3007 0.9537 1216.3625 1634.0959)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.887 -0.4617 -0.4617 0.887 728.6179 1591.4238)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.3007 -0.9537 -0.9537 0.3007 413.9041 1216.3625)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.4617 -0.887 -0.887 -0.4617 456.5762 728.6179)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.9537 -0.3007 -0.3007 -0.9537 831.6375 413.9041)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.8434 0.5373 0.5373 -0.8434 1367.7124 484.4796)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.2164 0.9763 0.9763 -0.2164 1648.5398 885.5428)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.5373 0.8434 0.8434 0.5373 1563.5204 1367.7124)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.9763 0.2164 0.2164 0.9763 1162.4572 1648.5398)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.8434 -0.5373 -0.5373 0.8434 680.2877 1563.5204)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.2164 -0.9763 -0.9763 0.2164 399.4601 1162.4572)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.5373 -0.8434 -0.8434 -0.5373 484.4796 680.2877)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.9763 -0.2164 -0.2164 -0.9763 885.5428 399.4601)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.7934 0.6088 0.6088 -0.7934 1413.4268 516.4892)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.1305 0.9914 0.9914 -0.1305 1658.2306 940.502)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.6088 0.7934 0.7934 0.6088 1531.5109 1413.4268)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.9914 0.1305 0.1305 0.9914 1107.498 1658.2306)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.7934 -0.6088 -0.6088 0.7934 634.5732 1531.5109)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.1305 -0.9914 -0.9914 0.1305 389.7694 1107.498)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.6088 -0.7934 -0.7934 -0.6088 516.4892 634.5732)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.9914 -0.1305 -0.1305 -0.9914 940.502 389.7694)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.7373 0.6756 0.6756 -0.7373 1456.1774 552.3612)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.0436 0.999 0.999 -0.0436 1663.0945 996.0965)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.6756 0.7373 0.7373 0.6756 1495.6388 1456.1774)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.999 0.0436 0.0436 0.999 1051.9034 1663.0945)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.7373 -0.6756 -0.6756 0.7373 591.8227 1495.6388)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(-0.0436 -0.999 -0.999 0.0436 384.9055 1051.9034)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.6756 -0.7373 -0.7373 -0.6756 552.3612 591.8227)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_base"  width="77.36" height="568.03" x="-38.68" y="-284.01" transform="matrix(0.999 -0.0436 -0.0436 -0.999 996.0965 384.9055)" style="overflow:visible;"/>
+</g>
+<g>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" id="XMLID_21_" x="-26.43" y="-252.82" transform="matrix(0.9962 0.0872 0.0872 -0.9962 1079.2474 392.5183)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.0872 0.9962 0.9962 0.0872 1655.4817 1079.2474)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.9962 -0.0872 -0.0872 0.9962 968.7525 1655.4817)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.0872 -0.9962 -0.9962 -0.0872 392.5183 968.7525)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.9659 0.2588 0.2588 -0.9659 1188.0638 411.7055)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.2588 0.9659 0.9659 0.2588 1636.2944 1188.0638)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.9659 -0.2588 -0.2588 0.9659 859.9362 1636.2944)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.2588 -0.9659 -0.9659 -0.2588 411.7055 859.9362)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.9063 0.4226 0.4226 -0.9063 1291.8951 449.497)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.4226 0.9063 0.9063 0.4226 1598.5029 1291.8951)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.9063 -0.4226 -0.4226 0.9063 756.1049 1598.5029)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.4226 -0.9063 -0.9063 -0.4226 449.497 756.1049)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.8192 0.5736 0.5736 -0.8192 1387.5865 504.7445)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.5736 0.8192 0.8192 0.5736 1543.2555 1387.5865)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.8192 -0.5736 -0.5736 0.8192 660.4134 1543.2555)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.5736 -0.8192 -0.8192 -0.5736 504.7445 660.4134)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.7071 0.7071 0.7071 -0.7071 1472.2307 575.7693)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.7071 0.7071 0.7071 0.7071 1472.2307 1472.2307)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.7071 -0.7071 -0.7071 0.7071 575.7693 1472.2307)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.7071 -0.7071 -0.7071 -0.7071 575.7693 575.7693)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.5736 0.8192 0.8192 -0.5736 1543.2555 660.4134)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.8192 0.5736 0.5736 0.8192 1387.5865 1543.2555)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.5736 -0.8192 -0.8192 0.5736 504.7445 1387.5865)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.8192 -0.5736 -0.5736 -0.8192 660.4134 504.7445)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.4226 0.9063 0.9063 -0.4226 1598.5029 756.1049)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.9063 0.4226 0.4226 0.9063 1291.8951 1598.5029)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.4226 -0.9063 -0.9063 0.4226 449.497 1291.8951)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.9063 -0.4226 -0.4226 -0.9063 756.1049 449.497)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.2588 0.9659 0.9659 -0.2588 1636.2944 859.9362)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.9659 0.2588 0.2588 0.9659 1188.0638 1636.2944)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.2588 -0.9659 -0.9659 0.2588 411.7055 1188.0638)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.9659 -0.2588 -0.2588 -0.9659 859.9362 411.7055)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.0872 0.9962 0.9962 -0.0872 1655.4817 968.7525)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.9962 0.0872 0.0872 0.9962 1079.2474 1655.4817)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(-0.0872 -0.9962 -0.9962 0.0872 392.5183 1079.2474)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_side"  width="52.86" height="251.82" x="-26.43" y="-252.82" transform="matrix(0.9962 -0.0872 -0.0872 -0.9962 968.7525 392.5183)" style="overflow:visible;"/>
+</g>
+<g>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" id="XMLID_20_" x="-28.82" y="-315.77" transform="matrix(1 0 0 -1 1024 379.7689)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0 1 1 0 1668.2312 1024)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-1 0 0 1 1024 1668.2312)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0 -1 -1 0 379.7689 1024)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.9848 0.1736 0.1736 -0.9848 1135.8695 389.5562)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.1736 0.9848 0.9848 0.1736 1658.4438 1135.8695)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.9848 -0.1736 -0.1736 0.9848 912.1304 1658.4438)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.1736 -0.9848 -0.9848 -0.1736 389.5562 912.1304)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.9397 0.342 0.342 -0.9397 1244.34 418.6208)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.342 0.9397 0.9397 0.342 1629.3793 1244.3401)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.9397 -0.342 -0.342 0.9397 803.66 1629.3793)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.342 -0.9397 -0.9397 -0.342 418.6208 803.66)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.866 0.5 0.5 -0.866 1346.1156 466.0795)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.5 0.866 0.866 0.5 1581.9205 1346.1156)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.866 -0.5 -0.5 0.866 701.8844 1581.9205)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.5 -0.866 -0.866 -0.5 466.0795 701.8844)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.766 0.6428 0.6428 -0.766 1438.1038 530.4903)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.6428 0.766 0.766 0.6428 1517.5096 1438.1038)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.766 -0.6428 -0.6428 0.766 609.8962 1517.5096)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.6428 -0.766 -0.766 -0.6428 530.4903 609.8962)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.6428 0.766 0.766 -0.6428 1517.5096 609.8962)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.766 0.6428 0.6428 0.766 1438.1038 1517.5096)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.6428 -0.766 -0.766 0.6428 530.4903 1438.1038)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.766 -0.6428 -0.6428 -0.766 609.8962 530.4903)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.5 0.866 0.866 -0.5 1581.9205 701.8844)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.866 0.5 0.5 0.866 1346.1156 1581.9205)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.5 -0.866 -0.866 0.5 466.0795 1346.1156)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.866 -0.5 -0.5 -0.866 701.8844 466.0795)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.342 0.9397 0.9397 -0.342 1629.3793 803.66)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.9397 0.342 0.342 0.9397 1244.34 1629.3793)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.342 -0.9397 -0.9397 0.342 418.6208 1244.3401)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.9397 -0.342 -0.342 -0.9397 803.66 418.6208)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.1736 0.9848 0.9848 -0.1736 1658.4438 912.1304)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.9848 0.1736 0.1736 0.9848 1135.8695 1658.4438)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(-0.1736 -0.9848 -0.9848 0.1736 389.5562 1135.8695)" style="overflow:visible;"/>
+	
+		<use xlink:href="#halo_center"  width="57.65" height="361.36" x="-28.82" y="-315.77" transform="matrix(0.9848 -0.1736 -0.1736 -0.9848 912.1304 389.5562)" style="overflow:visible;"/>
+</g>
+</svg>

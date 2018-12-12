@@ -1,0 +1,10 @@
+{
+    "app": "quickstart",
+    "file": "quickstart.php",
+    "name": "QuickStart",
+    "version": "0.01",
+
+    "prefsDefault": {
+        "mode": "default"
+    }
+}

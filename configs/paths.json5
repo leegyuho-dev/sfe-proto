@@ -1,0 +1,67 @@
+// paths.json5
+// 주요 디렉토리 경로를 상수로 선언하기 위한 설정파일. 기본값.
+// 절대경로로 입력
+// 사용자 설정은 paths.user.json5 로 지정.
+{
+    // 앱
+    apps: '/apps/',
+    // 실행 앱
+    //    APP: appid,
+    // 실행 앱 경로
+    //    APPPATH: APPS.'/'.APP.'/',
+    // 루트 컨피그
+    conf: '/configs/',
+    // PHP 모듈
+    inc: '/includes/',
+    // PHP 모듈 클래스
+    classes: '/includes/classes/',
+
+    // 엔진
+    SFE: '/engine/',
+    // 엔진 모듈
+    SFECommon: '/engine/src/common/',
+    SFEBase: '/engine/src/base/',
+    SFECore: '/engine/src/core/',
+    SFEControl: '/engine/src/controllers/',
+    SFETools: '/engine/src/tools/',
+    SFEUtils: '/engine/src/utils/',
+    SFELibs: '/engine/src/libs/',
+    // 워커
+    SFEWork: '/engine/src/workers/',
+
+    // 리소스
+    res: '/resources/',
+    // 폰트
+    fonts: '/resources/fonts/',
+    // 이미지
+    images: '/resources/images/',
+    // 아이콘
+    icons: '/resources/images/icons/',
+    // 스타일
+    styles: '/resources/styles/',
+
+    // 외부 라이브러리
+    libs: '/libraries/',
+    // 외부 모듈
+    modules: '/libraries/modules/',
+    // 외부 스크립트
+    scripts: '/libraries/scripts/',
+
+    // 어셋
+    assets: '/assets/',
+    // 모델
+    models: '/assets/models/',
+    // 메시
+    meshes: '/assets/meshes/',
+    // 텍스쳐
+    textures: '/assets/textures/',
+    // 쉐이더
+    shaders: '/assets/shaders/',
+    // 샘플
+    samples: '/assets/samples/',
+
+    // 템플릿
+    tpl: '/templates/',
+    // 선택된 템플릿 경로
+    //    TPLPATH: TPL.'/'.template.'/.',
+}

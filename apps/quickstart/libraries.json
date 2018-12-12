@@ -1,0 +1,21 @@
+{
+    "scripts": [
+        "addscripts.js"
+    ],
+    "styles": [
+        "addstyles.css"
+    ],
+    "modules": [
+        "addmodules.js"
+    ],
+
+    "appScripts": [
+        "newscript.js"
+    ],
+    "appStyles": [
+        "newstyle.css"
+    ],
+    "appModules": [
+        "newmodule.js"
+    ]
+}

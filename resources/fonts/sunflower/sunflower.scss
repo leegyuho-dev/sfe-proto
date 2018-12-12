@@ -1,0 +1,162 @@
+/* @font-face {
+    font-family: 'sunflower';
+    src:  url('../fonts/sunflower.eot');
+    src:  url('../fonts/sunflower.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/sunflower.ttf') format('truetype'),
+      url('../fonts/sunflower.woff') format('woff'),
+      url('../fonts/sunflower.svg?#sunflower') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  } */
+
+@font-face {
+    font-family: 'sunflower';
+    src: url('./sunflower.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+i.BI {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'sunflower' !important;
+    /* speak: none; */
+    font-display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* 아이콘 */
+    &.iconS>*:before {
+        margin-left: -1em;
+    }
+
+    &.iconS>*:first-child:before {
+        margin-left: 0;
+    }
+
+    &.iconS:not(.light)>*:not(.base) {
+        text-shadow: none;
+    }
+
+    &.iconS .base:before {
+        content: "\ffe0";
+    }
+
+    &.iconS .flare:before {
+        content: "\ffe1";
+        color: #ff4a16;
+    }
+
+    &.iconS .leaf:before {
+        content: "\ffe2";
+        color: #ffd55b;
+    }
+
+    &.iconS.light .flare:before {
+        content: "\ffe3";
+        opacity: 0.5;
+        color: inherit;
+    }
+
+    &.iconS.light .leaf:before {
+        content: "\ffe4";
+        color: inherit;
+    }
+
+    &.iconSS:before {
+        content: "\ffed";
+    }
+
+    &.iconSSO:before {
+        content: "\ffef";
+    }
+
+    /* 타입 */
+    &.typeS>*:before {
+        margin-left: -3.32421875em;
+    }
+
+    &.typeS>*:first-child:before {
+        margin-left: 0;
+    }
+
+    &.typeS>*:not(.type) {
+        text-shadow: none;
+    }
+
+    &.typeS .type:before {
+        content: "\ffe5";
+    }
+
+    &.typeS .BG:before {
+        content: "\ffe6";
+        color: #ff4a16;
+    }
+
+    &.typeS.light .type:before {
+        content: "\ffe7";
+        color: inherit;
+    }
+
+    &.typeSS:before {
+        content: "\fff0";
+    }
+
+    /* 로고 */
+    &.logoS>*:before {
+        margin-left: -3em;
+    }
+
+    &.logoS>*:first-child:before {
+        margin-left: 0;
+    }
+
+    &.logoS:not(.light)>*:not(.type) {
+        text-shadow: none;
+    }
+
+    &.logoS .type:before {
+        content: "\ffe8";
+    }
+
+    &.logoS .flare:before {
+        content: "\ffe9";
+        color: #ff4a16;
+    }
+
+    &.logoS .leaf:before {
+        content: "\ffea";
+        color: #ffd55b;
+    }
+
+    &.logoS.light .flare:before {
+        content: "\ffeb";
+        color: inherit;
+        opacity: 0.5;
+    }
+
+    &.logoS.light .type:before {
+        content: "\ffec";
+        color: inherit;
+    }
+
+    &.logoSS:before {
+        content: "\fff1";
+    }
+
+    &.logoSSO:before {
+        content: "\fff2";
+    }
+
+}

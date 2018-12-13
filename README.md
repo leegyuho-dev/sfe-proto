@@ -4,4 +4,4 @@ Web Contents Authoring System. Prototype. based on [three.js](https://github.com
 
 Demo Site: https://sunflowerengine.org
 
-Develoment Documents: [SFEWiki](https://github.com/leegyuho-dev/sfe-proto/wiki)
+Develoment Documents: [wiki](https://github.com/leegyuho-dev/sfe-proto/wiki)

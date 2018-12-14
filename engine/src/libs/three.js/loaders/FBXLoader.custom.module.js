@@ -4339,10 +4339,25 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 
 	}
 
+	// FIXED: Support 3ds Max Custom Attributes
+	// https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2019/ENU/3DSMax-Basics/files/GUID-7EAA7D84-5775-4E4C-9936-D874EB7A42BB-htm.html
 	parseParameters(materialNode, textureMap, ID) {
 		var parameters = {};
 
+		// FBX ASCII - fix currupted value
+		for (var key in materialNode) {
+			if (materialNode[key].type === 'Enum') {
+				var checkReg = /(\d+)\,\_\".*/g;
+				var checkedResult = checkReg.exec(materialNode[key].value);
+				if (checkedResult) {
+					materialNode[key].value = Number(checkedResult[1]);
+				}
+			}
+		}
+
 		// vertexColors
+		// THREE.NoColors = 0 (기본값), THREE.FaceColors = 1, THREE.VertexColors = 2
+		// API: https://threejs.org/docs/#api/en/materials/Material.vertexColors
 		if (materialNode.vertexColors) {
 			parameters.vertexColors = materialNode.vertexColors.value;
 		} else {

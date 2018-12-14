@@ -63,13 +63,16 @@ class MeshOutlineMaterial {
 
         var vertexShaderChunk = `
             #include <fog_pars_vertex>
+            #ifdef USE_COLOR
+                attribute float alpha;
+            #endif
             uniform float outlineThickness;
             vec4 calculateOutline( vec4 pos, vec3 objectNormal, vec4 skinned ) {
                 float thickness = outlineThickness;
-                // TODO: support outline thickness ratio for each vertex
-                const float ratio = 5.0;
+                const float ratio = 10.0;
                 // vec3 vertexColor = vColor.rgb;
-                float vRatio = vColor.rgb[0];
+                // float vRatio = vColor.rgb[0];
+                float vRatio = alpha;
             	vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
                 // NOTE: subtract pos2 from pos because BackSide objectNormal is negative
             	vec4 norm = normalize( pos - pos2 );
@@ -184,5 +187,7 @@ class MeshOutlineMaterial {
             fog: originalMaterial.fog,
             visible: outlineVisible,
         });
+        // mt.defaultAttributeValues.alpha = 1;
+        // return mt;
     }
 }

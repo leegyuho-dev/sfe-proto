@@ -61439,7 +61439,8 @@
     		var materials = this.parseMaterials(textures);
 
     		var deformers = this.parseDeformers();
-    		var geometryMap = new GeometryParser().parse(deformers);
+    		// var geometryMap = new GeometryParser().parse(deformers);
+    		var geometryMap = new THREE$3.GeometryParser.Custom().parse(deformers);
 
     		this.parseScene(deformers, geometryMap, materials);
 
@@ -61572,6 +61573,7 @@
     	parseParameters(materialNode, textureMap, ID) {
     		var parameters = {};
 
+    		// vertexColors
     		if (materialNode.vertexColors) {
     			parameters.vertexColors = materialNode.vertexColors.value;
     		} else {
@@ -61865,6 +61867,352 @@
     		return model;
     	}
         
+    };
+
+    // GeometryParser
+    THREE$3.GeometryParser = GeometryParser;
+    THREE$3.GeometryParser.Custom = class extends THREE$3.GeometryParser {
+        constructor() {
+    		super();
+    	}
+
+    	genGeometry(geoNode, skeleton, morphTarget, preTransform) {
+    		var geo = new THREE$3.BufferGeometry();
+    		if (geoNode.attrName) geo.name = geoNode.attrName;
+
+    		var geoInfo = this.parseGeoNode(geoNode, skeleton);
+    		var buffers = this.genBuffers(geoInfo);
+
+    		var positionAttribute = new THREE$3.Float32BufferAttribute(buffers.vertex, 3);
+    		preTransform.applyToBufferAttribute(positionAttribute);
+
+    		geo.addAttribute('position', positionAttribute);
+
+    		if (buffers.colors.length > 0) {
+    			geo.addAttribute('color', new THREE$3.Float32BufferAttribute(buffers.colors, 3));
+    			// FIXED: Vertex Alpha Attribute 추가.
+    			geo.addAttribute('alpha', new THREE$3.Float32BufferAttribute(buffers.alphas, 1));
+    		}
+
+    		if (skeleton) {
+    			geo.addAttribute('skinIndex', new THREE$3.Uint16BufferAttribute(buffers.weightsIndices, 4));
+    			geo.addAttribute('skinWeight', new THREE$3.Float32BufferAttribute(buffers.vertexWeights, 4));
+    			// used later to bind the skeleton to the model
+    			geo.FBX_Deformer = skeleton;
+    		}
+
+    		if (buffers.normal.length > 0) {
+    			var normalAttribute = new THREE$3.Float32BufferAttribute(buffers.normal, 3);
+    			var normalMatrix = new THREE$3.Matrix3().getNormalMatrix(preTransform);
+    			normalMatrix.applyToBufferAttribute(normalAttribute);
+    			geo.addAttribute('normal', normalAttribute);
+    		}
+
+    		buffers.uvs.forEach(function (uvBuffer, i) {
+    			// subsequent uv buffers are called 'uv1', 'uv2', ...
+    			var name = 'uv' + (i + 1).toString();
+    			// the first uv buffer is just called 'uv'
+    			if (i === 0) {
+    				name = 'uv';
+    			}
+    			geo.addAttribute(name, new THREE$3.Float32BufferAttribute(buffers.uvs[i], 2));
+    		});
+
+    		if (geoInfo.material && geoInfo.material.mappingType !== 'AllSame') {
+    			// Convert the material indices of each vertex into rendering groups on the geometry.
+    			var prevMaterialIndex = buffers.materialIndex[0];
+    			var startIndex = 0;
+
+    			buffers.materialIndex.forEach(function (currentIndex, i) {
+    				if (currentIndex !== prevMaterialIndex) {
+    					geo.addGroup(startIndex, i - startIndex, prevMaterialIndex);
+    					prevMaterialIndex = currentIndex;
+    					startIndex = i;
+    				}
+    			});
+
+    			// the loop above doesn't add the last group, do that here.
+    			if (geo.groups.length > 0) {
+    				var lastGroup = geo.groups[geo.groups.length - 1];
+    				var lastIndex = lastGroup.start + lastGroup.count;
+
+    				if (lastIndex !== buffers.materialIndex.length) {
+    					geo.addGroup(lastIndex, buffers.materialIndex.length - lastIndex, prevMaterialIndex);
+    				}
+    			}
+
+    			// case where there are multiple materials but the whole geometry is only
+    			// using one of them
+    			if (geo.groups.length === 0) {
+    				geo.addGroup(0, buffers.materialIndex.length, buffers.materialIndex[0]);
+    			}
+
+    		}
+
+    		this.addMorphTargets(geo, geoNode, morphTarget, preTransform);
+
+    		return geo;
+    	}
+
+    	genBuffers(geoInfo) {
+    		// FIXED: buffers.alphas 추가 
+    		var buffers = {
+    			vertex: [],
+    			normal: [],
+    			colors: [],
+    			alphas: [],
+    			uvs: [],
+    			materialIndex: [],
+    			vertexWeights: [],
+    			weightsIndices: [],
+    		};
+
+    		var polygonIndex = 0;
+    		var faceLength = 0;
+    		var displayedWeightsWarning = false;
+
+    		// these will hold data for a single face
+    		var facePositionIndexes = [];
+    		var faceNormals = [];
+    		var faceColors = [];
+    		var faceUVs = [];
+    		var faceWeights = [];
+    		var faceWeightIndices = [];
+
+    		var self = this;
+    		geoInfo.vertexIndices.forEach(function (vertexIndex, polygonVertexIndex) {
+    			var endOfFace = false;
+
+    			// Face index and vertex index arrays are combined in a single array
+    			// A cube with quad faces looks like this:
+    			// PolygonVertexIndex: *24 {
+    			//  a: 0, 1, 3, -3, 2, 3, 5, -5, 4, 5, 7, -7, 6, 7, 1, -1, 1, 7, 5, -4, 6, 0, 2, -5
+    			//  }
+    			// Negative numbers mark the end of a face - first face here is 0, 1, 3, -3
+    			// to find index of last vertex bit shift the index: ^ - 1
+    			if (vertexIndex < 0) {
+    				vertexIndex = vertexIndex ^ -1; // equivalent to ( x * -1 ) - 1
+    				endOfFace = true;
+    			}
+
+    			var weightIndices = [];
+    			var weights = [];
+
+    			facePositionIndexes.push(vertexIndex * 3, vertexIndex * 3 + 1, vertexIndex * 3 + 2);
+
+    			if (geoInfo.color) {
+    				var data = getData$1(polygonVertexIndex, polygonIndex, vertexIndex, geoInfo.color);
+    				// FIXED: Vertex Alpha data 추가
+    				// faceColors.push(data[0], data[1], data[2]);
+    				faceColors.push(data[0], data[1], data[2], data[3]);
+    			}
+
+    			if (geoInfo.skeleton) {
+    				if (geoInfo.weightTable[vertexIndex] !== undefined) {
+    					geoInfo.weightTable[vertexIndex].forEach(function (wt) {
+    						weights.push(wt.weight);
+    						weightIndices.push(wt.id);
+    					});
+    				}
+
+    				if (weights.length > 4) {
+    					if (!displayedWeightsWarning) {
+    						console.warn('THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.');
+    						displayedWeightsWarning = true;
+    					}
+
+    					var wIndex = [0, 0, 0, 0];
+    					var Weight = [0, 0, 0, 0];
+
+    					weights.forEach(function (weight, weightIndex) {
+    						var currentWeight = weight;
+    						var currentIndex = weightIndices[weightIndex];
+
+    						Weight.forEach(function (comparedWeight, comparedWeightIndex, comparedWeightArray) {
+    							if (currentWeight > comparedWeight) {
+    								comparedWeightArray[comparedWeightIndex] = currentWeight;
+    								currentWeight = comparedWeight;
+    								var tmp = wIndex[comparedWeightIndex];
+    								wIndex[comparedWeightIndex] = currentIndex;
+    								currentIndex = tmp;
+    							}
+    						});
+    					});
+
+    					weightIndices = wIndex;
+    					weights = Weight;
+    				}
+
+    				// if the weight array is shorter than 4 pad with 0s
+    				while (weights.length < 4) {
+    					weights.push(0);
+    					weightIndices.push(0);
+    				}
+
+    				for (var i = 0; i < 4; ++i) {
+    					faceWeights.push(weights[i]);
+    					faceWeightIndices.push(weightIndices[i]);
+    				}
+
+    			}
+
+    			if (geoInfo.normal) {
+    				var data = getData$1(polygonVertexIndex, polygonIndex, vertexIndex, geoInfo.normal);
+    				faceNormals.push(data[0], data[1], data[2]);
+    			}
+
+    			if (geoInfo.material && geoInfo.material.mappingType !== 'AllSame') {
+    				var materialIndex = getData$1(polygonVertexIndex, polygonIndex, vertexIndex, geoInfo.material)[0];
+    			}
+
+    			if (geoInfo.uv) {
+    				geoInfo.uv.forEach(function (uv, i) {
+    					var data = getData$1(polygonVertexIndex, polygonIndex, vertexIndex, uv);
+    					if (faceUVs[i] === undefined) {
+    						faceUVs[i] = [];
+    					}
+
+    					faceUVs[i].push(data[0]);
+    					faceUVs[i].push(data[1]);
+    				});
+    			}
+
+    			faceLength++;
+
+    			if (endOfFace) {
+    				self.genFace(buffers, geoInfo, facePositionIndexes, materialIndex, faceNormals, faceColors, faceUVs, faceWeights, faceWeightIndices, faceLength);
+
+    				polygonIndex++;
+    				faceLength = 0;
+
+    				// reset arrays for the next face
+    				facePositionIndexes = [];
+    				faceNormals = [];
+    				faceColors = [];
+    				faceUVs = [];
+    				faceWeights = [];
+    				faceWeightIndices = [];
+    			}
+    		});
+
+    		return buffers;
+    	}
+
+    	genFace(buffers, geoInfo, facePositionIndexes, materialIndex, faceNormals, faceColors, faceUVs, faceWeights, faceWeightIndices, faceLength) {
+
+    		for (var i = 2; i < faceLength; i++) {
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[0]]);
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[1]]);
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[2]]);
+
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[(i - 1) * 3]]);
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[(i - 1) * 3 + 1]]);
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[(i - 1) * 3 + 2]]);
+
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[i * 3]]);
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[i * 3 + 1]]);
+    			buffers.vertex.push(geoInfo.vertexPositions[facePositionIndexes[i * 3 + 2]]);
+
+    			if (geoInfo.skeleton) {
+    				buffers.vertexWeights.push(faceWeights[0]);
+    				buffers.vertexWeights.push(faceWeights[1]);
+    				buffers.vertexWeights.push(faceWeights[2]);
+    				buffers.vertexWeights.push(faceWeights[3]);
+
+    				buffers.vertexWeights.push(faceWeights[(i - 1) * 4]);
+    				buffers.vertexWeights.push(faceWeights[(i - 1) * 4 + 1]);
+    				buffers.vertexWeights.push(faceWeights[(i - 1) * 4 + 2]);
+    				buffers.vertexWeights.push(faceWeights[(i - 1) * 4 + 3]);
+
+    				buffers.vertexWeights.push(faceWeights[i * 4]);
+    				buffers.vertexWeights.push(faceWeights[i * 4 + 1]);
+    				buffers.vertexWeights.push(faceWeights[i * 4 + 2]);
+    				buffers.vertexWeights.push(faceWeights[i * 4 + 3]);
+
+    				buffers.weightsIndices.push(faceWeightIndices[0]);
+    				buffers.weightsIndices.push(faceWeightIndices[1]);
+    				buffers.weightsIndices.push(faceWeightIndices[2]);
+    				buffers.weightsIndices.push(faceWeightIndices[3]);
+
+    				buffers.weightsIndices.push(faceWeightIndices[(i - 1) * 4]);
+    				buffers.weightsIndices.push(faceWeightIndices[(i - 1) * 4 + 1]);
+    				buffers.weightsIndices.push(faceWeightIndices[(i - 1) * 4 + 2]);
+    				buffers.weightsIndices.push(faceWeightIndices[(i - 1) * 4 + 3]);
+
+    				buffers.weightsIndices.push(faceWeightIndices[i * 4]);
+    				buffers.weightsIndices.push(faceWeightIndices[i * 4 + 1]);
+    				buffers.weightsIndices.push(faceWeightIndices[i * 4 + 2]);
+    				buffers.weightsIndices.push(faceWeightIndices[i * 4 + 3]);
+    			}
+
+    			if (geoInfo.color) {
+    				// FIXED: color 배열값이 RGB 9개에서 RGBA 12개로 늘어난 관계로 다음과 같이 인덱스 변경
+    				// 0, 1, 2, -> 0, 1, 2, (a = 3)
+    				// 3, 4, 5, -> 4, 5, 6, (a = 7)
+    				// 6, 7, 8, -> 8, 9, 10, (a = 11)
+
+    				buffers.colors.push(faceColors[0]); // 0 R
+    				buffers.colors.push(faceColors[1]); // 1 G
+    				buffers.colors.push(faceColors[2]); // 2 B
+
+    				buffers.alphas.push(faceColors[3]); // 3 A
+
+    				// buffers.colors.push( faceColors[ ( i - 1 ) * 3 ] );
+    				// buffers.colors.push( faceColors[ ( i - 1 ) * 3 + 1 ] );
+    				// buffers.colors.push( faceColors[ ( i - 1 ) * 3 + 2 ] );
+    				buffers.colors.push(faceColors[(i - 1) * 3 + 1]); // 4 R
+    				buffers.colors.push(faceColors[(i - 1) * 3 + 2]); // 5 G
+    				buffers.colors.push(faceColors[(i - 1) * 3 + 3]); // 6 B
+
+    				buffers.alphas.push(faceColors[(i - 1) * 3 + 4]); // 7 A
+
+    				// buffers.colors.push( faceColors[ i * 3 ] );
+    				// buffers.colors.push( faceColors[ i * 3 + 1 ] );
+    				// buffers.colors.push( faceColors[ i * 3 + 2 ] );
+    				buffers.colors.push(faceColors[i * 3 + 2]); // 8 R
+    				buffers.colors.push(faceColors[i * 3 + 3]); // 9 G
+    				buffers.colors.push(faceColors[i * 3 + 4]); // 10 B
+
+    				buffers.alphas.push(faceColors[i * 3 + 5]); // 11 A
+    			}
+
+    			if (geoInfo.material && geoInfo.material.mappingType !== 'AllSame') {
+    				buffers.materialIndex.push(materialIndex);
+    				buffers.materialIndex.push(materialIndex);
+    				buffers.materialIndex.push(materialIndex);
+    			}
+
+    			if (geoInfo.normal) {
+    				buffers.normal.push(faceNormals[0]);
+    				buffers.normal.push(faceNormals[1]);
+    				buffers.normal.push(faceNormals[2]);
+
+    				buffers.normal.push(faceNormals[(i - 1) * 3]);
+    				buffers.normal.push(faceNormals[(i - 1) * 3 + 1]);
+    				buffers.normal.push(faceNormals[(i - 1) * 3 + 2]);
+
+    				buffers.normal.push(faceNormals[i * 3]);
+    				buffers.normal.push(faceNormals[i * 3 + 1]);
+    				buffers.normal.push(faceNormals[i * 3 + 2]);
+    			}
+
+    			if (geoInfo.uv) {
+    				geoInfo.uv.forEach(function (uv, j) {
+    					if (buffers.uvs[j] === undefined) buffers.uvs[j] = [];
+
+    					buffers.uvs[j].push(faceUVs[j][0]);
+    					buffers.uvs[j].push(faceUVs[j][1]);
+
+    					buffers.uvs[j].push(faceUVs[j][(i - 1) * 2]);
+    					buffers.uvs[j].push(faceUVs[j][(i - 1) * 2 + 1]);
+
+    					buffers.uvs[j].push(faceUVs[j][i * 2]);
+    					buffers.uvs[j].push(faceUVs[j][i * 2 + 1]);
+    				});
+    			}
+    		}
+    	}
+
     };
 
     /**
@@ -62961,13 +63309,16 @@
 
             var vertexShaderChunk = `
             #include <fog_pars_vertex>
+            #ifdef USE_COLOR
+                attribute float alpha;
+            #endif
             uniform float outlineThickness;
             vec4 calculateOutline( vec4 pos, vec3 objectNormal, vec4 skinned ) {
                 float thickness = outlineThickness;
-                // TODO: support outline thickness ratio for each vertex
-                const float ratio = 5.0;
+                const float ratio = 10.0;
                 // vec3 vertexColor = vColor.rgb;
-                float vRatio = vColor.rgb[0];
+                // float vRatio = vColor.rgb[0];
+                float vRatio = alpha;
             	vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
                 // NOTE: subtract pos2 from pos because BackSide objectNormal is negative
             	vec4 norm = normalize( pos - pos2 );
@@ -63082,6 +63433,8 @@
                 fog: originalMaterial.fog,
                 visible: outlineVisible,
             });
+            // mt.defaultAttributeValues.alpha = 1;
+            // return mt;
         }
     }
 

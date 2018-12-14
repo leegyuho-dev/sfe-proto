@@ -61345,10 +61345,6 @@
     var manager = THREE$3.DefaultLoadingManager;
     var textureLoader = new THREE$3.TextureLoader(manager);
 
-    // var fbxTree;
-    // var connections;
-    // var sceneGraph;
-
     // FBX Loader Custom
     THREE$3.FBXLoader = FBXLoader;
     THREE$3.FBXLoader.Custom = class extends THREE$3.FBXLoader {
@@ -61363,23 +61359,6 @@
     		this.manager.onProgress = this.Assets.onProgress;
     		this.manager.onError = this.Assets.onError;
     	}
-    	
-    	/* async load(url, onLoad, onProgress, onError) {
-    		var self = this;
-    		var path = (self.path === undefined) ? THREE.LoaderUtils.extractUrlBase(url) : self.path;
-    		var loader = new THREE.FileLoader(this.manager);
-    		loader.setResponseType('arraybuffer');
-    		loader.load(url, function (buffer) {
-    			try {
-    				onLoad(self.parse(buffer, path));
-    			} catch (error) {
-    				setTimeout(function () {
-    					if (onError) onError(error);
-    					self.manager.itemError(url);
-    				}, 0);
-    			}
-    		}, onProgress, onError);
-    	} */
 
     	// FIXED: 모델어셋 인수
         parse(FBXBuffer) {
@@ -61399,10 +61378,8 @@
             // FIXED: FBX 포함 텍스쳐에 URL 잘못 들어가는 버그를 해결
             // var textureLoader = new THREE.TextureLoader( this.manager ).setPath( this.resourcePath || path ).setCrossOrigin( this.crossOrigin );
     		textureLoader.setPath(this.resourcePath).setCrossOrigin(this.crossOrigin);
-    		// FIXED: 파라미터로 어셋을 넣고 대신 전역 텍스쳐로더를 사용.
-            // return new FBXTreeParser.Custom(textureLoader).parse(fbxTree);
-    		// return new FBXTreeParser.Custom(this.Assets).parse(fbxTree);
     		// FIXED: fbxTree 반환
+            // return new FBXTreeParser.Custom(textureLoader).parse(fbxTree);
     		return fbxTree;
         }
 
@@ -61416,8 +61393,6 @@
         constructor(model, Assets) {
     		super();
     		this.Assets = Assets;
-    		// this.model = this.Assets.options.model;
-    		// this.model = Assets.models[Assets.options.model];
     		this.model = model;
 
     		this.textureLoader = textureLoader;
@@ -61430,15 +61405,16 @@
             fbxTree = data;
     		connections = this.parseConnections();
 
+    		// FIXED: 새 메서드로 연결
     		// var images = this.parseImages();
     		// var textures = this.parseTextures(images);
     		// var materials = this.parseMaterials(textures);
-
     		var images = this.parseEmbedImages();
     		var textures = this.parseEmbedTextures(images);
     		var materials = this.parseMaterials(textures);
 
     		var deformers = this.parseDeformers();
+    		// FIXED: GeometryParser.Custom 으로 변경
     		// var geometryMap = new GeometryParser().parse(deformers);
     		var geometryMap = new THREE$3.GeometryParser.Custom().parse(deformers);
 
@@ -61448,8 +61424,6 @@
         }
 
     	// FIXED: 이미지 객체 구조 변경
-    	// 이미지 객체를 만든뒤 parseTexture 에서 어셋처리
-    	// Assets 에서 이미지가 프리로드 되어있을 경우 스킵
     	parseEmbedImages() {
     		var embedList = [];
     		var images = {};
@@ -61471,7 +61445,6 @@
     			var file = videoNode.RelativeFilename || videoNode.Filename;
     			var fileName = getFileStrFromDir(file);
     			var extension = getFileExt(fileName);
-    			// var extension = fileName.slice(fileName.lastIndexOf('.') + 1).toLowerCase();
 
     			// TODO: dds 텍스쳐 지원 추가
     			// https://github.com/mrdoob/three.js/pull/13227
@@ -61488,13 +61461,9 @@
     				mimeType = 'image/tga';
     			} else {
     				continue;
-    				// return false;
     			}
     			
-    			// var id = parseInt(nodeID);
     			images[fileName] = this.Assets.makeTexture(fileName);
-    			// images[fileName].id = parseInt(nodeID);
-    			// images[fileName].file = file;
     			images[fileName].mimeType = mimeType;
 
     			// embedded texture
@@ -61504,10 +61473,8 @@
     				images[fileName].buffer = content;
     			}
 
-    			// console.log(images[fileName]);
     		}
 
-    		// console.log(embedList);
     		if (!this.model.embed) {
     			this.model.embed = embedList;
     		}
@@ -61846,14 +61813,6 @@
     			});
     			materials.push(material);
     		}
-
-    		// FIXED: 버텍스컬러 강제 적용 해제
-    		/* if ('color' in geometry.attributes) {
-    			materials.forEach(function (material) {
-    				material.vertexColors = THREE.VertexColors;
-    			});
-
-    		} */
 
     		if (geometry.FBX_Deformer) {
     			materials.forEach(function (material) {

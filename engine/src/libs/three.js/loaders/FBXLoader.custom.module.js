@@ -4439,7 +4439,7 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 		// THREE.NoBlending = 0, THREE.NormalBlending = 1 (기본값), THREE.AdditiveBlending = 2, 
 		// THREE.SubtractiveBlending = 3, THREE.MultiplyBlending = 4, THREE.CustomBlending =5
 		// API: https://threejs.org/docs/#api/materials/Material.blending
-		// sample: https://threejs.org/examples/webgl_materials_blending.html
+		// sample: https://threejs.org/examples/#webgl_materials_blending
 		if (materialNode.blending) {
 			parameters.blending = materialNode.blending.value;
 		} else if (!materialNode.blending && parameters.opacity < 1.0) {
@@ -4533,6 +4533,75 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 			parameters.displacementScale = materialNode.DisplacementFactor.value;
 		}
 
+		// userData
+		// API: https://threejs.org/docs/#api/en/materials/Material.userData
+		parameters.userData = {}
+
+		// outline Default
+		parameters.userData.outline = {
+			outlineMode: 0, // Default
+			outlineBlending: 4, // MultiplyBlending
+			outlineTransparent: true,
+			outlinePremultipliedAlpha: false,
+			outlineVisible: 0, // Default
+			outlineThickness: 0.003,
+			outlineColorRGBA: [0, 0, 0, 0.8],
+			outlineThicknessSrc: 2, // VertexAlpha
+			outlineColorSrc: 0, // Default
+			outlineAlphaSrc: 0, // Default
+			outlineRandomFactor: 2.0,
+		}
+		
+		if (materialNode.outlineMode) {
+			parameters.userData.outline.outlineMode = materialNode.outlineMode.value;
+		}
+		if (materialNode.outlineBlending) {
+			parameters.userData.outline.outlineBlending = materialNode.outlineBlending.value;
+		}
+		if (materialNode.outlineTransparent) {
+			var outlineTRP = materialNode.outlineTransparent.value;
+			if (outlineTRP === true || outlineTRP === 'true' || outlineTRP === '1') {
+				parameters.userData.outline.outlineTransparent = true;
+			} else {
+				parameters.userData.outline.outlineTransparent = false;
+			}
+		}
+		if (materialNode.outlinePremultipliedAlpha) {
+			var outlinePMA = materialNode.outlinePremultipliedAlpha.value;
+			if (outlinePMA === true || outlinePMA === 'true' || outlinePMA === '1') {
+				parameters.userData.outline.outlinePremultipliedAlpha = true;
+			} else {
+				parameters.userData.outline.outlinePremultipliedAlpha = false;
+			}
+		}
+		if (materialNode.outlineVisible) {
+			parameters.userData.outline.outlineVisible = materialNode.outlineVisible.value;
+		}
+		if (materialNode.outlineThickness) {
+			parameters.userData.outline.outlineThickness = materialNode.outlineThickness.value;
+		}
+		if (materialNode.outlineColorRGBA) {
+			var colorRGBA = []
+			var valueArray = materialNode.outlineColorRGBA.value.split(',');
+			for (var index in valueArray) {
+				colorRGBA.push(Number(valueArray[index]));
+			}
+			parameters.userData.outline.outlineColorRGBA = colorRGBA;
+		}
+		if (materialNode.outlineThicknessSrc) {
+			parameters.userData.outline.outlineThicknessSrc = materialNode.outlineThicknessSrc.value;
+		}
+		if (materialNode.outlineColorSrc) {
+			parameters.userData.outline.outlineColorSrc = materialNode.outlineColorSrc.value;
+		}
+		if (materialNode.outlineAlphaSrc) {
+			parameters.userData.outline.outlineAlphaSrc = materialNode.outlineAlphaSrc.value;
+		}
+		if (materialNode.outlineRandomFactor) {
+			parameters.userData.outline.outlineRandomFactor = materialNode.outlineRandomFactor.value;
+		}
+
+		// texture maps
 		var self = this;
 		connections.get(ID).children.forEach(function (child) {
 			var type = child.relationship;

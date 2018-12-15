@@ -4537,27 +4537,38 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 		// API: https://threejs.org/docs/#api/en/materials/Material.userData
 		parameters.userData = {}
 
-		// outline Default
-		parameters.userData.outline = {
+		// outline Default value
+		// must declare in MeshOutlineMaterial.js
+		/* parameters.userData.outline = {
 			outlineMode: 0, // Default
 			outlineBlending: 4, // MultiplyBlending
 			outlineTransparent: true,
 			outlinePremultipliedAlpha: false,
 			outlineVisible: 0, // Default
-			outlineThickness: 0.003,
-			outlineColorRGBA: [0, 0, 0, 0.8],
+			outlineThickness: 0.003, // thin
+			outlineColor: [0, 0, 0], // black
+			outlineAlpha: 0.8,
 			outlineThicknessSrc: 2, // VertexAlpha
 			outlineColorSrc: 0, // Default
 			outlineAlphaSrc: 0, // Default
-			outlineRandomFactor: 2.0,
-		}
-		
+			outlineRandomFactor: 2.0, // random ratio *0 ~ *2 
+		} */
+		parameters.userData.outline = {}
+
+		// outlineMode
+		// Default = 0, Fixed = 1, Custom = 2
 		if (materialNode.outlineMode) {
 			parameters.userData.outline.outlineMode = materialNode.outlineMode.value;
 		}
+		// outlineBlending
+		// NoBlending = 0, NormalBlending = 1 (기본값), AdditiveBlending = 2, 
+		// SubtractiveBlending = 3, MultiplyBlending = 4
+		// API: https://threejs.org/docs/#api/materials/Material.blending
 		if (materialNode.outlineBlending) {
 			parameters.userData.outline.outlineBlending = materialNode.outlineBlending.value;
 		}
+		// outlineTransparent
+		// true, false
 		if (materialNode.outlineTransparent) {
 			var outlineTRP = materialNode.outlineTransparent.value;
 			if (outlineTRP === true || outlineTRP === 'true' || outlineTRP === '1') {
@@ -4566,6 +4577,8 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 				parameters.userData.outline.outlineTransparent = false;
 			}
 		}
+		// outlinePremultipliedAlpha
+		// true, false
 		if (materialNode.outlinePremultipliedAlpha) {
 			var outlinePMA = materialNode.outlinePremultipliedAlpha.value;
 			if (outlinePMA === true || outlinePMA === 'true' || outlinePMA === '1') {
@@ -4574,29 +4587,46 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 				parameters.userData.outline.outlinePremultipliedAlpha = false;
 			}
 		}
+		// outlineVisible
+		// Default = 0, ForceVisible = 1, ForceUnvisible = 2
 		if (materialNode.outlineVisible) {
 			parameters.userData.outline.outlineVisible = materialNode.outlineVisible.value;
 		}
+		// outlineThickness
+		// int, 0.003
 		if (materialNode.outlineThickness) {
 			parameters.userData.outline.outlineThickness = materialNode.outlineThickness.value;
 		}
+		// outlineColor
+		// array, [0, 0, 0]
+		// outlineAlpha
+		// int, 0.8
 		if (materialNode.outlineColorRGBA) {
 			var colorRGBA = []
 			var valueArray = materialNode.outlineColorRGBA.value.split(',');
 			for (var index in valueArray) {
 				colorRGBA.push(Number(valueArray[index]));
 			}
-			parameters.userData.outline.outlineColorRGBA = colorRGBA;
+			parameters.userData.outline.outlineColor = [colorRGBA[0], colorRGBA[1], colorRGBA[2]];
+			parameters.userData.outline.outlineAlpha = colorRGBA[3];
 		}
+		// outlineThicknessSrc
+		// Default = 0, FixedThickness = 1, VertexAlpha = 2, Random = 3
 		if (materialNode.outlineThicknessSrc) {
 			parameters.userData.outline.outlineThicknessSrc = materialNode.outlineThicknessSrc.value;
 		}
+		// outlineColorSrc
+		// Default = 0, FixedColor = 1, VertexColor = 2, Random = 3
 		if (materialNode.outlineColorSrc) {
 			parameters.userData.outline.outlineColorSrc = materialNode.outlineColorSrc.value;
 		}
+		// outlineAlphaSrc
+		// Default = 0, FixedAlpha = 1, VertexAlpha = 2, Random = 3
 		if (materialNode.outlineAlphaSrc) {
 			parameters.userData.outline.outlineAlphaSrc = materialNode.outlineAlphaSrc.value;
 		}
+		// outlineRandomFactor
+		// int, 2.0
 		if (materialNode.outlineRandomFactor) {
 			parameters.userData.outline.outlineRandomFactor = materialNode.outlineRandomFactor.value;
 		}

@@ -1976,17 +1976,19 @@ export class VueUIModeler {
                             </div>
                         </div>
 
-                        <div class="item buttons right">
-                            <button name="test" class="text" v-on:click="click">
-                                test
-                            </button>
-                            <button name="recompile" class="text" v-on:click="click">
-                                recompile
-                            </button>
-                            <button name="dispose" class="text" v-on:click="click">
-                                dispose
-                            </button>
-                        </div>
+                        <!--
+                            <div class="item buttons right">
+                                <button name="test" class="text" v-on:click="click">
+                                    test
+                                </button>
+                                <button name="recompile" class="text" v-on:click="click">
+                                    recompile
+                                </button>
+                                <button name="dispose" class="text" v-on:click="click">
+                                    dispose
+                                </button>
+                            </div>
+                        -->
 
                     </div>
                 </div>

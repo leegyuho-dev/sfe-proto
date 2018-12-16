@@ -63411,10 +63411,9 @@
 
                 if (outlineMode == 2) {
                     if (outlineThicknessSrc == 2) { // VertexAlpha
-                        // outline = thickness * pos.w * vertexAlpha;
-                        outline = thickness * pos.w * vertexAlpha * (random(uv) * 3.0);
+                        outline = thickness * pos.w * vertexAlpha;
                     } else if (outlineThicknessSrc == 3) { // Random
-                        outline = thickness * pos.w * vertexAlpha * (random(uv) + 1.0);
+                        outline = thickness * pos.w * vertexAlpha * (random(uv) + 3.0);
                     }
                 }
 

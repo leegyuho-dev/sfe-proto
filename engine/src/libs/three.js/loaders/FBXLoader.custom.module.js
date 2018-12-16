@@ -4261,6 +4261,8 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 				mimeType = 'image/tiff';
 			} else if (extension === 'tga') {
 				mimeType = 'image/tga';
+			} else if (extension === 'svg') {
+				mimeType = 'image/svg+xml';
 			} else {
 				continue;
 			}
@@ -4590,7 +4592,12 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 		// outlineVisible
 		// Default = 0, ForceVisible = 1, ForceUnvisible = 2
 		if (materialNode.outlineVisible) {
-			parameters.userData.outline.outlineVisible = materialNode.outlineVisible.value;
+			var outlineVisible = materialNode.outlineVisible.value;
+			if (outlineVisible === 1) {
+				parameters.userData.outline.outlineVisible = true;
+			} else if (outlineVisible === 2) {
+				parameters.userData.outline.outlineVisible = false;
+			}
 		}
 		// outlineThickness
 		// int, 0.003

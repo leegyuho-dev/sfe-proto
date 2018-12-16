@@ -1438,6 +1438,8 @@
                 texture.mimeType = 'image/tiff';
             } else if (fileExt === 'tga') {
                 texture.mimeType = 'image/tga';
+            } else if (fileExt === 'svg') {
+                texture.mimeType = 'image/svg+xml';
             } else {
                 console.error(LAYER$6 + 'TEXTURE LOAD ERROR: ' + texture.name);
             }
@@ -1504,6 +1506,18 @@
                 // texture.width = texture.data.image.width;
                 // texture.height = texture.data.image.height;
                 texture.data.needsUpdate = true;
+            } else if (texture.mimeType === 'image/svg+xml') {
+                var image = new Image();
+                image.crossorigin = 'anonymous';
+                image.src = window.URL.createObjectURL(new Blob([new Uint8Array(textureData)], { type: texture.mimeType }));
+                image.width = 1024;
+                image.height = 1024;
+                texture.data.image = image;
+                // console.dir(image)
+
+                image.onload = () => {
+                    texture.data.needsUpdate = true;
+                };
             } else {
                 var image = new Image();
                 image.crossorigin = 'anonymous';
@@ -1516,11 +1530,6 @@
                 }
 
                 image.onload = () => {
-                    // texture.data.magFilter = THREE.NearestFilter;
-                    // texture.data.minFilter = THREE.NearestFilter;
-                    // texture.data.anisotropy = 0;
-                    // texture.width = texture.data.image.width;
-                    // texture.height = texture.data.image.height;
                     texture.data.needsUpdate = true;
                 };
             }
@@ -4373,19 +4382,17 @@
                             </div>
                         </div>
 
-                        <!--
-                            <div class="item buttons right">
-                                <button name="test" class="text" v-on:click="click">
-                                    test
-                                </button>
-                                <button name="recompile" class="text" v-on:click="click">
-                                    recompile
-                                </button>
-                                <button name="dispose" class="text" v-on:click="click">
-                                    dispose
-                                </button>
-                            </div>
-                        -->
+                        <div class="item buttons right">
+                            <button name="test" class="text" v-on:click="click">
+                                test
+                            </button>
+                            <button name="recompile" class="text" v-on:click="click">
+                                recompile
+                            </button>
+                            <button name="dispose" class="text" v-on:click="click">
+                                dispose
+                            </button>
+                        </div>
 
                     </div>
                 </div>
@@ -5399,37 +5406,13 @@
             } else if (name === 'dispose') {
                 this.SFERenderer.dispose();
             } else if (name === 'test') {
-                // this.SFERenderer.shadowMap.enabled = false;
-                // this.SFERenderer.dispose();
-                var textures = [
-                    '/assets/textures/AudienceRoom_arch.png',
-                    '/assets/textures/AudienceRoom_ceiling01.png',
-                    '/assets/textures/AudienceRoom_ceiling02.png',
-                    '/assets/textures/AudienceRoom_column.png',
-                    '/assets/textures/AudienceRoom_column01.png',
-                    '/assets/textures/AudienceRoom_column02.png',
-                    '/assets/textures/AudienceRoom_floor.png',
-                    '/assets/textures/AudienceRoom_stone.png',
-                    '/assets/textures/AudienceRoom_wall01.png',
-                    '/assets/textures/AudienceRoom_wall02.png',
-                ];
-
-                for (var key in textures) {
-                    // var Task = this.SFEAssets.Tasks.make('workers/requestAsset.worker.js');
-                    // Task.post('request', { url: textures[key] });
-
-                    // var file = fetch(textures[key]);
-
-                    // var image = new Image();
-                    // image.src = textures[key];
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('GET', textures[key], true);
-                    xhr.responseType = 'arraybuffer';
-                    xhr.send();
-                    // console.log(xhr);
+                for (var key in this.SFEAssets.textures) {
+                    var texture = this.SFEAssets.textures[key];
+                    texture.data.image.width = 2560;
+                    texture.data.image.height = 2560;
+                    texture.data.needsUpdate = true;
                 }
-
+                this.SFERenderer.dispose();
             }
             // console.log(name, value);
         }
@@ -61459,6 +61442,8 @@
     				mimeType = 'image/tiff';
     			} else if (extension === 'tga') {
     				mimeType = 'image/tga';
+    			} else if (extension === 'svg') {
+    				mimeType = 'image/svg+xml';
     			} else {
     				continue;
     			}
@@ -61537,10 +61522,25 @@
 
     	}
 
+    	// FIXED: Support 3ds Max Custom Attributes
+    	// https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2019/ENU/3DSMax-Basics/files/GUID-7EAA7D84-5775-4E4C-9936-D874EB7A42BB-htm.html
     	parseParameters(materialNode, textureMap, ID) {
     		var parameters = {};
 
+    		// FBX ASCII - fix currupted value
+    		for (var key in materialNode) {
+    			if (materialNode[key].type === 'Enum') {
+    				var checkReg = /(\d+)\,\_\".*/g;
+    				var checkedResult = checkReg.exec(materialNode[key].value);
+    				if (checkedResult) {
+    					materialNode[key].value = Number(checkedResult[1]);
+    				}
+    			}
+    		}
+
     		// vertexColors
+    		// THREE.NoColors = 0 (기본값), THREE.FaceColors = 1, THREE.VertexColors = 2
+    		// API: https://threejs.org/docs/#api/en/materials/Material.vertexColors
     		if (materialNode.vertexColors) {
     			parameters.vertexColors = materialNode.vertexColors.value;
     		} else {
@@ -61622,7 +61622,7 @@
     		// THREE.NoBlending = 0, THREE.NormalBlending = 1 (기본값), THREE.AdditiveBlending = 2, 
     		// THREE.SubtractiveBlending = 3, THREE.MultiplyBlending = 4, THREE.CustomBlending =5
     		// API: https://threejs.org/docs/#api/materials/Material.blending
-    		// sample: https://threejs.org/examples/webgl_materials_blending.html
+    		// sample: https://threejs.org/examples/#webgl_materials_blending
     		if (materialNode.blending) {
     			parameters.blending = materialNode.blending.value;
     		} else if (!materialNode.blending && parameters.opacity < 1.0) {
@@ -61716,6 +61716,110 @@
     			parameters.displacementScale = materialNode.DisplacementFactor.value;
     		}
 
+    		// userData
+    		// API: https://threejs.org/docs/#api/en/materials/Material.userData
+    		parameters.userData = {};
+
+    		// outline Default value
+    		// must declare in MeshOutlineMaterial.js
+    		/* parameters.userData.outline = {
+    			outlineMode: 0, // Default
+    			outlineBlending: 4, // MultiplyBlending
+    			outlineTransparent: true,
+    			outlinePremultipliedAlpha: false,
+    			outlineVisible: 0, // Default
+    			outlineThickness: 0.003, // thin
+    			outlineColor: [0, 0, 0], // black
+    			outlineAlpha: 0.8,
+    			outlineThicknessSrc: 2, // VertexAlpha
+    			outlineColorSrc: 0, // Default
+    			outlineAlphaSrc: 0, // Default
+    			outlineRandomFactor: 2.0, // random ratio *0 ~ *2 
+    		} */
+    		parameters.userData.outline = {};
+
+    		// outlineMode
+    		// Default = 0, Fixed = 1, Custom = 2
+    		if (materialNode.outlineMode) {
+    			parameters.userData.outline.outlineMode = materialNode.outlineMode.value;
+    		}
+    		// outlineBlending
+    		// NoBlending = 0, NormalBlending = 1 (기본값), AdditiveBlending = 2, 
+    		// SubtractiveBlending = 3, MultiplyBlending = 4
+    		// API: https://threejs.org/docs/#api/materials/Material.blending
+    		if (materialNode.outlineBlending) {
+    			parameters.userData.outline.outlineBlending = materialNode.outlineBlending.value;
+    		}
+    		// outlineTransparent
+    		// true, false
+    		if (materialNode.outlineTransparent) {
+    			var outlineTRP = materialNode.outlineTransparent.value;
+    			if (outlineTRP === true || outlineTRP === 'true' || outlineTRP === '1') {
+    				parameters.userData.outline.outlineTransparent = true;
+    			} else {
+    				parameters.userData.outline.outlineTransparent = false;
+    			}
+    		}
+    		// outlinePremultipliedAlpha
+    		// true, false
+    		if (materialNode.outlinePremultipliedAlpha) {
+    			var outlinePMA = materialNode.outlinePremultipliedAlpha.value;
+    			if (outlinePMA === true || outlinePMA === 'true' || outlinePMA === '1') {
+    				parameters.userData.outline.outlinePremultipliedAlpha = true;
+    			} else {
+    				parameters.userData.outline.outlinePremultipliedAlpha = false;
+    			}
+    		}
+    		// outlineVisible
+    		// Default = 0, ForceVisible = 1, ForceUnvisible = 2
+    		if (materialNode.outlineVisible) {
+    			var outlineVisible = materialNode.outlineVisible.value;
+    			if (outlineVisible === 1) {
+    				parameters.userData.outline.outlineVisible = true;
+    			} else if (outlineVisible === 2) {
+    				parameters.userData.outline.outlineVisible = false;
+    			}
+    		}
+    		// outlineThickness
+    		// int, 0.003
+    		if (materialNode.outlineThickness) {
+    			parameters.userData.outline.outlineThickness = materialNode.outlineThickness.value;
+    		}
+    		// outlineColor
+    		// array, [0, 0, 0]
+    		// outlineAlpha
+    		// int, 0.8
+    		if (materialNode.outlineColorRGBA) {
+    			var colorRGBA = [];
+    			var valueArray = materialNode.outlineColorRGBA.value.split(',');
+    			for (var index in valueArray) {
+    				colorRGBA.push(Number(valueArray[index]));
+    			}
+    			parameters.userData.outline.outlineColor = [colorRGBA[0], colorRGBA[1], colorRGBA[2]];
+    			parameters.userData.outline.outlineAlpha = colorRGBA[3];
+    		}
+    		// outlineThicknessSrc
+    		// Default = 0, FixedThickness = 1, VertexAlpha = 2, Random = 3
+    		if (materialNode.outlineThicknessSrc) {
+    			parameters.userData.outline.outlineThicknessSrc = materialNode.outlineThicknessSrc.value;
+    		}
+    		// outlineColorSrc
+    		// Default = 0, FixedColor = 1, VertexColor = 2, Random = 3
+    		if (materialNode.outlineColorSrc) {
+    			parameters.userData.outline.outlineColorSrc = materialNode.outlineColorSrc.value;
+    		}
+    		// outlineAlphaSrc
+    		// Default = 0, FixedAlpha = 1, VertexAlpha = 2, Random = 3
+    		if (materialNode.outlineAlphaSrc) {
+    			parameters.userData.outline.outlineAlphaSrc = materialNode.outlineAlphaSrc.value;
+    		}
+    		// outlineRandomFactor
+    		// int, 2.0
+    		if (materialNode.outlineRandomFactor) {
+    			parameters.userData.outline.outlineRandomFactor = materialNode.outlineRandomFactor.value;
+    		}
+
+    		// texture maps
     		var self = this;
     		connections.get(ID).children.forEach(function (child) {
     			var type = child.relationship;
@@ -63232,79 +63336,95 @@
 
         constructor(originalMaterial, options, forceDefault = false) {
 
-            var outlineThickness = options.defaultThickness;
-            var outlineColor = new THREE$5.Color().fromArray(options.defaultColor);
-            var outlineAlpha = options.defaultAlpha;
-            var outlineVisible = true;
+            // 아웃라인 데이터 기본값
+    		var outlineData = {
+    			outlineMode: 0, // Default
+    			outlineBlending: 4, // MultiplyBlending
+    			outlineTransparent: true,
+    			outlinePremultipliedAlpha: false,
+                outlineVisible: true,
+                outlineThickness: options.defaultThickness,
+                outlineThicknessMin: options.defaultThicknessMin,
+                outlineThicknessMax: options.defaultThicknessMax,
+    			outlineColor: options.defaultColor, // black
+    			outlineAlpha: options.defaultAlpha,
+    			outlineThicknessSrc: 2, // VertexAlpha
+    			outlineColorSrc: 0, // Default
+    			outlineAlphaSrc: 0, // Default
+    			outlineRandomFactor: 3.0, // random ratio
+            };
 
+            // 유저데이터 적용
+            var userData = originalMaterial.userData.outline;
             if (forceDefault !== true) {
-                if (!isEmpty(originalMaterial.outlineThickness)) {
-                    outlineThickness = originalMaterial.outlineThickness;
-                }
-                if (!isEmpty(originalMaterial.outlineColor)) {
-                    outlineColor = originalMaterial.outlineColor;
+                // outlineMode === Default
+                if (userData.outlineMode === undefined || userData.outlineMode === 0) {
+                    outlineData.outlineColor = originalMaterial.color.toArray();
+                    outlineData.outlineAlpha = originalMaterial.opacity;
+                    if (originalMaterial.opacity < 1.0) {
+                        outlineData.outlineVisible = false;
+                    }
                 } else {
-                    outlineColor = originalMaterial.color;
-                }
-                if (originalMaterial.outline === false || originalMaterial.opacity < 1.0) {
-                    outlineVisible = false;
+                    for (var key in userData) {
+                        if (outlineData[key] !== undefined) {
+                            outlineData[key] = userData[key];
+                        }
+                    }
                 }
             }
 
-            var uniformsChunk = {
-                outlineThickness: {
-                    type: "f",
-                    value: outlineThickness
-                },
-                outlineColor: {
-                    type: "c",
-                    value: outlineColor
-                },
-                outlineAlpha: {
-                    type: "f",
-                    value: outlineAlpha
-                },
-            };
+            // 유니폼 
+            var uniformsChunk = {};
+            for (var key in outlineData) {
+                uniformsChunk[key] = {};
+                uniformsChunk[key].value = outlineData[key];
+            }
 
+
+            // https://stackoverflow.com/questions/42738689/threejs-creating-cel-shading-for-objects-that-are-close-by
             var vertexShaderChunk = `
             #include <fog_pars_vertex>
+            // vertex alpha
             #ifdef USE_COLOR
                 attribute float alpha;
             #endif
+            uniform int outlineMode;
             uniform float outlineThickness;
+            uniform float outlineThicknessMin;
+            uniform float outlineThicknessMax;
+            uniform int outlineThicknessSrc;
+
+            // generate 0.0 ~ 0.999 random number
+            float random(vec2 p) {
+                const vec2 r = vec2(23.1406926327792690, 2.6651441426902251);
+                return fract(cos(mod(123456789., 1e-7 + 256. * dot(p, r))));
+            }
+
             vec4 calculateOutline( vec4 pos, vec3 objectNormal, vec4 skinned ) {
+                vec3 vertexColor = vColor.rgb;
+                float vertexAlpha = alpha;
+
                 float thickness = outlineThickness;
-                const float ratio = 10.0;
-                // vec3 vertexColor = vColor.rgb;
-                // float vRatio = vColor.rgb[0];
-                float vRatio = alpha;
+                float outline = thickness * pos.w;
+
+                if (outlineMode == 2) {
+                    if (outlineThicknessSrc == 2) { // VertexAlpha
+                        // outline = thickness * pos.w * vertexAlpha;
+                        outline = thickness * pos.w * vertexAlpha * (random(uv) * 3.0);
+                    } else if (outlineThicknessSrc == 3) { // Random
+                        outline = thickness * pos.w * vertexAlpha * (random(uv) + 1.0);
+                    }
+                }
+
+                if (outline < outlineThicknessMin) {
+                    outline = outlineThicknessMin;
+                }
+                
             	vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
-                // NOTE: subtract pos2 from pos because BackSide objectNormal is negative
-            	vec4 norm = normalize( pos - pos2 );
-            	return pos + norm * thickness * pos.w * ratio * vRatio;
+                vec4 norm = normalize( pos - pos2 );
+                return pos + norm * outline;
             }
         `;
-
-            // https://stackoverflow.com/questions/42738689/threejs-creating-cel-shading-for-objects-that-are-close-by
-            /* var vertexShaderChunk = `
-                #include <fog_pars_vertex>
-                uniform float outlineThickness;
-                vec4 calculateOutline( vec4 pos, vec3 objectNormal, vec4 skinned ) {
-                    float thickness = outlineThickness;
-                    // TODO: support outline thickness ratio for each vertex
-                    const float ratio = 1.0;
-                    vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
-                    // NOTE: subtract pos2 from pos because BackSide objectNormal is negative
-                    vec4 norm = normalize( pos - pos2 );
-                    // ----[ added ] ----
-                    // compute a clipspace value
-                    vec4 pos3 = pos + norm * thickness * pos.w * ratio;
-                    // do the perspective divide in the shader
-                    pos3.xyz /= pos3.w;
-                    // just return screen 2d values at the back of the clips space
-                    return vec4(pos3.xy, 1, 1);
-                }
-            `; */
 
             var vertexShaderChunk2 = `
             #if ! defined( LAMBERT ) && ! defined( PHONG ) && ! defined( TOON ) && ! defined( PHYSICAL )
@@ -63390,7 +63510,7 @@
                 blending: THREE$5.MultiplyBlending,
 
                 fog: originalMaterial.fog,
-                visible: outlineVisible,
+                visible: outlineData.outlineVisible,
             });
             // mt.defaultAttributeValues.alpha = 1;
             // return mt;
@@ -63488,7 +63608,7 @@
     	getOutlineMaterial(originalMaterial) {
     		var outlineMaterial = this.getOutlineMaterialFromCache(originalMaterial);
     		originalMaterials[outlineMaterial.uuid] = originalMaterial;
-    		this.updateOutlineMaterial(outlineMaterial, originalMaterial);
+    		// this.updateOutlineMaterial(outlineMaterial, originalMaterial);
 
 
     		return outlineMaterial;
@@ -63528,9 +63648,10 @@
     		// just in case
     		if (originalMaterial === undefined) return;
 
-    		this.updateUniforms(material, originalMaterial);
+    		// this.updateUniforms(material, originalMaterial);
     	}
 
+    	// TODO: 실시간 변경에만 사용
     	updateUniforms(material, originalMaterial) {
     		var outlineParameters = originalMaterial.userData.outlineParameters;
     		material.uniforms.outlineAlpha.value = originalMaterial.opacity;
@@ -63542,6 +63663,7 @@
     		}
     	}
 
+    	// TODO: 실시간 변경에만 사용
     	updateOutlineMaterial(material, originalMaterial) {
     		if (material.name === 'invisible') return;
 
@@ -63895,6 +64017,7 @@
     Object.assign(THREE, Three);
     Object.assign(THREE, THREE$1);
     Object.assign(THREE, THREE$2);
+    // Object.assign(THREE, SVGLoader);
     Object.assign(THREE, THREE$3);
     Object.assign(THREE, THREE$4);
     Object.assign(THREE, THREE$6);

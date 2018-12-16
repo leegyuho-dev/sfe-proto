@@ -247,6 +247,8 @@ async function loadTexture(texture, Assets, forceUpdate = false) {
             texture.mimeType = 'image/tiff';
         } else if (fileExt === 'tga') {
             texture.mimeType = 'image/tga';
+        } else if (fileExt === 'svg') {
+            texture.mimeType = 'image/svg+xml';
         } else {
             console.error(LAYER + 'TEXTURE LOAD ERROR: ' + texture.name);
         }
@@ -313,6 +315,18 @@ async function updateTexture(texture, Assets, forceUpdate = false) {
             // texture.width = texture.data.image.width;
             // texture.height = texture.data.image.height;
             texture.data.needsUpdate = true;
+        } else if (texture.mimeType === 'image/svg+xml') {
+            var image = new Image();
+            image.crossorigin = 'anonymous';
+            image.src = window.URL.createObjectURL(new Blob([new Uint8Array(textureData)], { type: texture.mimeType }));
+            image.width = 1024;
+            image.height = 1024;
+            texture.data.image = image;
+            // console.dir(image)
+
+            image.onload = () => {
+                texture.data.needsUpdate = true;
+            }
         } else {
             var image = new Image();
             image.crossorigin = 'anonymous';
@@ -325,11 +339,6 @@ async function updateTexture(texture, Assets, forceUpdate = false) {
             }
 
             image.onload = () => {
-                // texture.data.magFilter = THREE.NearestFilter;
-                // texture.data.minFilter = THREE.NearestFilter;
-                // texture.data.anisotropy = 0;
-                // texture.width = texture.data.image.width;
-                // texture.height = texture.data.image.height;
                 texture.data.needsUpdate = true;
             }
         }

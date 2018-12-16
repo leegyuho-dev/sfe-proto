@@ -27,79 +27,95 @@ class MeshOutlineMaterial {
 
     constructor(originalMaterial, options, forceDefault = false) {
 
-        var outlineThickness = options.defaultThickness;
-        var outlineColor = new THREE.Color().fromArray(options.defaultColor);
-        var outlineAlpha = options.defaultAlpha;
-        var outlineVisible = true;
+        // 아웃라인 데이터 기본값
+		var outlineData = {
+			outlineMode: 0, // Default
+			outlineBlending: 4, // MultiplyBlending
+			outlineTransparent: true,
+			outlinePremultipliedAlpha: false,
+            outlineVisible: true,
+            outlineThickness: options.defaultThickness,
+            outlineThicknessMin: options.defaultThicknessMin,
+            outlineThicknessMax: options.defaultThicknessMax,
+			outlineColor: options.defaultColor, // black
+			outlineAlpha: options.defaultAlpha,
+			outlineThicknessSrc: 2, // VertexAlpha
+			outlineColorSrc: 0, // Default
+			outlineAlphaSrc: 0, // Default
+			outlineRandomFactor: 3.0, // random ratio
+        }
 
+        // 유저데이터 적용
+        var userData = originalMaterial.userData.outline;
         if (forceDefault !== true) {
-            if (!isEmpty(originalMaterial.outlineThickness)) {
-                outlineThickness = originalMaterial.outlineThickness;
-            }
-            if (!isEmpty(originalMaterial.outlineColor)) {
-                outlineColor = originalMaterial.outlineColor;
+            // outlineMode === Default
+            if (userData.outlineMode === undefined || userData.outlineMode === 0) {
+                outlineData.outlineColor = originalMaterial.color.toArray();
+                outlineData.outlineAlpha = originalMaterial.opacity;
+                if (originalMaterial.opacity < 1.0) {
+                    outlineData.outlineVisible = false;
+                }
             } else {
-                outlineColor = originalMaterial.color;
-            }
-            if (originalMaterial.outline === false || originalMaterial.opacity < 1.0) {
-                outlineVisible = false;
+                for (var key in userData) {
+                    if (outlineData[key] !== undefined) {
+                        outlineData[key] = userData[key];
+                    }
+                }
             }
         }
 
-        var uniformsChunk = {
-            outlineThickness: {
-                type: "f",
-                value: outlineThickness
-            },
-            outlineColor: {
-                type: "c",
-                value: outlineColor
-            },
-            outlineAlpha: {
-                type: "f",
-                value: outlineAlpha
-            },
-        };
+        // 유니폼 
+        var uniformsChunk = {}
+        for (var key in outlineData) {
+            uniformsChunk[key] = {}
+            uniformsChunk[key].value = outlineData[key];
+        }
 
+
+        // https://stackoverflow.com/questions/42738689/threejs-creating-cel-shading-for-objects-that-are-close-by
         var vertexShaderChunk = `
             #include <fog_pars_vertex>
+            // vertex alpha
             #ifdef USE_COLOR
                 attribute float alpha;
             #endif
+            uniform int outlineMode;
             uniform float outlineThickness;
+            uniform float outlineThicknessMin;
+            uniform float outlineThicknessMax;
+            uniform int outlineThicknessSrc;
+
+            // generate 0.0 ~ 0.999 random number
+            float random(vec2 p) {
+                const vec2 r = vec2(23.1406926327792690, 2.6651441426902251);
+                return fract(cos(mod(123456789., 1e-7 + 256. * dot(p, r))));
+            }
+
             vec4 calculateOutline( vec4 pos, vec3 objectNormal, vec4 skinned ) {
+                vec3 vertexColor = vColor.rgb;
+                float vertexAlpha = alpha;
+
                 float thickness = outlineThickness;
-                const float ratio = 10.0;
-                // vec3 vertexColor = vColor.rgb;
-                // float vRatio = vColor.rgb[0];
-                float vRatio = alpha;
+                float outline = thickness * pos.w;
+
+                if (outlineMode == 2) {
+                    if (outlineThicknessSrc == 2) { // VertexAlpha
+                        // outline = thickness * pos.w * vertexAlpha;
+                        outline = thickness * pos.w * vertexAlpha * (random(uv) * 3.0);
+                    } else if (outlineThicknessSrc == 3) { // Random
+                        outline = thickness * pos.w * vertexAlpha * (random(uv) + 1.0);
+                    }
+                }
+
+                if (outline < outlineThicknessMin) {
+                    outline = outlineThicknessMin;
+                }
+                
             	vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
-                // NOTE: subtract pos2 from pos because BackSide objectNormal is negative
-            	vec4 norm = normalize( pos - pos2 );
-            	return pos + norm * thickness * pos.w * ratio * vRatio;
+                vec4 norm = normalize( pos - pos2 );
+                return pos + norm * outline;
             }
         `;
-
-        // https://stackoverflow.com/questions/42738689/threejs-creating-cel-shading-for-objects-that-are-close-by
-        /* var vertexShaderChunk = `
-            #include <fog_pars_vertex>
-            uniform float outlineThickness;
-            vec4 calculateOutline( vec4 pos, vec3 objectNormal, vec4 skinned ) {
-                float thickness = outlineThickness;
-                // TODO: support outline thickness ratio for each vertex
-                const float ratio = 1.0;
-                vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
-                // NOTE: subtract pos2 from pos because BackSide objectNormal is negative
-                vec4 norm = normalize( pos - pos2 );
-                // ----[ added ] ----
-                // compute a clipspace value
-                vec4 pos3 = pos + norm * thickness * pos.w * ratio;
-                // do the perspective divide in the shader
-                pos3.xyz /= pos3.w;
-                // just return screen 2d values at the back of the clips space
-                return vec4(pos3.xy, 1, 1);
-            }
-        `; */
 
         var vertexShaderChunk2 = `
             #if ! defined( LAMBERT ) && ! defined( PHONG ) && ! defined( TOON ) && ! defined( PHYSICAL )
@@ -185,7 +201,7 @@ class MeshOutlineMaterial {
             blending: THREE.MultiplyBlending,
 
             fog: originalMaterial.fog,
-            visible: outlineVisible,
+            visible: outlineData.outlineVisible,
         });
         // mt.defaultAttributeValues.alpha = 1;
         // return mt;

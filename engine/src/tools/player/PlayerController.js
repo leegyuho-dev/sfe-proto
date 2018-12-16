@@ -840,37 +840,13 @@ export class PlayerController {
         } else if (name === 'dispose') {
             this.SFERenderer.dispose();
         } else if (name === 'test') {
-            // this.SFERenderer.shadowMap.enabled = false;
-            // this.SFERenderer.dispose();
-            var textures = [
-                '/assets/textures/AudienceRoom_arch.png',
-                '/assets/textures/AudienceRoom_ceiling01.png',
-                '/assets/textures/AudienceRoom_ceiling02.png',
-                '/assets/textures/AudienceRoom_column.png',
-                '/assets/textures/AudienceRoom_column01.png',
-                '/assets/textures/AudienceRoom_column02.png',
-                '/assets/textures/AudienceRoom_floor.png',
-                '/assets/textures/AudienceRoom_stone.png',
-                '/assets/textures/AudienceRoom_wall01.png',
-                '/assets/textures/AudienceRoom_wall02.png',
-            ]
-
-            for (var key in textures) {
-                // var Task = this.SFEAssets.Tasks.make('workers/requestAsset.worker.js');
-                // Task.post('request', { url: textures[key] });
-
-                // var file = fetch(textures[key]);
-
-                // var image = new Image();
-                // image.src = textures[key];
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', textures[key], true);
-                xhr.responseType = 'arraybuffer';
-                xhr.send();
-                // console.log(xhr);
+            for (var key in this.SFEAssets.textures) {
+                var texture = this.SFEAssets.textures[key];
+                texture.data.image.width = 2560;
+                texture.data.image.height = 2560;
+                texture.data.needsUpdate = true;
             }
-
+            this.SFERenderer.dispose();
         }
         // console.log(name, value);
     }

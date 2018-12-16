@@ -96,7 +96,7 @@ THREE.OutlineEffect.Custom = class extends THREE.OutlineEffect {
 	getOutlineMaterial(originalMaterial) {
 		var outlineMaterial = this.getOutlineMaterialFromCache(originalMaterial);
 		originalMaterials[outlineMaterial.uuid] = originalMaterial;
-		this.updateOutlineMaterial(outlineMaterial, originalMaterial);
+		// this.updateOutlineMaterial(outlineMaterial, originalMaterial);
 
 
 		return outlineMaterial;
@@ -136,9 +136,10 @@ THREE.OutlineEffect.Custom = class extends THREE.OutlineEffect {
 		// just in case
 		if (originalMaterial === undefined) return;
 
-		this.updateUniforms(material, originalMaterial);
+		// this.updateUniforms(material, originalMaterial);
 	}
 
+	// TODO: 실시간 변경에만 사용
 	updateUniforms(material, originalMaterial) {
 		var outlineParameters = originalMaterial.userData.outlineParameters;
 		material.uniforms.outlineAlpha.value = originalMaterial.opacity;
@@ -150,6 +151,7 @@ THREE.OutlineEffect.Custom = class extends THREE.OutlineEffect {
 		}
 	}
 
+	// TODO: 실시간 변경에만 사용
 	updateOutlineMaterial(material, originalMaterial) {
 		if (material.name === 'invisible') return;
 

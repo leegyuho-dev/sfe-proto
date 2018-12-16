@@ -64017,7 +64017,6 @@
     Object.assign(THREE, Three);
     Object.assign(THREE, THREE$1);
     Object.assign(THREE, THREE$2);
-    // Object.assign(THREE, SVGLoader);
     Object.assign(THREE, THREE$3);
     Object.assign(THREE, THREE$4);
     Object.assign(THREE, THREE$6);

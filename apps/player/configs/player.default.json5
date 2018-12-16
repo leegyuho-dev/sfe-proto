@@ -230,6 +230,8 @@
         outline: {
             enabled: false,
             defaultThickness: 0.003,
+            defaultThicknessMin: 0.001,
+            defaultThicknessMax: 0.01,
             defaultColor: [0, 0, 0],
             defaultAlpha: 1.0,
             defaultKeepAlive: false,

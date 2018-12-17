@@ -63447,7 +63447,7 @@
                 if (outlineThickRandom != 1.0) {
                     outline *= (rand(uv) * outlineThickRandom);
                 }
-                outline *= (rand(uv) * 2.0);
+                // outline *= (rand(uv) * 2.0);
                 
             	vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
                 vec4 norm = normalize( pos - pos2 );

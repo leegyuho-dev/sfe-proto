@@ -30,32 +30,55 @@ class MeshOutlineMaterial {
         // 아웃라인 데이터 기본값
 		var outlineData = {
 			outlineMode: 0, // Default
-			outlineBlending: 4, // MultiplyBlending
-			outlineTransparent: true,
-			outlinePremultipliedAlpha: false,
+			outlineBlending: options.defaultBlending,
+			outlineTransparent: options.defaultTransparent,
+			outlinePremultipliedAlpha: options.defaultPremultipliedAlpha,
             outlineVisible: true,
             outlineThickness: options.defaultThickness,
-            outlineThicknessMin: options.defaultThicknessMin,
-            outlineThicknessMax: options.defaultThicknessMax,
-			outlineColor: options.defaultColor, // black
+			outlineColor: options.defaultColor,
 			outlineAlpha: options.defaultAlpha,
-			outlineThicknessSrc: 2, // VertexAlpha
-			outlineColorSrc: 0, // Default
-			outlineAlphaSrc: 0, // Default
-			outlineRandomFactor: 3.0, // random ratio
+			outlineThicknessSrc: 1, // FixedThickness
+			outlineColorSrc: 1, // FixedColor
+			outlineAlphaSrc: 1, // FixedAlpha
+			outlineThickRandom: 1.0, // random ratio
         }
 
         // 유저데이터 적용
         var userData = originalMaterial.userData.outline;
         if (forceDefault !== true) {
-            // outlineMode === Default
-            if (userData.outlineMode === undefined || userData.outlineMode === 0) {
-                outlineData.outlineColor = originalMaterial.color.toArray();
-                outlineData.outlineAlpha = originalMaterial.opacity;
-                if (originalMaterial.opacity < 1.0) {
-                    outlineData.outlineVisible = false;
+            // outlineMode === Material
+            if (userData.outlineMode === undefined || userData.outlineMode === 1) {
+                outlineData.outlineMode = 1;
+                // outlineData.outlineColor = originalMaterial.color.toArray();
+                // outlineData.outlineAlpha = originalMaterial.opacity;
+                
+                if (userData.outlineTransparent) {
+                    outlineData.outlineTransparent = userData.outlineTransparent;
+                } else {
+                    outlineData.outlineTransparent = true;
                 }
-            } else {
+
+                if (userData.outlinePremultipliedAlpha) {
+                    outlineData.outlinePremultipliedAlpha = userData.outlinePremultipliedAlpha;
+                } else {
+                    outlineData.outlinePremultipliedAlpha = false;
+                }
+
+                if (userData.outlineVisible) {
+                    outlineData.outlineVisible = userData.outlineVisible;
+                } else {
+                    if (originalMaterial.opacity < 1.0) {
+                        outlineData.outlineVisible = false;
+                    }
+                }
+
+                if (userData.outlineBlending) {
+                    outlineData.outlineBlending = userData.outlineBlending;
+                } else {
+                    outlineData.outlineBlending = 4;
+                }
+            // outlineMode === Material
+            } else if (userData.outlineMode === 2) {
                 for (var key in userData) {
                     if (outlineData[key] !== undefined) {
                         outlineData[key] = userData[key];
@@ -70,45 +93,48 @@ class MeshOutlineMaterial {
             uniformsChunk[key] = {}
             uniformsChunk[key].value = outlineData[key];
         }
-
+        // 추가 유니폼
+        uniformsChunk.diffuse = {};
+        uniformsChunk.diffuse.value = originalMaterial.color.toArray();
+        uniformsChunk.opacity = {};
+        uniformsChunk.opacity.value = originalMaterial.opacity;
 
         // https://stackoverflow.com/questions/42738689/threejs-creating-cel-shading-for-objects-that-are-close-by
         var vertexShaderChunk = `
             #include <fog_pars_vertex>
-            // vertex alpha
-            #ifdef USE_COLOR
-                attribute float alpha;
-            #endif
+
+            attribute float alpha;
+            varying float vAlpha;
+            varying vec3 randomColor;
+            varying float randomAlpha;
+
             uniform int outlineMode;
             uniform float outlineThickness;
-            uniform float outlineThicknessMin;
-            uniform float outlineThicknessMax;
             uniform int outlineThicknessSrc;
+            uniform float outlineThickRandom;
+            uniform int outlineColorSrc;
+            uniform int outlineAlphaSrc;
 
-            // generate 0.0 ~ 0.999 random number
-            float random(vec2 p) {
-                const vec2 r = vec2(23.1406926327792690, 2.6651441426902251);
-                return fract(cos(mod(123456789., 1e-7 + 256. * dot(p, r))));
+            vec3 defineVertexColor(vec3 color) {
+                return color;
+            }
+            float defineVertexAlpha(float alpha) {
+                return alpha;
             }
 
             vec4 calculateOutline( vec4 pos, vec3 objectNormal, vec4 skinned ) {
-                vec3 vertexColor = vColor.rgb;
-                float vertexAlpha = alpha;
-
                 float thickness = outlineThickness;
                 float outline = thickness * pos.w;
 
                 if (outlineMode == 2) {
                     if (outlineThicknessSrc == 2) { // VertexAlpha
-                        outline = thickness * pos.w * vertexAlpha;
-                    } else if (outlineThicknessSrc == 3) { // Random
-                        outline = thickness * pos.w * vertexAlpha * (random(uv) + 3.0);
+                        outline = thickness * pos.w * vAlpha;
                     }
                 }
-
-                if (outline < outlineThicknessMin) {
-                    outline = outlineThicknessMin;
+                if (outlineThickRandom != 1.0) {
+                    outline *= (rand(uv) * outlineThickRandom);
                 }
+                outline *= (rand(uv) * 2.0);
                 
             	vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
                 vec4 norm = normalize( pos - pos2 );
@@ -128,6 +154,10 @@ class MeshOutlineMaterial {
             #ifdef DECLARE_TRANSFORMED
             	vec3 transformed = vec3( position );
             #endif
+
+            vColor = defineVertexColor(color);
+            vAlpha = defineVertexAlpha(alpha);
+
             gl_Position = calculateOutline( gl_Position, objectNormal, vec4( transformed, 1.0 ) );
             #include <fog_vertex>
         `;
@@ -135,10 +165,47 @@ class MeshOutlineMaterial {
         var fragmentShader = `
             #include <common>
             #include <fog_pars_fragment>
+            uniform vec3 diffuse;
+            uniform float opacity;
+
+            uniform int outlineMode;
             uniform vec3 outlineColor;
             uniform float outlineAlpha;
-            void main() {
-            	gl_FragColor = vec4( outlineColor, outlineAlpha );
+            uniform int outlineColorSrc;
+            uniform int outlineAlphaSrc;
+
+            varying vec3 vColor;
+            varying float vAlpha;
+
+            void main() {     
+                vec3 materialColor = outlineColor;
+                float materialOpacity = outlineAlpha;
+                if (outlineMode == 1) {
+
+                    materialColor = diffuse;
+                    materialOpacity = opacity;
+
+                } else if (outlineMode == 2) {
+
+                    if (outlineColorSrc == 0) {
+                        materialColor = diffuse;
+                    } else if (outlineColorSrc == 1) {
+                        materialColor = outlineColor;
+                    } else if (outlineColorSrc == 2) {
+                        materialColor = vColor;
+                    }
+
+                    if (outlineAlphaSrc == 0) {
+                        materialOpacity = opacity;
+                    } else if (outlineAlphaSrc == 1) {
+                        materialOpacity = outlineAlpha;
+                    } else if (outlineAlphaSrc == 2) {
+                        materialOpacity = vAlpha;
+                    }
+
+                } 
+
+                gl_FragColor = vec4( materialColor, materialOpacity );
             	#include <fog_fragment>
             }
         `;
@@ -165,20 +232,18 @@ class MeshOutlineMaterial {
         var uniforms = Object.assign( {}, originalUniforms, uniformsChunk );
 
         var vertexShader = originalVertexShader
-            // put vertexShaderChunk right before "void main() {...}"
             .replace(/void\s+main\s*\(\s*\)/, vertexShaderChunk + '\nvoid main()')
-            // put vertexShaderChunk2 the end of "void main() {...}"
-            // Note: here assums originalVertexShader ends with "}" of "void main() {...}"
             .replace(/\}\s*$/, vertexShaderChunk2 + '\n}')
-            // remove any light related lines
-            // Note: here is very sensitive to originalVertexShader
-            // TODO: consider safer way
             .replace(/#include\s+<[\w_]*light[\w_]*>/g, '');
 
         var defines = {};
 
         if (!/vec3\s+transformed\s*=/.test(originalVertexShader) &&
-            !/#include\s+<begin_vertex>/.test(originalVertexShader)) defines.DECLARE_TRANSFORMED = true;
+            !/#include\s+<begin_vertex>/.test(originalVertexShader)) { 
+            defines.DECLARE_TRANSFORMED = true;
+        }
+
+        // originalMaterial.visible = false;
 
         return new THREE.ShaderMaterial({
             defines: defines,
@@ -195,14 +260,12 @@ class MeshOutlineMaterial {
             morphTargets: originalMaterial.morphTargets,
             // morphNormals: originalMaterial.morphNormals,
             morphNormals: (originalMaterial.morphNormals !== undefined)? originalMaterial.morphNormals : null,
-            // transparent: (outlineAlpha < 1.0)? true : false,
-            transparent: true,
-            blending: THREE.MultiplyBlending,
+            transparent: outlineData.outlineTransparent,
+            premultipliedAlpha: outlineData.outlinePremultipliedAlpha,
+            blending: outlineData.outlineBlending,
 
             fog: originalMaterial.fog,
             visible: outlineData.outlineVisible,
         });
-        // mt.defaultAttributeValues.alpha = 1;
-        // return mt;
     }
 }

@@ -4543,31 +4543,36 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 		// must declare in MeshOutlineMaterial.js
 		/* parameters.userData.outline = {
 			outlineMode: 0, // Default
-			outlineBlending: 4, // MultiplyBlending
-			outlineTransparent: true,
-			outlinePremultipliedAlpha: false,
-			outlineVisible: 0, // Default
-			outlineThickness: 0.003, // thin
-			outlineColor: [0, 0, 0], // black
-			outlineAlpha: 0.8,
-			outlineThicknessSrc: 2, // VertexAlpha
-			outlineColorSrc: 0, // Default
-			outlineAlphaSrc: 0, // Default
-			outlineRandomFactor: 2.0, // random ratio *0 ~ *2 
+			outlineBlending: options.defaultBlending,
+			outlineTransparent: options.defaultTransparent,
+			outlinePremultipliedAlpha: options.defaultPremultipliedAlpha,
+            outlineVisible: true,
+            outlineThickness: options.defaultThickness,
+			outlineColor: options.defaultColor,
+			outlineAlpha: options.defaultAlpha,
+			outlineThicknessSrc: 1, // FixedThickness
+			outlineColorSrc: 1, // FixedColor
+			outlineAlphaSrc: 1, // FixedAlpha
+			outlineThickRandom: 0.0, // random ratio
+			outlineColorRandom: 0.0, // random ratio
+			outlineAlphaRandom: 0.0, // random ratio
 		} */
 		parameters.userData.outline = {}
 
 		// outlineMode
-		// Default = 0, Fixed = 1, Custom = 2
+		// Default = 0, byMaterial = 1 (기본값), Custom = 2
 		if (materialNode.outlineMode) {
 			parameters.userData.outline.outlineMode = materialNode.outlineMode.value;
 		}
-		// outlineBlending
-		// NoBlending = 0, NormalBlending = 1 (기본값), AdditiveBlending = 2, 
-		// SubtractiveBlending = 3, MultiplyBlending = 4
-		// API: https://threejs.org/docs/#api/materials/Material.blending
-		if (materialNode.outlineBlending) {
-			parameters.userData.outline.outlineBlending = materialNode.outlineBlending.value;
+		// outlineVisible
+		// byOpacity = 0, ForceVisible = 1, ForceUnvisible = 2
+		if (materialNode.outlineVisible) {
+			var outlineVisible = materialNode.outlineVisible.value;
+			if (outlineVisible === 1) {
+				parameters.userData.outline.outlineVisible = true;
+			} else if (outlineVisible === 2) {
+				parameters.userData.outline.outlineVisible = false;
+			}
 		}
 		// outlineTransparent
 		// true, false
@@ -4589,25 +4594,22 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 				parameters.userData.outline.outlinePremultipliedAlpha = false;
 			}
 		}
-		// outlineVisible
-		// Default = 0, ForceVisible = 1, ForceUnvisible = 2
-		if (materialNode.outlineVisible) {
-			var outlineVisible = materialNode.outlineVisible.value;
-			if (outlineVisible === 1) {
-				parameters.userData.outline.outlineVisible = true;
-			} else if (outlineVisible === 2) {
-				parameters.userData.outline.outlineVisible = false;
-			}
+		// outlineBlending
+		// NoBlending = 0, NormalBlending = 1, AdditiveBlending = 2, 
+		// SubtractiveBlending = 3, MultiplyBlending = 4 (기본값)
+		// API: https://threejs.org/docs/#api/materials/Material.blending
+		if (materialNode.outlineBlending) {
+			parameters.userData.outline.outlineBlending = materialNode.outlineBlending.value;
 		}
 		// outlineThickness
-		// int, 0.003
+		// int, 0.004
 		if (materialNode.outlineThickness) {
 			parameters.userData.outline.outlineThickness = materialNode.outlineThickness.value;
 		}
 		// outlineColor
 		// array, [0, 0, 0]
 		// outlineAlpha
-		// int, 0.8
+		// int, 1.0
 		if (materialNode.outlineColorRGBA) {
 			var colorRGBA = []
 			var valueArray = materialNode.outlineColorRGBA.value.split(',');
@@ -4618,24 +4620,24 @@ THREE.FBXTreeParser.Custom = class extends THREE.FBXTreeParser {
 			parameters.userData.outline.outlineAlpha = colorRGBA[3];
 		}
 		// outlineThicknessSrc
-		// Default = 0, FixedThickness = 1, VertexAlpha = 2, Random = 3
+		// byMaterial = 0, PickedThickness = 1, VertexAlpha = 2
 		if (materialNode.outlineThicknessSrc) {
 			parameters.userData.outline.outlineThicknessSrc = materialNode.outlineThicknessSrc.value;
 		}
+		// outlineThickRandom
+		// int, 0.0
+		if (materialNode.outlineThickRandom) {
+			parameters.userData.outline.outlineThickRandom = materialNode.outlineThickRandom.value;
+		}
 		// outlineColorSrc
-		// Default = 0, FixedColor = 1, VertexColor = 2, Random = 3
+		// byMaterial = 0, PickedColor = 1, VertexColor = 2
 		if (materialNode.outlineColorSrc) {
 			parameters.userData.outline.outlineColorSrc = materialNode.outlineColorSrc.value;
 		}
 		// outlineAlphaSrc
-		// Default = 0, FixedAlpha = 1, VertexAlpha = 2, Random = 3
+		// byMaterial = 0, PickedAlpha = 1, VertexAlpha = 2
 		if (materialNode.outlineAlphaSrc) {
 			parameters.userData.outline.outlineAlphaSrc = materialNode.outlineAlphaSrc.value;
-		}
-		// outlineRandomFactor
-		// int, 2.0
-		if (materialNode.outlineRandomFactor) {
-			parameters.userData.outline.outlineRandomFactor = materialNode.outlineRandomFactor.value;
 		}
 
 		// texture maps

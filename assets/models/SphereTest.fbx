@@ -8,11 +8,11 @@ FBXHeaderExtension:  {
 		Version: 1000
 		Year: 2018
 		Month: 12
-		Day: 16
-		Hour: 20
-		Minute: 56
-		Second: 17
-		Millisecond: 127
+		Day: 18
+		Hour: 0
+		Minute: 11
+		Second: 35
+		Millisecond: 861
 	}
 	Creator: "FBX SDK/FBX Plugins version 2019.0"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -34,13 +34,13 @@ FBXHeaderExtension:  {
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "3ds Max"
 			P: "Original|ApplicationVersion", "KString", "", "", "2019"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "16/12/2018 11:56:17.126"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "17/12/2018 15:11:35.860"
 			P: "Original|FileName", "KString", "", "", "C:\Workspaces\leegyuho.com\www\_dev\assets\models\SphereTest.fbx"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "3ds Max"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2019"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "16/12/2018 11:56:17.126"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "17/12/2018 15:11:35.860"
 			P: "Original|ApplicationActiveProject", "KString", "", "", "C:\Users\GyuhoLee\Documents\3dsMax"
 			P: "Original|ApplicationNativeFile", "KString", "", "", "D:\Project\Homepage\models\SphereTest.max"
 		}
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 1685638201776, "", "Scene" {
+	Document: 1200375909328, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -255,7 +255,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 1687411346576, "Geometry::", "Mesh" {
+	Geometry: 1199676351536, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.603921568627451,0.843137254901961,0.898039215686275
 		}
@@ -554,7 +554,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 1687411344944, "Geometry::", "Mesh" {
+	Geometry: 1199676366768, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.603921568627451,0.843137254901961,0.898039215686275
 		}
@@ -795,7 +795,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 1685638885744, "Model::Sphere001", "Mesh" {
+	Model: 1199838869312, "Model::Sphere001", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
@@ -810,7 +810,7 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 1685638883552, "Model::Sphere002", "Mesh" {
+	Model: 1199838856160, "Model::Sphere002", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
@@ -825,7 +825,7 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Material: 1685771018912, "Material::SphereVC", "" {
+	Material: 1199902490720, "Material::SphereVC", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -855,19 +855,18 @@ Objects:  {
 			P: "mapping", "Enum", "", "AU",3, "UVMapping~CubeReflectionMapping~CubeRefractionMapping~EquirectangularReflectionMapping~EquirectangularRefractionMapping~SphericalReflectionMapping~CubeUVReflectionMapping~CubeUVRefractionMapping"
 			P: "combine", "Enum", "", "AU",2, "Multiply~MixOperation~AddOperation"
 			P: "Outline Attributes", "KString", "", "U", "1"
+			P: "outlineMode", "Enum", "", "AU",2, "Default~byMaterial~Custom"
+			P: "outlineVisible", "Enum", "", "AU",0, "byOpacity~ForceVisible~ForceUnvisible"
 			P: "outlineTransparent", "Bool", "", "AU",1
 			P: "outlinePremultipliedAlpha", "Bool", "", "AU",0
 			P: "outlineBlending", "Enum", "", "AU",4, "NoBlending~NormalBlending~AdditiveBlending~SubtractiveBlending~MultiplyBlending"
-			P: "outlineVisible", "Enum", "", "AU",0, "Default~ForceVisible~ForceUnvisible"
-			P: "outlineMode", "Enum", "", "AU",2, "Default~Fixed~Custom"
-			P: "Fixed outline Attributes", "KString", "", "U", "1"
-			P: "outlineThickness", "Number", "", "AU",0.00499999988824129,0,100
-			P: "outlineColorRGBA", "ColorAndAlpha", "", "AU",1,0,0,1
-			P: "Custom outline Attributes", "KString", "", "U", "1"
-			P: "outlineThicknessSrc", "Enum", "", "AU",2, "Default~FixedThickness~VertexAlpha~Random"
-			P: "outlineRandomFactor", "Number", "", "AU",2,0,100
-			P: "outlineColorSrc", "Enum", "", "AU",1, "Default~FixedColor~VertexColor~Random"
-			P: "outlineAlphaSrc", "Enum", "", "AU",2, "Default~FixedAlpha~VertexAlpha~Random"
+			P: "Custom Outline Attributes", "KString", "", "U", "1"
+			P: "outlineThickness", "Number", "", "AU",0.00400000018998981,0,100
+			P: "outlineColorRGBA", "ColorAndAlpha", "", "AU",0,0,0,1
+			P: "outlineThicknessSrc", "Enum", "", "AU",2, "byMaterial~PickedThickness~VertexAlpha"
+			P: "outlineThickRandom", "Number", "", "AU",2.00000095367432,0,10
+			P: "outlineColorSrc", "Enum", "", "AU",1, "byMaterial~PickedColor~VertexColor"
+			P: "outlineAlphaSrc", "Enum", "", "AU",1, "byMaterial~PickedAlpha~VertexAlpha"
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
 			P: "Ambient", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
 			P: "Diffuse", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
@@ -877,7 +876,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1685771020832, "Material::SphereNOVC", "" {
+	Material: 1199902492640, "Material::SphereNOVC", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -907,19 +906,18 @@ Objects:  {
 			P: "mapping", "Enum", "", "AU",3, "UVMapping~CubeReflectionMapping~CubeRefractionMapping~EquirectangularReflectionMapping~EquirectangularRefractionMapping~SphericalReflectionMapping~CubeUVReflectionMapping~CubeUVRefractionMapping"
 			P: "combine", "Enum", "", "AU",2, "Multiply~MixOperation~AddOperation"
 			P: "Outline Attributes", "KString", "", "U", "1"
+			P: "outlineMode", "Enum", "", "AU",2, "Default~byMaterial~Custom"
+			P: "outlineVisible", "Enum", "", "AU",0, "byOpacity~ForceVisible~ForceUnvisible"
 			P: "outlineTransparent", "Bool", "", "AU",1
 			P: "outlinePremultipliedAlpha", "Bool", "", "AU",0
 			P: "outlineBlending", "Enum", "", "AU",4, "NoBlending~NormalBlending~AdditiveBlending~SubtractiveBlending~MultiplyBlending"
-			P: "outlineVisible", "Enum", "", "AU",0, "Default~ForceVisible~ForceUnvisible"
-			P: "outlineMode", "Enum", "", "AU",2, "Default~Fixed~Custom"
-			P: "Fixed outline Attributes", "KString", "", "U", "1"
-			P: "outlineThickness", "Number", "", "AU",0.00499999988824129,0,100
-			P: "outlineColorRGBA", "ColorAndAlpha", "", "AU",1,0,0,1
-			P: "Custom outline Attributes", "KString", "", "U", "1"
-			P: "outlineThicknessSrc", "Enum", "", "AU",2, "Default~FixedThickness~VertexAlpha~Random"
-			P: "outlineRandomFactor", "Number", "", "AU",2,0,100
-			P: "outlineColorSrc", "Enum", "", "AU",0, "Default~FixedColor~VertexColor~Random"
-			P: "outlineAlphaSrc", "Enum", "", "AU",0, "Default~FixedAlpha~VertexAlpha~Random"
+			P: "Custom Outline Attributes", "KString", "", "U", "1"
+			P: "outlineThickness", "Number", "", "AU",0.00400000018998981,0,100
+			P: "outlineColorRGBA", "ColorAndAlpha", "", "AU",0,0,0,1
+			P: "outlineThicknessSrc", "Enum", "", "AU",2, "byMaterial~PickedThickness~VertexAlpha"
+			P: "outlineThickRandom", "Number", "", "AU",3.00000023841858,0,10
+			P: "outlineColorSrc", "Enum", "", "AU",1, "byMaterial~PickedColor~VertexColor"
+			P: "outlineAlphaSrc", "Enum", "", "AU",1, "byMaterial~PickedAlpha~VertexAlpha"
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
 			P: "Ambient", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
 			P: "Diffuse", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
@@ -929,13 +927,13 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	AnimationStack: 1685631308368, "AnimStack::Take 001", "" {
+	AnimationStack: 1200379556384, "AnimStack::Take 001", "" {
 		Properties70:  {
 			P: "LocalStop", "KTime", "Time", "",153953860000
 			P: "ReferenceStop", "KTime", "Time", "",153953860000
 		}
 	}
-	AnimationLayer: 1685620930768, "AnimLayer::BaseLayer", "" {
+	AnimationLayer: 1200379404656, "AnimLayer::BaseLayer", "" {
 	}
 }
 
@@ -945,25 +943,25 @@ Objects:  {
 Connections:  {
 	
 	;Model::Sphere001, Model::RootNode
-	C: "OO",1685638885744,0
+	C: "OO",1199838869312,0
 	
 	;Model::Sphere002, Model::RootNode
-	C: "OO",1685638883552,0
+	C: "OO",1199838856160,0
 	
 	;AnimLayer::BaseLayer, AnimStack::Take 001
-	C: "OO",1685620930768,1685631308368
+	C: "OO",1200379404656,1200379556384
 	
 	;Geometry::, Model::Sphere001
-	C: "OO",1687411346576,1685638885744
+	C: "OO",1199676351536,1199838869312
 	
 	;Material::SphereVC, Model::Sphere001
-	C: "OO",1685771018912,1685638885744
+	C: "OO",1199902490720,1199838869312
 	
 	;Geometry::, Model::Sphere002
-	C: "OO",1687411344944,1685638883552
+	C: "OO",1199676366768,1199838856160
 	
 	;Material::SphereNOVC, Model::Sphere002
-	C: "OO",1685771020832,1685638883552
+	C: "OO",1199902492640,1199838856160
 }
 ;Takes section
 ;----------------------------------------------------

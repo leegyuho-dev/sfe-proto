@@ -61726,31 +61726,36 @@
     		// must declare in MeshOutlineMaterial.js
     		/* parameters.userData.outline = {
     			outlineMode: 0, // Default
-    			outlineBlending: 4, // MultiplyBlending
-    			outlineTransparent: true,
-    			outlinePremultipliedAlpha: false,
-    			outlineVisible: 0, // Default
-    			outlineThickness: 0.003, // thin
-    			outlineColor: [0, 0, 0], // black
-    			outlineAlpha: 0.8,
-    			outlineThicknessSrc: 2, // VertexAlpha
-    			outlineColorSrc: 0, // Default
-    			outlineAlphaSrc: 0, // Default
-    			outlineRandomFactor: 2.0, // random ratio *0 ~ *2 
+    			outlineBlending: options.defaultBlending,
+    			outlineTransparent: options.defaultTransparent,
+    			outlinePremultipliedAlpha: options.defaultPremultipliedAlpha,
+                outlineVisible: true,
+                outlineThickness: options.defaultThickness,
+    			outlineColor: options.defaultColor,
+    			outlineAlpha: options.defaultAlpha,
+    			outlineThicknessSrc: 1, // FixedThickness
+    			outlineColorSrc: 1, // FixedColor
+    			outlineAlphaSrc: 1, // FixedAlpha
+    			outlineThickRandom: 0.0, // random ratio
+    			outlineColorRandom: 0.0, // random ratio
+    			outlineAlphaRandom: 0.0, // random ratio
     		} */
     		parameters.userData.outline = {};
 
     		// outlineMode
-    		// Default = 0, Fixed = 1, Custom = 2
+    		// Default = 0, byMaterial = 1 (기본값), Custom = 2
     		if (materialNode.outlineMode) {
     			parameters.userData.outline.outlineMode = materialNode.outlineMode.value;
     		}
-    		// outlineBlending
-    		// NoBlending = 0, NormalBlending = 1 (기본값), AdditiveBlending = 2, 
-    		// SubtractiveBlending = 3, MultiplyBlending = 4
-    		// API: https://threejs.org/docs/#api/materials/Material.blending
-    		if (materialNode.outlineBlending) {
-    			parameters.userData.outline.outlineBlending = materialNode.outlineBlending.value;
+    		// outlineVisible
+    		// byOpacity = 0, ForceVisible = 1, ForceUnvisible = 2
+    		if (materialNode.outlineVisible) {
+    			var outlineVisible = materialNode.outlineVisible.value;
+    			if (outlineVisible === 1) {
+    				parameters.userData.outline.outlineVisible = true;
+    			} else if (outlineVisible === 2) {
+    				parameters.userData.outline.outlineVisible = false;
+    			}
     		}
     		// outlineTransparent
     		// true, false
@@ -61772,25 +61777,22 @@
     				parameters.userData.outline.outlinePremultipliedAlpha = false;
     			}
     		}
-    		// outlineVisible
-    		// Default = 0, ForceVisible = 1, ForceUnvisible = 2
-    		if (materialNode.outlineVisible) {
-    			var outlineVisible = materialNode.outlineVisible.value;
-    			if (outlineVisible === 1) {
-    				parameters.userData.outline.outlineVisible = true;
-    			} else if (outlineVisible === 2) {
-    				parameters.userData.outline.outlineVisible = false;
-    			}
+    		// outlineBlending
+    		// NoBlending = 0, NormalBlending = 1, AdditiveBlending = 2, 
+    		// SubtractiveBlending = 3, MultiplyBlending = 4 (기본값)
+    		// API: https://threejs.org/docs/#api/materials/Material.blending
+    		if (materialNode.outlineBlending) {
+    			parameters.userData.outline.outlineBlending = materialNode.outlineBlending.value;
     		}
     		// outlineThickness
-    		// int, 0.003
+    		// int, 0.004
     		if (materialNode.outlineThickness) {
     			parameters.userData.outline.outlineThickness = materialNode.outlineThickness.value;
     		}
     		// outlineColor
     		// array, [0, 0, 0]
     		// outlineAlpha
-    		// int, 0.8
+    		// int, 1.0
     		if (materialNode.outlineColorRGBA) {
     			var colorRGBA = [];
     			var valueArray = materialNode.outlineColorRGBA.value.split(',');
@@ -61801,24 +61803,24 @@
     			parameters.userData.outline.outlineAlpha = colorRGBA[3];
     		}
     		// outlineThicknessSrc
-    		// Default = 0, FixedThickness = 1, VertexAlpha = 2, Random = 3
+    		// byMaterial = 0, PickedThickness = 1, VertexAlpha = 2
     		if (materialNode.outlineThicknessSrc) {
     			parameters.userData.outline.outlineThicknessSrc = materialNode.outlineThicknessSrc.value;
     		}
+    		// outlineThickRandom
+    		// int, 0.0
+    		if (materialNode.outlineThickRandom) {
+    			parameters.userData.outline.outlineThickRandom = materialNode.outlineThickRandom.value;
+    		}
     		// outlineColorSrc
-    		// Default = 0, FixedColor = 1, VertexColor = 2, Random = 3
+    		// byMaterial = 0, PickedColor = 1, VertexColor = 2
     		if (materialNode.outlineColorSrc) {
     			parameters.userData.outline.outlineColorSrc = materialNode.outlineColorSrc.value;
     		}
     		// outlineAlphaSrc
-    		// Default = 0, FixedAlpha = 1, VertexAlpha = 2, Random = 3
+    		// byMaterial = 0, PickedAlpha = 1, VertexAlpha = 2
     		if (materialNode.outlineAlphaSrc) {
     			parameters.userData.outline.outlineAlphaSrc = materialNode.outlineAlphaSrc.value;
-    		}
-    		// outlineRandomFactor
-    		// int, 2.0
-    		if (materialNode.outlineRandomFactor) {
-    			parameters.userData.outline.outlineRandomFactor = materialNode.outlineRandomFactor.value;
     		}
 
     		// texture maps
@@ -63341,32 +63343,55 @@
             // 아웃라인 데이터 기본값
     		var outlineData = {
     			outlineMode: 0, // Default
-    			outlineBlending: 4, // MultiplyBlending
-    			outlineTransparent: true,
-    			outlinePremultipliedAlpha: false,
+    			outlineBlending: options.defaultBlending,
+    			outlineTransparent: options.defaultTransparent,
+    			outlinePremultipliedAlpha: options.defaultPremultipliedAlpha,
                 outlineVisible: true,
                 outlineThickness: options.defaultThickness,
-                outlineThicknessMin: options.defaultThicknessMin,
-                outlineThicknessMax: options.defaultThicknessMax,
-    			outlineColor: options.defaultColor, // black
+    			outlineColor: options.defaultColor,
     			outlineAlpha: options.defaultAlpha,
-    			outlineThicknessSrc: 2, // VertexAlpha
-    			outlineColorSrc: 0, // Default
-    			outlineAlphaSrc: 0, // Default
-    			outlineRandomFactor: 3.0, // random ratio
+    			outlineThicknessSrc: 1, // FixedThickness
+    			outlineColorSrc: 1, // FixedColor
+    			outlineAlphaSrc: 1, // FixedAlpha
+    			outlineThickRandom: 1.0, // random ratio
             };
 
             // 유저데이터 적용
             var userData = originalMaterial.userData.outline;
             if (forceDefault !== true) {
-                // outlineMode === Default
-                if (userData.outlineMode === undefined || userData.outlineMode === 0) {
-                    outlineData.outlineColor = originalMaterial.color.toArray();
-                    outlineData.outlineAlpha = originalMaterial.opacity;
-                    if (originalMaterial.opacity < 1.0) {
-                        outlineData.outlineVisible = false;
+                // outlineMode === Material
+                if (userData.outlineMode === undefined || userData.outlineMode === 1) {
+                    outlineData.outlineMode = 1;
+                    // outlineData.outlineColor = originalMaterial.color.toArray();
+                    // outlineData.outlineAlpha = originalMaterial.opacity;
+                    
+                    if (userData.outlineTransparent) {
+                        outlineData.outlineTransparent = userData.outlineTransparent;
+                    } else {
+                        outlineData.outlineTransparent = true;
                     }
-                } else {
+
+                    if (userData.outlinePremultipliedAlpha) {
+                        outlineData.outlinePremultipliedAlpha = userData.outlinePremultipliedAlpha;
+                    } else {
+                        outlineData.outlinePremultipliedAlpha = false;
+                    }
+
+                    if (userData.outlineVisible) {
+                        outlineData.outlineVisible = userData.outlineVisible;
+                    } else {
+                        if (originalMaterial.opacity < 1.0) {
+                            outlineData.outlineVisible = false;
+                        }
+                    }
+
+                    if (userData.outlineBlending) {
+                        outlineData.outlineBlending = userData.outlineBlending;
+                    } else {
+                        outlineData.outlineBlending = 4;
+                    }
+                // outlineMode === Material
+                } else if (userData.outlineMode === 2) {
                     for (var key in userData) {
                         if (outlineData[key] !== undefined) {
                             outlineData[key] = userData[key];
@@ -63381,45 +63406,48 @@
                 uniformsChunk[key] = {};
                 uniformsChunk[key].value = outlineData[key];
             }
-
+            // 추가 유니폼
+            uniformsChunk.diffuse = {};
+            uniformsChunk.diffuse.value = originalMaterial.color.toArray();
+            uniformsChunk.opacity = {};
+            uniformsChunk.opacity.value = originalMaterial.opacity;
 
             // https://stackoverflow.com/questions/42738689/threejs-creating-cel-shading-for-objects-that-are-close-by
             var vertexShaderChunk = `
             #include <fog_pars_vertex>
-            // vertex alpha
-            #ifdef USE_COLOR
-                attribute float alpha;
-            #endif
+
+            attribute float alpha;
+            varying float vAlpha;
+            varying vec3 randomColor;
+            varying float randomAlpha;
+
             uniform int outlineMode;
             uniform float outlineThickness;
-            uniform float outlineThicknessMin;
-            uniform float outlineThicknessMax;
             uniform int outlineThicknessSrc;
+            uniform float outlineThickRandom;
+            uniform int outlineColorSrc;
+            uniform int outlineAlphaSrc;
 
-            // generate 0.0 ~ 0.999 random number
-            float random(vec2 p) {
-                const vec2 r = vec2(23.1406926327792690, 2.6651441426902251);
-                return fract(cos(mod(123456789., 1e-7 + 256. * dot(p, r))));
+            vec3 defineVertexColor(vec3 color) {
+                return color;
+            }
+            float defineVertexAlpha(float alpha) {
+                return alpha;
             }
 
             vec4 calculateOutline( vec4 pos, vec3 objectNormal, vec4 skinned ) {
-                vec3 vertexColor = vColor.rgb;
-                float vertexAlpha = alpha;
-
                 float thickness = outlineThickness;
                 float outline = thickness * pos.w;
 
                 if (outlineMode == 2) {
                     if (outlineThicknessSrc == 2) { // VertexAlpha
-                        outline = thickness * pos.w * vertexAlpha;
-                    } else if (outlineThicknessSrc == 3) { // Random
-                        outline = thickness * pos.w * vertexAlpha * (random(uv) + 3.0);
+                        outline = thickness * pos.w * vAlpha;
                     }
                 }
-
-                if (outline < outlineThicknessMin) {
-                    outline = outlineThicknessMin;
+                if (outlineThickRandom != 1.0) {
+                    outline *= (rand(uv) * outlineThickRandom);
                 }
+                outline *= (rand(uv) * 2.0);
                 
             	vec4 pos2 = projectionMatrix * modelViewMatrix * vec4( skinned.xyz + objectNormal, 1.0 );
                 vec4 norm = normalize( pos - pos2 );
@@ -63439,6 +63467,10 @@
             #ifdef DECLARE_TRANSFORMED
             	vec3 transformed = vec3( position );
             #endif
+
+            vColor = defineVertexColor(color);
+            vAlpha = defineVertexAlpha(alpha);
+
             gl_Position = calculateOutline( gl_Position, objectNormal, vec4( transformed, 1.0 ) );
             #include <fog_vertex>
         `;
@@ -63446,10 +63478,47 @@
             var fragmentShader = `
             #include <common>
             #include <fog_pars_fragment>
+            uniform vec3 diffuse;
+            uniform float opacity;
+
+            uniform int outlineMode;
             uniform vec3 outlineColor;
             uniform float outlineAlpha;
-            void main() {
-            	gl_FragColor = vec4( outlineColor, outlineAlpha );
+            uniform int outlineColorSrc;
+            uniform int outlineAlphaSrc;
+
+            varying vec3 vColor;
+            varying float vAlpha;
+
+            void main() {     
+                vec3 materialColor = outlineColor;
+                float materialOpacity = outlineAlpha;
+                if (outlineMode == 1) {
+
+                    materialColor = diffuse;
+                    materialOpacity = opacity;
+
+                } else if (outlineMode == 2) {
+
+                    if (outlineColorSrc == 0) {
+                        materialColor = diffuse;
+                    } else if (outlineColorSrc == 1) {
+                        materialColor = outlineColor;
+                    } else if (outlineColorSrc == 2) {
+                        materialColor = vColor;
+                    }
+
+                    if (outlineAlphaSrc == 0) {
+                        materialOpacity = opacity;
+                    } else if (outlineAlphaSrc == 1) {
+                        materialOpacity = outlineAlpha;
+                    } else if (outlineAlphaSrc == 2) {
+                        materialOpacity = vAlpha;
+                    }
+
+                } 
+
+                gl_FragColor = vec4( materialColor, materialOpacity );
             	#include <fog_fragment>
             }
         `;
@@ -63476,20 +63545,18 @@
             var uniforms = Object.assign( {}, originalUniforms, uniformsChunk );
 
             var vertexShader = originalVertexShader
-                // put vertexShaderChunk right before "void main() {...}"
                 .replace(/void\s+main\s*\(\s*\)/, vertexShaderChunk + '\nvoid main()')
-                // put vertexShaderChunk2 the end of "void main() {...}"
-                // Note: here assums originalVertexShader ends with "}" of "void main() {...}"
                 .replace(/\}\s*$/, vertexShaderChunk2 + '\n}')
-                // remove any light related lines
-                // Note: here is very sensitive to originalVertexShader
-                // TODO: consider safer way
                 .replace(/#include\s+<[\w_]*light[\w_]*>/g, '');
 
             var defines = {};
 
             if (!/vec3\s+transformed\s*=/.test(originalVertexShader) &&
-                !/#include\s+<begin_vertex>/.test(originalVertexShader)) defines.DECLARE_TRANSFORMED = true;
+                !/#include\s+<begin_vertex>/.test(originalVertexShader)) { 
+                defines.DECLARE_TRANSFORMED = true;
+            }
+
+            // originalMaterial.visible = false;
 
             return new THREE$5.ShaderMaterial({
                 defines: defines,
@@ -63506,15 +63573,13 @@
                 morphTargets: originalMaterial.morphTargets,
                 // morphNormals: originalMaterial.morphNormals,
                 morphNormals: (originalMaterial.morphNormals !== undefined)? originalMaterial.morphNormals : null,
-                // transparent: (outlineAlpha < 1.0)? true : false,
-                transparent: true,
-                blending: THREE$5.MultiplyBlending,
+                transparent: outlineData.outlineTransparent,
+                premultipliedAlpha: outlineData.outlinePremultipliedAlpha,
+                blending: outlineData.outlineBlending,
 
                 fog: originalMaterial.fog,
                 visible: outlineData.outlineVisible,
             });
-            // mt.defaultAttributeValues.alpha = 1;
-            // return mt;
         }
     }
 

@@ -6475,8 +6475,8 @@
                 // 키프레임 모드
                 if (this.Controller.player.playMode === 'frame') {
 
-                    var frameTime = this.Controller.V3Danimation.frameTime;
-                    var timeScale = this.Controller.V3Daction.timeScale;
+                    var frameTime = this.Controller.SFEAnimation.frameTime;
+                    var timeScale = this.Controller.SFEAction.timeScale;
                     var targetTime = frameTime / timeScale;
 
                     this.frameClock.getDelta();

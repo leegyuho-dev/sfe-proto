@@ -1,6 +1,7 @@
 .vscode/
 node_modules/
 backup/
+documents/
 
 package-lock.json
 gulpfile.js

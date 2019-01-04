@@ -352,7 +352,7 @@
                 appTemplate: appTemplate,
                 appInfo: {
                     target: '',
-                    status: 'Status Texts',
+                    status: '',
                 },
                 siteName: SFEData.conf.siteName,
                 siteOwner: SFEData.conf.siteOwner,
@@ -366,6 +366,7 @@
                 template: `
                 <div id="apptitle" class="navbar top">
                     <app-logo :appicon="data.appIcon"></app-logo>
+                    <app-menu></app-menu>
                     <app-title 
                         :url="data.appUrl"
                         :sitename="data.siteName"
@@ -379,6 +380,17 @@
                     'app-logo': {
                         props: ['appicon'],
                         template: '<i class="BI iconSS"></i>'
+                    },
+                    // FIXME: Dummy menu
+                    'app-menu': {
+                        // props: ['appicon'],
+                        template: `
+                        <div class="menu">
+                            <div class="item">파일</div>
+                            <div class="item">장면</div>
+                            <div class="item">보기</div>
+                        </div>
+                    `,
                     },
                     'app-title': {
                         props: ['url', 'sitename', 'title', 'info'],
@@ -395,12 +407,15 @@
                                 this.title;
                                 this.info.target;
 
-                                var titles = this.sitename + ' : ' + this.title;
+                                var siteTile = this.sitename + ' : ' + this.title;
+                                document.querySelector('title').text = siteTile;
+
+                                var appTitle = this.title;
                                 if (this.info.target) {
-                                    titles = titles + ' : ' + this.info.target;
+                                    appTitle = this.title + ' : ' + this.info.target;
                                 }
-                                document.querySelector('title').text = titles;
-                                return titles;
+
+                                return appTitle;
                             },
                         }
                     },
@@ -3217,6 +3232,10 @@
                         let title = this.data.title;
                         if (isEmpty(title)) {
                             title = this.data.model;
+                        }
+                        // FIXME: 임시코드, 차후 앱 체인지 기능 추가후 교체
+                        if (VIEWMODEL.VueSite !== undefined) {
+                            VIEWMODEL.VueSite.SiteData.appInfo.target = title;
                         }
                         return title;
                     }

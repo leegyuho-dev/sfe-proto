@@ -42,7 +42,7 @@ export class VueSiteModeler {
             appTemplate: appTemplate,
             appInfo: {
                 target: '',
-                status: 'Status Texts',
+                status: '',
             },
             siteName: SFEData.conf.siteName,
             siteOwner: SFEData.conf.siteOwner,
@@ -56,6 +56,7 @@ export class VueSiteModeler {
             template: `
                 <div id="apptitle" class="navbar top">
                     <app-logo :appicon="data.appIcon"></app-logo>
+                    <app-menu></app-menu>
                     <app-title 
                         :url="data.appUrl"
                         :sitename="data.siteName"
@@ -69,6 +70,17 @@ export class VueSiteModeler {
                 'app-logo': {
                     props: ['appicon'],
                     template: '<i class="BI iconSS"></i>'
+                },
+                // FIXME: Dummy menu
+                'app-menu': {
+                    // props: ['appicon'],
+                    template: `
+                        <div class="menu">
+                            <div class="item">파일</div>
+                            <div class="item">장면</div>
+                            <div class="item">보기</div>
+                        </div>
+                    `,
                 },
                 'app-title': {
                     props: ['url', 'sitename', 'title', 'info'],
@@ -85,12 +97,15 @@ export class VueSiteModeler {
                             this.title;
                             this.info.target;
 
-                            var titles = this.sitename + ' : ' + this.title;
+                            var siteTile = this.sitename + ' : ' + this.title;
+                            document.querySelector('title').text = siteTile;
+
+                            var appTitle = this.title;
                             if (this.info.target) {
-                                titles = titles + ' : ' + this.info.target;
+                                appTitle = this.title + ' : ' + this.info.target;
                             }
-                            document.querySelector('title').text = titles;
-                            return titles;
+
+                            return appTitle;
                         },
                     }
                 },

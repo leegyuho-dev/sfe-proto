@@ -812,6 +812,10 @@ export class VueUIModeler {
                     if (isEmpty(title)) {
                         title = this.data.model;
                     }
+                    // FIXME: 임시코드, 차후 앱 체인지 기능 추가후 교체
+                    if (VIEWMODEL.VueSite !== undefined) {
+                        VIEWMODEL.VueSite.SiteData.appInfo.target = title;
+                    }
                     return title;
                 }
             },

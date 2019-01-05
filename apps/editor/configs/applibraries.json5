@@ -1,9 +1,0 @@
-// APPPATH 경로 (기본값 /apps/<app>/)
-{
-	fonts: {},
-	styles: [
-		'styles/appstyle.css'
-	],
-	scripts: [],
-	modules: {}
-}

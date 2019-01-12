@@ -1,0 +1,19 @@
+{
+    // 앱 네임 (풀네임)
+    appName: 'SFEWiki',
+    // 앱 아이디
+    appId: 'wiki',
+    // 앱의 메인 템플릿
+    appHtml: 'appmain.html',
+    // 스타트스크립트
+    startScript: 'appstart.js',
+    // 컨피그 기본값
+    defaultConfig: 'configs/wiki.default.json5',
+    // 앱 버전
+    appVersion: '0.0.1',
+    
+    // 테마
+    theme: 'light',
+    // 스크롤 제한
+    allowScroll: true,
+}

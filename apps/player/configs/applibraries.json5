@@ -1,59 +1,9 @@
 // APPPATH 경로 (기본값 /apps/<app>/)
 {
-	fonts: {
-        /* xeicon: {
-            fontFamily: 'xeicon',
-            src: 'fonts/xeicon/xeicon.woff2',
-            css: 'fonts/xeicon/xeicon.css',
-        } */
-	},
+	fonts: {},
 	styles: [
 		'styles/appstyle.css'
 	],
 	scripts: [],
-	modules: {
-		/* SystemJS: {
-			id: 'SystemJS',
-			type: 'inject',
-			src: 'scripts/systemjs/system-production-0.21.5.js',
-		},
-		Vue: {
-			id: 'Vue',
-			type: 'inject',
-			src: 'scripts/vue.js/vue-2.5.17.min.js',
-		},
-		localforage: {
-			id: 'localforage',
-			type: 'inject',
-			src: 'scripts/localforage/localforage-1.7.3.min.js',
-		},
-		Cookies: {
-			id: 'Cookies',
-			type: 'inject',
-			src: 'scripts/common/js.cookie-2.2.0.min.js',
-		},
-		JSON5: { 
-			id: 'JSON5',
-			type: 'inject',
-			src: 'scripts/common/json5-2.1.0.min.js',
-		},
-		Zlib: {
-			id: ['Zlib','Inflate'],
-			type: 'ES5',
-			src: 'scripts/three.js/libs/inflate.min.js',
-		},
-		TWEEN: {
-			id: 'TWEEN',
-			type: 'ES5',
-			register: true,
-			src: 'scripts/three.js/libs/Tween.min.js',
-		},
-		THREE: {
-			id: 'THREE',
-			type: 'ES6',
-			register: true,
-			src: 'scripts/three.js/three-r97.module.js',
-			roader: 'modules/ModulesLoader.js',
-		}, */
-	}
+	modules: {}
 }

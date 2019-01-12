@@ -1,0 +1,57 @@
+/* @font-face {
+  font-family: 'sunflower';
+  src:  url('../fonts/sunflower.eot');
+  src:  url('../fonts/sunflower.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/sunflower.ttf') format('truetype'),
+    url('../fonts/sunflower.woff') format('woff'),
+    url('../fonts/sunflower.svg?#sunflower') format('svg');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+i {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'sunflower', 'xeicon' !important;
+    /* speak: none; */
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
+    /* http://vnthf.logdown.com/posts/2018/02/02/5554547 */
+    font-display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    position: relative;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+i.xi:before,
+i.BI:before {
+    font-size: 120%;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: "Noto Sans KR", "Malgun Gothic", Dotum, Calibri, Candara, Arial, sans-serif;
+    /* font-family: "Malgun Gothic", Dotum, Calibri, Candara, Arial, sans-serif; */
+    font-display: auto;
+    font-size: 1.52rem;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: normal;
+    -webkit-font-smoothing: antialiased;
+    /* color: #000000; */
+    /* color: #ffffff; */
+    color: #cccccc;
+}

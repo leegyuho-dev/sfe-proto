@@ -11,6 +11,7 @@ import {
     getPathDirFromUrl as getPath,
 } from '../common/functions.js';
 
+// FIXME: min 파일 체크 요망
 export class LibraryLoader {
 
     constructor(userData) {

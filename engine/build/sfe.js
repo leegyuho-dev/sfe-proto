@@ -43,6 +43,9 @@
             // 'application/rss+xml',
             // 'text/plain',
         ],
+        md: [
+            'text/markdown',
+        ],
         jpg: [
             'image/jpg'
         ],
@@ -575,6 +578,7 @@
     // LibraryLoader.js
     const LAYER$3 = 'APPLOADER: ';
 
+    // FIXME: min 파일 체크 요망
     class LibraryLoader {
 
         constructor(userData) {
@@ -6639,10 +6643,38 @@
         }
     }
 
+    // Wiki.js
+
+    class Wiki {
+
+        constructor() {
+
+        }
+
+        async init() {
+            console.log('WIKI START');
+            Vue.use(VueMarkdown);
+
+            // var mdText = await getFileContents('/documents/markdowntest.md');
+            var mdText = await getFileContents('/documents/v1_30.md');
+
+            Vue.component('wiki-contents', {
+                template: '<vue-markdown>' + mdText + '</vue-markdown>',
+            });
+
+            var vm = new Vue({
+                el: "#wiki_render"
+            });
+
+        }
+
+    }
+
     // SFE Tools
 
     var SFETools = /*#__PURE__*/Object.freeze({
-        Player: Player
+        Player: Player,
+        Wiki: Wiki
     });
 
     // zlib.js

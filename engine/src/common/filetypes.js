@@ -40,6 +40,9 @@ var fileTypes = {
         // 'application/rss+xml',
         // 'text/plain',
     ],
+    md: [
+        'text/markdown',
+    ],
     jpg: [
         'image/jpg'
     ],

@@ -14,6 +14,7 @@ header("Link: </init.js>; rel=preload; as=script", false);
 // header("Link: </lib/modules/ViewModeler.js>; rel=preload; as=script", false);
 // header("Link: </lib/modules/AppController.js>; rel=preload; as=script", false);
 // header("Link: </lib/modules/AppLoader.js>; rel=preload; as=script", false);
+echo '<!DOCTYPE html>';
 echo '<script id="scriptInit" type="module" src="/init.js"></script>';
 
 

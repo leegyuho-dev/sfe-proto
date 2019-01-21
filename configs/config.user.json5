@@ -1,0 +1,9 @@
+{
+    lang: 'ko',
+    startApp: 'viewer',
+    template: 'prototype',
+    icon: 'sunflower',
+    siteName: 'SunFlowerEngine',
+    siteOwner: 'LeeGyuho',
+    homepage: 'https://twitter.com/leegyuho',
+}

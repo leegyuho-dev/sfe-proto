@@ -1,9 +1,11 @@
+// Object3DHandler.js
+const LAYER = 'SFEPlayer: ';
 
-import {
+/* import {
     isEmpty,
     isArray,
     isObject,
-} from '../../common/functions.js';
+} from '../../common/functions.js'; */
 
 export class Object3DHandler {
     constructor() {
@@ -31,7 +33,7 @@ export class Object3DHandler {
                 // child.visible = false;
     
                 childMesh.materialSlots = {}
-                if (isArray(childMesh.material)) {
+                if (SFE.isArray(childMesh.material)) {
                     for (var key in childMesh.material) {
                         var materialName = childMesh.material[key].name;
                         childMesh.material[key].fog = options.material.fog;
@@ -63,12 +65,12 @@ export class Object3DHandler {
         model.materials = defaultMaterials;
     
         // 본 객체 참조 추가
-        if (!isEmpty(model.bones)) {
+        if (!SFE.isEmpty(model.bones)) {
             // 루트본 그룹
             // const rootName = model.animations[0].tracks[0].name.split('.')[0];
             for (var key in model.children) {
-                if (model.children[key].type === 'Group' && !isEmpty(model.children[key].children) ||
-                    model.children[key].type === 'Bone' && !isEmpty(model.children[key].children)) {
+                if (model.children[key].type === 'Group' && !SFE.isEmpty(model.children[key].children) ||
+                    model.children[key].type === 'Bone' && !SFE.isEmpty(model.children[key].children)) {
                     if (model.children[key].children[0].type === 'Bone') {
                         model.bones.root = model.children[key];
                     }
@@ -96,7 +98,7 @@ export class Object3DHandler {
         for (var index in model.children) {
             var child = model.children[index];
             if (child.materialSlots !== undefined) {
-                if (isObject(child.materialSlots)) {
+                if (SFE.isObject(child.materialSlots)) {
                     for (var i in child.materialSlots) {
                         var materialName = child.materialSlots[i];
                         if (defaultMaterials[materialName] === undefined) {
@@ -247,7 +249,7 @@ export class Object3DHandler {
                     clonedMesh.receiveShadow = false;
                 }
     
-                if (isObject(clonedMesh.materialSlots)) {
+                if (SFE.isObject(clonedMesh.materialSlots)) {
                     for (var index in clonedMesh.materialSlots) {
                         var materialName = clonedMesh.materialSlots[index];
                         clonedMesh.material.push(Assets.materials[materialName][shadingMode]);
@@ -267,7 +269,7 @@ export class Object3DHandler {
         } */
     
         // 스켈레톤 헬퍼 추가
-        /* if (!isEmpty(model.bones)) {
+        /* if (!SFE.isEmpty(model.bones)) {
             this.helpers.skeleton = new THREE.SkeletonHelper( model.bones.root );
             // this.helpers.skeleton.material.linewidth = 10;
             this.helpers.add(this.helpers.skeleton);

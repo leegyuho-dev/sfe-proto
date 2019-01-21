@@ -1,16 +1,12 @@
-// OptionsHandler
+// OptionsHandler.js
 const LAYER = 'SFEPlayer: ';
 
-import {
+/* import {
     getFileContents,
     parseJson,
     isEmpty,
-    isArray,
-    getFileStrFromUrl as getFile,
-    getPathDirFromUrl as getPath,
-    getFileName as fileName,
-    getFileExt as fileExt,
-} from '../../common/functions.js';
+    getFileExt,
+} from '../../common/functions.js'; */
 
 export class OptionsHandler {
 
@@ -18,11 +14,11 @@ export class OptionsHandler {
         const url = USERDATA.paths.appPath + 
                     USERDATA.info.defaultConfig;
         try {
-            const config = await getFileContents(url);
+            const config = await SFE.getFileContents(url);
             if (config === false) {
                 throw Error(LAYER + 'CONFIG ERROR');
             }
-            return parseJson(config);
+            return SFE.parseJson(config);
         }
         catch (error) {
             throw Error(error);
@@ -31,18 +27,18 @@ export class OptionsHandler {
 
     async getConfig(userConfig) {
         const url = USERDATA.paths.appPath + userConfig;
-        const ext = fileExt(url);
+        const ext = SFE.getFileExt(url);
         if (ext !== 'json' && ext !== 'json5') {
             console.error(LAYER + 'CONFIGFILE IS NOT JSON');
             this.getDefault();
         }
         try {
-            const config = await getFileContents(url);
+            const config = await SFE.getFileContents(url);
             if (config === false) {
                 return this.getDefault();
             }
             console.log(LAYER + 'USERCONFIG LOADED');
-            return parseJson(config);
+            return SFE.parseJson(config);
         }
         catch (error) {
             throw Error(error);
@@ -151,7 +147,7 @@ export class OptionsHandler {
             } else {
                 if (zeroDepth === true && key === 'models') {
                     var defaultModel = options.defaultModel;
-                    if (!isEmpty(userOptions.models)) {
+                    if (!SFE.isEmpty(userOptions.models)) {
                         newOption.models = []
                         for (var index in userOptions.models) {
                             var model = this.assignNew(defaultModel, userOptions.models[index], false);

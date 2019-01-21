@@ -34,10 +34,13 @@ class GlobalData
         $this->definePaths();
         $confPath = $this->paths['conf'];
 
-        // TODO: 사용자 설정 .user.json 처리를 추가
-        $this->conf = getJsonFile($confPath.'config.json5');
+        // 컨피그
+        $this->conf = getConfig($confPath, 'config.json5');
 
+        // 앱 아이디 식별
         $this->info['appId'] = $this->defineApp($this->conf['startApp']);
+        $this->paths['appPath'] = $this->paths['apps'].$this->info['appId'].'/';
+        
         $this->info['appMode'] = (valueExists('appmode', $_REQUEST)) ? $_REQUEST['appmode'] : null;
 
         // 모바일 식별
@@ -66,7 +69,7 @@ class GlobalData
             // 'HTTP_ACCEPT_ENCODING' => $_SERVER['HTTP_ACCEPT_ENCODING'],
         );
 
-        // TODO: 사용자 설정 .user.json 처리를 추가
+        // 언어
         $this->info['lang'] = $this->conf['lang'];
         $this->langs = getJsonFile($confPath.'lang/'.$this->conf['lang'].'.json5');
 
@@ -84,7 +87,7 @@ class GlobalData
         $startLog .= strtoupper($packageInfo['fullName']).': ';
         $startLog .= $packageInfo['description'].'. ';
         $startLog .= 'v'.$packageInfo['version'].'. '.$packageInfo['codeName'].'. ';
-        echo '<script id="startLog">console.log("'.$startLog.'");startLog.remove();</script>';
+        consoleLog($startLog);
 
         return $packageInfo;
     }
@@ -93,7 +96,7 @@ class GlobalData
     // 'conf/paths.json' 참고
     private function definePaths()
     {
-        $paths = getJsonFile('/configs/paths.json5');
+        $paths = getConfig('/configs/', 'paths.json5');
 
         foreach ($paths as $key => $value) {
             $this->paths[$key] = $value;
@@ -108,25 +111,16 @@ class GlobalData
         $appsPath = $this->paths['apps'];
         if (valueExists('appid', $_REQUEST)) {
             $appId = $_REQUEST['appid'];
-            if ($appId == 'viewer3d') {
-                $appId = 'player'; 
-            }
             // 필수 파일 체크
             if (dirExists($appsPath.$appId) &&
             fileExists($appsPath.$appId.'/configs/'.'appconfig.json5')
             ) {
-                $this->paths['appPath'] = $appsPath.$appId.'/';
                 return $appId;
             } else {
-                // 기본앱으로 재시작
-                // TODO: 리다이렉트 검증 요망
-                // 온전한 url 로 리다이렉트 해야 함. 
-                // 서버 url 식별해 인포에 넣을 필요 있음
-                // header('Location: '.$startApp);
-                return false;
+                // 기본앱
+                return $startApp;
             }
         }
-        $this->paths['appPath'] = $appsPath.$startApp.'/';
         return $startApp;
     }
     
@@ -155,7 +149,6 @@ class GlobalData
         // localhost 일 경우
         if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false 
             && strpos($_SERVER['SERVER_NAME'], 'localhost') !== false 
-            // && strpos($_SERVER['HTTP_REFERER'], 'localhost') !== false
         ) {
             return true;
         }

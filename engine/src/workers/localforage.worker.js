@@ -6,19 +6,6 @@ localforage.config({
     storeName: 'assets'
 });
 
-
-// getItem
-// var cachedItem = await Task.post('getItem', { key: '' });
-/* Task.post('getItem', { 
-    key: ''
-}).then((result) => {}); */
-
-// setItem
-/* Task.post('setItem', { 
-    key: '',
-    item: {} 
-}).then((result) => {}); */
-
 onmessage = function(event) {
     var taskId = event.data.taskId;
     var name = event.data.name;
@@ -48,6 +35,8 @@ onmessage = function(event) {
                     name: 'getItem',
                     value: result
                 });
+            }).catch((error) => {
+                console.log(error);
             });
         break;
 
@@ -59,6 +48,8 @@ onmessage = function(event) {
                     name: 'setItem',
                     value: result
                 });
+            }).catch((error) => {
+                console.log(error);
             });
         break;
     }

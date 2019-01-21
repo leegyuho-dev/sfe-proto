@@ -1,76 +1,22 @@
-/* 
- * SFEPlayer ver.0.0.1 
- * SFE Sequence Player v0.0.1. based on three.js
- * 
- * GitHub:
- * Licence: MIT
- * Copyright © 2018 LeeGyuho
- * 
- * The MIT License
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- * 
- * three.js - JavaScript 3D library
- * official: https://threejs.org/
- * GitHub: https://github.com/mrdoob/three.js/
- * Licence: MIT
- * Copyright © 2010-2018 three.js authors
- * 
- * Vue.js - The Progressive JavaScript Framework
- * official: https://vuejs.org/
- * GitHub: https://github.com/vuejs/vue
- * Licence: MIT
- * Copyright (c) 2013-present, Yuxi (Evan) You
- * 
- * zlib.js - JavaScript Zlib Library
- * GitHub: https://github.com/imaya/zlib.js
- * Licence: MIT
- * Copyright (c) 2012 imaya
- * 
- */
-
 // Player.js
 const LAYER = 'SFEPlayer: ';
 
-import {
-    getJsonFile,
+/* import {
     isEmpty,
-    isArray,
-    isObject,
-    getFileStrFromUrl as getFile,
-    getPathDirFromUrl as getPath,
-    getFileName as fileName,
-    getFileExt as fileExt,
     wait,
-} from '../common/functions.js';
+} from '../common/functions.js'; */
 
-import { LoadingManager } from '../core/LoadingManager.js';
-import { AssetsManager } from '../core/AssetsManager.js';
-import { TaskManager } from '../core/TaskManager.js';
-import { ComponentsMaker } from '../core/ComponentsMaker.js';
+// import { LoadingManager } from '../core/LoadingManager.js';
+// import { AssetsManager } from '../core/AssetsManager.js';
+// import { TaskManager } from '../core/TaskManager.js';
+// import { ComponentsMaker } from '../core/ComponentsMaker.js';
 
 import { OptionsHandler } from './player/OptionsHandler.js';
 import { Object3DHandler } from './player/Object3DHandler.js';
 import { VueUIModeler } from './player/VueUIModeler.js';
 import { PlayerController } from './player/PlayerController.js';
 
-var Make = new ComponentsMaker();
+var Make = new SFE.ComponentsMaker();
 
 export class Player {
 
@@ -142,7 +88,7 @@ export class Player {
     }
 
     startLoad() {
-        this.Loader = new LoadingManager();
+        this.Loader = new SFE.LoadingManager();
         this.Loader.start();
     }
 
@@ -314,7 +260,7 @@ export class Player {
         this.Loader.progress.initialize = 25;
         this.Loader.changeStatus();
 
-        this.Assets = new AssetsManager(this);
+        this.Assets = new SFE.AssetsManager(this);
         this.models = {}
         this.clock = new THREE.Clock();
         this.frameClock = new THREE.Clock();
@@ -385,21 +331,21 @@ export class Player {
         // https://threejs.org/docs/#api/lights/DirectionalLight
         // https://threejs.org/docs/#api/lights/shadows/LightShadow
         var DLightOptions = lightOptions.directionalLight;
-        if (!isEmpty(DLightOptions)) {
+        if (!SFE.isEmpty(DLightOptions)) {
             this.scene = Make.DirectionalLight(this.scene, DLightOptions);
         }
 
         // 앰비언트 라이트
         // https://threejs.org/docs/#api/en/lights/AmbientLight
         var ALightOptions = lightOptions.ambientLight;
-        if (!isEmpty(ALightOptions)) {
+        if (!SFE.isEmpty(ALightOptions)) {
             this.scene = Make.AmbientLight(this.scene, ALightOptions);
         }
 
         // 헤미스피어 라이트
         // https://threejs.org/docs/#api/en/lights/HemisphereLight
         var HLightOptions = lightOptions.hemisphereLight;
-        if (!isEmpty(HLightOptions)) {
+        if (!SFE.isEmpty(HLightOptions)) {
             this.scene = Make.HemisphereLight(this.scene, HLightOptions);
         }
 
@@ -407,7 +353,7 @@ export class Player {
         // https://threejs.org/docs/#api/en/objects/Mesh
         // https://threejs.org/docs/#api/en/helpers/GridHelper
         var groundMeshOptions = this.options.groundMesh;
-        if (!isEmpty(groundMeshOptions)) {
+        if (!SFE.isEmpty(groundMeshOptions)) {
             this.scene = Make.GroundMesh(this.scene, groundMeshOptions);
         }
 
@@ -611,7 +557,7 @@ export class Player {
             this.Loader.progress.make_assets = 100;
             // this.Loader.changeStatus('finish');
             await this.Loader.finish();
-            await wait(100);
+            await SFE.wait(100);
 
             // UI 준비
             Controller.readyUI();
@@ -698,7 +644,7 @@ export class Player {
             this.updateStatData();
         }
 
-        if (!isEmpty(this.models) && this.Controller.player.use === true) {
+        if (!SFE.isEmpty(this.models) && this.Controller.player.use === true) {
             this.Controller.updatePlayer();
             // this.helpers.boundingBox.update();
         }

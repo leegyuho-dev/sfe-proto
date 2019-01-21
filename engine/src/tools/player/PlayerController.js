@@ -1,13 +1,12 @@
-// Viewer Data Controller
+// PlayerController.js
 const LAYER = 'SFEPlayer: ';
 
-import {
+/* import {
     isEmpty,
-    isArray,
     padNumber,
     wait,
     isObject,
-} from '../../common/functions.js';
+} from '../../common/functions.js'; */
 
 export class PlayerController {
 
@@ -305,7 +304,7 @@ export class PlayerController {
             }
         }
 
-        if (!isEmpty(this.SFEModel.animations)) {
+        if (!SFE.isEmpty(this.SFEModel.animations)) {
             this.SFEAnimation = this.SFEModel.animations[0];
             this.SFEMixer = this.SFEModel.mixer;
             this.SFEAction = this.SFEMixer.action;
@@ -373,7 +372,7 @@ export class PlayerController {
         }
 
         // TODO: 로딩서클 1회전까지 지연
-        await wait(200);
+        await SFE.wait(200);
         // 오토스타트
         if (this.SFEOptions.player.autoStart === true) {
             this.startPlayer();
@@ -406,7 +405,7 @@ export class PlayerController {
         if (times[1] === undefined) {
             times[1] = 0;
         }
-        this.player.time = padNumber(times[0],2)+':'+padNumber(times[1],2);
+        this.player.time = SFE.padNumber(times[0],2)+':'+SFE.padNumber(times[1],2);
 
         var durations = String(duration.toFixed(2)).split('.');
         if (durations[0] === undefined) {
@@ -415,7 +414,7 @@ export class PlayerController {
         if (durations[1] === undefined) {
             durations[1] = 0;
         }
-        this.player.timeDuration = padNumber(durations[0],2)+':'+padNumber(durations[1],2);
+        this.player.timeDuration = SFE.padNumber(durations[0],2)+':'+SFE.padNumber(durations[1],2);
 
         // 타임라인 업데이트
         this.player.timeProgress = ((this.SFEAction.time / this.SFEAnimation.duration)*100).toFixed(1);
@@ -424,7 +423,7 @@ export class PlayerController {
     // 플레이어 스타트
     startPlayer(event, data) {
         // TODO: 카메라 인트로 애니메이션 wait 추가
-        // await wait(300);
+        // await SFE.wait(300);
         this.player.paused = false;
         this.SFEAction.paused = false;
     }
@@ -494,13 +493,13 @@ export class PlayerController {
     // 플레이포워드 및 플레이백워드
     async stepPlay(event, data) {
         this.onInputData = data;
-        await wait(400);
+        await SFE.wait(400);
         // console.log(event);
         if (this.onClick === false) {
             return false;
         }
         if (this.onInputData !== false && document.querySelector('button:hover') === event.target) {
-            await wait(100);
+            await SFE.wait(100);
             if (this.onClick === true) {
                 if (this.SFEAction.enabled === false) {
                     this.SFEAction.enabled = true;
@@ -641,7 +640,7 @@ export class PlayerController {
         resetPosition.start();
         resetTarget.start();
 
-        await wait(duration);
+        await SFE.wait(duration);
         // 컨트롤 재개
         SFEControls.enabled = true;
         data.active = false;
@@ -691,7 +690,7 @@ export class PlayerController {
             .easing(TWEEN.Easing.Exponential.Out)
 
             targetChange.start();
-            await wait(duration);
+            await SFE.wait(duration);
             this.SFEControls.target = this.SFECamera.targets[target];
         }
     }
@@ -855,7 +854,7 @@ export class PlayerController {
     changeShadingMode(shadingMode = null) {
 
         function changeMaterial(mesh, shadingMode) {
-            if (isObject(mesh.materialSlots)) {
+            if (SFE.isObject(mesh.materialSlots)) {
                 for (var index in mesh.materialSlots) {
                     mesh.material[index] = materials[mesh.materialSlots[index]][shadingMode];
                 }
@@ -1141,7 +1140,7 @@ export class PlayerController {
         var urlParams = '';
 		for (var key in params) {
 			var value = params[key];
-			if (!isEmpty(value)) {
+			if (!SFE.isEmpty(value)) {
 				urlParams = urlParams + '&' + key + '=' + value;
 			}
         }
@@ -1179,8 +1178,8 @@ export class PlayerController {
 
     // 팝업 표시
     async togglePopup(event, data) { 
-        await wait(200);
-        if (isObject(data.popup)) {
+        await SFE.wait(200);
+        if (SFE.isObject(data.popup)) {
             if (event.type === 'mouseover') {
                 data.popup[event.target.name] = true;
             } else if (event.type === 'mouseout') {

@@ -1,4 +1,5 @@
-// ThreeComponentsMaker module
+// ComponentsMaker.js
+const LAYER = 'ComponentsMaker: ';
 
 export class ComponentsMaker {
     constructor() {

@@ -21,6 +21,9 @@ export {
     padNumber,
     wait,
     genUUID,
+    capFirst,
+    beautifyString,
+    getLang,
 }
 
 // Promise XMLHttpRequest
@@ -216,4 +219,44 @@ function genUUID() {
         .substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+// 문자열 첫문자 대문자
+function capFirst(string) {
+    if (typeof string !== 'string') {
+        return '';
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// 문자열 다듬기
+function beautifyString(string) {
+    var strArray;
+
+    if (string.indexOf('_') !== -1) {
+        strArray = string.split('_');
+    } else {
+        strArray = string.split(/(?=[A-Z])/);
+    }
+
+    for (var str in strArray) {
+        strArray[str] = capFirst(strArray[str]);
+    }
+
+    return strArray.join(' ');
+}
+
+// 언어 문자열 겟
+// SFE.getLang(() => targetObj, 'targetStr');
+// https://stackoverflow.com/questions/14782232/how-to-avoid-cannot-read-property-of-undefined-errors
+function getLang(targetObj, key) {
+    try {
+        if (targetObj()[key] === undefined) {
+            return beautifyString(key);
+        } else {
+            return targetObj()[key];
+        }
+    } catch (e) {
+        return beautifyString(key);
+    }
 }

@@ -1,9 +1,9 @@
 // ViewModeler.js
 const LAYER = 'SFE:';
 
-import {
+/* import {
     getFileContents,
-} from '../common/functions.js';
+} from '../common/functions.js'; */
 
 export class VueSiteModeler {
 
@@ -26,7 +26,7 @@ export class VueSiteModeler {
         var SFEData = this.SFEData;
 
         var mainFile = this.SFEData.paths.appPath + this.SFEData.conf.appHtml;
-        var appTemplate = await getFileContents(mainFile);
+        var appTemplate = await SFE.getFileContents(mainFile);
 
         this.SiteData = {
             appId: SFEData.info.appId,
@@ -50,6 +50,8 @@ export class VueSiteModeler {
     }
 
     makeVueSite() {
+        // 언어
+        const LANGS = this.SFEData.langs;
 
         Vue.component('sfe-site-title', {
             props: ['data'],
@@ -71,17 +73,30 @@ export class VueSiteModeler {
                     props: ['appicon'],
                     template: '<i class="BI iconSS"></i>'
                 },
+
                 // FIXME: Dummy menu
                 'app-menu': {
                     // props: ['appicon'],
                     template: `
                         <div class="menu">
-                            <div class="item">파일</div>
-                            <div class="item">장면</div>
-                            <div class="item">보기</div>
+                            <div class="item">{{ text.file }}</div>
+                            <div class="item">{{ text.sequence }}</div>
+                            <div class="item">{{ text.scene }}</div>
+                            <div class="item">{{ text.view }}</div>
                         </div>
                     `,
+                    computed: {
+                        text: function () {
+                            return {
+                                file: SFE.getLang(() => LANGS, 'file'),
+                                sequence: SFE.getLang(() => LANGS, 'sequence'),
+                                scene: SFE.getLang(() => LANGS, 'scene'),
+                                view: SFE.getLang(() => LANGS, 'view'),
+                            };
+                        },
+                    }
                 },
+
                 'app-title': {
                     props: ['url', 'sitename', 'title', 'info'],
                     template: `
@@ -109,6 +124,7 @@ export class VueSiteModeler {
                         },
                     }
                 },
+
                 'app-user': {
                     template: '<div class="user"><i class="xi xi-user"></i></div>'
                 },

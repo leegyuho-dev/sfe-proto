@@ -42,7 +42,7 @@ require($SFEData['paths']['root'].'/includes/global.php');
 require($SFEData['paths']['root'].'/includes/common.php');
 
 // TODO: 세션데이터 클래스, 쿠키 인증 추가할것
-// $SessionData = new SessionData;
+// $SessionData = new \SFE\SessionData;
 // $SessionData->start();
 // session_set_cookie_params(1800, '/', '', true, true);
 session_start();

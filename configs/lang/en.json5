@@ -1,0 +1,44 @@
+{
+    korean: '한국어',
+    english: 'English',
+    japanese: '日本語',
+    chinese: '中文',
+    
+    // app: 'App',
+    // mode: 'Mode',
+    // default: 'Default',
+    // start: 'Start',
+
+    // config: 'Config',
+    // setting: 'Setting',
+    // preference: 'Preference',
+
+    // button: 'Button',
+    // menu: 'Menu',
+    // page: 'Page',
+    // tool: 'Tool',
+
+    // user: 'User',
+    // login: 'Login',
+    // logout: 'Logout',
+    // signup: 'Signup',
+
+    // info: 'Info',
+    // copy: 'Copy',
+    // paste: 'Paste',
+    // moded: 'Moded',
+
+    // file: 'File',
+    // sequence: 'Sequence',
+    // scene: 'Scene',
+    // view: 'View',
+
+    message: 'Message',
+    noMessage: 'No Message.',
+
+    preset: 'Preset',
+    userPreset: 'User Preset',
+    presetChanged: 'Changed preset.',
+    presetReverted: 'Reverted Preset.',
+    presetSaved: 'Saved Preset.',
+}

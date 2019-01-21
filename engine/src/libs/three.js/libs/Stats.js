@@ -54,9 +54,11 @@ THREE.Stats = function () {
 				// if (memPanel) {
 
 					// memory 값 노출
-					var memory = performance.memory;
-					this.memVal = memory.usedJSHeapSize / 1048576;
-					this.memMax = memory.jsHeapSizeLimit / 1048576;
+					if (performance.memory !== undefined) {
+						var memory = performance.memory;
+						this.memVal = memory.usedJSHeapSize / 1048576;
+						this.memMax = memory.jsHeapSizeLimit / 1048576;
+					}
 					// memPanel.update(this.memVal, this.memMax);
 
 				// }

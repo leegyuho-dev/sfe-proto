@@ -4,21 +4,6 @@ const LAYER = 'SFE:';
 // 시작 메시지
 console.log(LAYER, 'INIT');
 
-// SFE Load
-/* import { SFELoader } from '/engine/SFELoader.js';
-var SFEModules = new SFELoader().loadModules();
-SFEModules.then(() => {
-    console.log('SFE:', SFE);
-    console.log('THREE:', THREE);
-    defineData();
-}); */
-
-// import '/engine/src/sfe.js';
-// console.log('SFE:', SFE);
-// console.log('THREE:', THREE);
-// console.log('Zlib:', Zlib);
-// console.log('TWEEN:', TWEEN);
-
 // 초기화
 async function initialize() {
 
@@ -70,25 +55,9 @@ async function initialize() {
 
     const Loader = new SFE.AppLoader(USERDATA);
     // 데이터 체크, 라이브러리 로드, 앱 스타트
-    await Loader.checkUserData();
-    await Loader.loadLibrary();
-    await Loader.startApp();
+    // await Loader.checkUserData();
+    // await Loader.loadLibrary();
+    Loader.startApp();
 }
 
 initialize();
-
-// 단독 실행
-/* let USERDATA = {
-    APPID: 'viewer3d',
-    APPMODE: 'start',
-    LANG: 'ko',
-    BASEPATH: '/apps/viewer3d/',
-    // INFO: {}, // appconfig.json5 
-    // LIBS: {}, // applibraries.json5
-    // LANGS: {}, // lang/ko.json5
-}
-
-let Loader = new AppLoader(USERDATA);
-Loader.checkUserData()
-.then(success => Loader.loadLibrary())
-.then(success => Loader.startApp()) */

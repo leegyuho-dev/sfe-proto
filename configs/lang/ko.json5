@@ -19,7 +19,26 @@
     tool: '툴',
 
     user: '유저',
-    logIn: '로그인',
-    logOut: '로그아웃',
-    signUp: '회원가입',
+    login: '로그인',
+    logout: '로그아웃',
+    signup: '회원가입',
+
+    info: '정보',
+    copy: '복사',
+    paste: '붙여넣기',
+    moded: '편집됨',
+
+    file: '파일',
+    sequence: '시퀀스',
+    scene: '장면',
+    view: '보기',
+
+    message: '메시지',
+    noMessage: '메시지가 없습니다.',
+
+    preset: '프리셋',
+    userPreset: '유저 프리셋',
+    presetChanged: '프리셋이 변경되었습니다.',
+    presetReverted: '프리셋이 초기화되었습니다.',
+    presetSaved: '프리셋이 저장되었습니다.',
 }

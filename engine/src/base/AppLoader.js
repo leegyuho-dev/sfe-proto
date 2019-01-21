@@ -1,13 +1,9 @@
 // AppLoader.js
 const LAYER = 'AppLoader: ';
 
-import {
+/* import {
     isEmpty,
-    isArray,
-    getJsonFile,
-    getFileStrFromUrl as getFile,
-    getPathDirFromUrl as getPath,
-} from '../common/functions.js';
+} from '../common/functions.js'; */
 
 import { ConfigLoader } from './ConfigLoader.js';
 import { LibraryLoader } from './LibraryLoader.js';
@@ -16,16 +12,13 @@ export class AppLoader {
 
     constructor(USERDATA = null) {
         // TODO: 쿠키 검사, 모바일 검사 추가 요망.
-        if (!USERDATA || isEmpty(USERDATA)) {
+        if (!USERDATA || SFE.isEmpty(USERDATA)) {
             throw Error(LAYER + 'USERDATA REQUIRED');
         }
-        /* if (isEmpty(USERDATA.BASEPATH)) {
-            throw Error(LAYER + 'BASEPATH REQUIRED');
-        } */
         this.userData = USERDATA;
         // 전역객체 검사. 
         // 존재하면 참조. 없으면 추가.
-        if (isEmpty(window.USERDATA)) {
+        if (SFE.isEmpty(window.USERDATA)) {
             window.USERDATA = this.userData;
         } else {
             this.userData = USERDATA;
@@ -48,7 +41,7 @@ export class AppLoader {
     // 앱 스타트 스크립트를 인젝트한다.
     startApp(startScript = null) {
         if (!startScript) {
-            if (!isEmpty(this.userData.info.startScript)) {
+            if (!SFE.isEmpty(this.userData.info.startScript)) {
                 startScript = this.userData.info.startScript;
             } else {
                 console.error('STARTSCRIPT REQUIRED');

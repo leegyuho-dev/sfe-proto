@@ -23,7 +23,6 @@ class AppData
     // AppData 초기화
     public function init()
     {
-        // global $APPID, $APPMODE, $INFO, $CONF, $PREFS, $LANG, $LANGS;
         $appId = $this->info['appId'];
         $appMode = $this->info['appMode'];
         $lang = $this->info['lang'];
@@ -32,18 +31,16 @@ class AppData
         if (($errorCode = $this->appCheck($appId, $appConfig)) == 0) {
             // 앱 설정파일 임포트
             $this->conf = $this->conf + $appConfig;
-            // $LANGS = $LANGS + getJsonFile(APPPATH.'configs/lang/'.$LANG.'.json5');
             // 앱 별도 언어
             $this->langs[$appId] = getJsonFile($this->paths['appPath'].'configs/lang/'.$lang.'.json5');
 
             // 글로벌 앱 변수
             $this->info = $this->info + $appConfig;
             $this->info['title'] = $this->info['appName'];
-            // $this->info['title'] = $this->langs[$appId]['title'];
             $this->info['lang'] = $lang; // 상위 컨피그 우선
 
             // 앱 설정
-            $defaultPrefs = array('appId' => $appId, 'version' => $this->conf['version'], 'appMode' => 'start');
+            $defaultPrefs = array('appId' => $appId, 'appVersion' => $this->conf['appVersion'], 'appMode' => 'start');
             $this->prefs = getAllPrefs($defaultPrefs);
             $this->info['appMode'] = $this->prefs['appMode'];
 
@@ -51,7 +48,7 @@ class AppData
             $this->info['useCache'] = true;
             // 업데이트이거나 개발모드일 경우 캐시 삭제
             if (
-                isset($_COOKIE['PREFS_'.$appId]) && $this->conf['version'] != $this->prefs['version'] 
+                isset($_COOKIE['PREFS_'.$appId]) && $this->conf['appVersion'] != $this->prefs['appVersion'] 
                 // || $this->conf['develoment']
                 // || $this->info['isDevMode']
             ) {
@@ -80,8 +77,7 @@ class AppData
         
         // 컨피그 파일 검사
         if (@fileExists($paths['appPath'].'configs/'.'appconfig.json5')) {
-            $appConfig = getJsonFile($paths['appPath'].'configs/'.'appconfig.json5');
-            // $preference = $appConfig['preference'];
+            $appConfig = getConfig($paths['appPath'].'configs/', 'appconfig.json5');
 
             if (empty($appConfig)) { // 기본 구성 비었음
                 return 402; // APP_CONFIG_CONF_EMPTY
@@ -114,7 +110,7 @@ class AppData
 
         $configFile = $paths['appPath'].'configs/'.'appconfig.json5';
         if (@fileExists($configFile)) {
-            $config = getJsonFile($paths['appPath'].'configs/'.'appconfig.json5');
+            $config = getConfig($paths['appPath'].'configs/', 'appconfig.json5');
             $appConfig = $config['appConfig'];
             if ($appConfig['appHtml']) {
                 $mainFile = $paths['appPath'].$appConfig['appHtml'];

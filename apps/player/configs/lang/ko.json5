@@ -1,20 +1,6 @@
 {
     title: '플레이어',
-
-    moded: '편집됨',
-
-    preset: '프리셋',
-    userPreset: '유저 프리셋',
-    presetChanged: '프리셋이 변경되었습니다.',
-    presetReverted: '프리셋이 초기화되었습니다.',
-    presetSaved: '프리셋이 저장되었습니다.',
-
-    message: '메시지',
-    noMessage: '메시지가 없습니다.',
-
     info: '정보',
-    copy: '복사',
-    paste: '붙여넣기',
 
     // 앱 기능
     shareMenu: '공유 메뉴',
@@ -45,8 +31,8 @@
     player: {
         time: '시간',
         frame: '프레임',
-        realTime: '리얼타임',
-        keyFrame: '키프레임',
+        realtime: '리얼타임',
+        keyframe: '키프레임',
         play: '재생',
         playReverse: '역재생',
         playForward: '재생',
@@ -85,6 +71,14 @@
         resolution: '해상도',
         pixelRatio: '픽셀 비율',
         aspectRatio: '화면 비율',
+        fieldOfView: '시야각',
+        gammaCorrection: '감마 보정',
+        quickShading: '퀵 쉐이딩',
+        outline: '아웃라인',
+        textureFiltering: '텍스쳐 필터링',
+        mipmap: '밉맵',
+        anisotropicFiltering: '이방성 필터링',
+        shadowMap: '쉐도우맵',
     }
 
 }

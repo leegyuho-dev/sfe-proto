@@ -1,6 +1,9 @@
-import {
+// LoadingManager.js
+const LAYER = 'LoadingManager: ';
+
+/* import {
     wait,
-} from '../common/functions.js';
+} from '../common/functions.js'; */
 
 export class LoadingManager {
     constructor() {
@@ -110,15 +113,15 @@ export class LoadingManager {
             }
         } else {
             if (this.status === 'initialize' && this.progress.initialize >= 100) {
-                await wait(350);
+                await SFE.wait(350);
                 this.status = 'load_model';
             } 
             if (this.status === 'load_model' && this.progress.load_model >= 100) {
-                await wait(350);
+                await SFE.wait(350);
                 this.status = 'load_texture';
             } 
             if (this.status === 'load_texture' && this.progress.load_texture >= 100) {
-                await wait(350);
+                await SFE.wait(350);
                 this.status = 'make_assets';
             }
             if (this.status === 'make_assets' && this.progress.make_assets >= 100) {
@@ -138,7 +141,7 @@ export class LoadingManager {
     }
 
     async finish() {
-        await wait(500);
+        await SFE.wait(500);
         this.loading = false;
         if (typeof this.onFinish === 'function') {
             this.onFinish();

@@ -90,4 +90,19 @@ function startPlayer() {
     // 뷰어 실행
     Player.init();
 }
+
 startPlayer();
+
+// 단독 실행
+/* var USERDATA = {
+    APPID: 'player',
+    APPMODE: 'start',
+    LANG: 'ko',
+    BASEPATH: '/apps/player/',
+}
+
+var Loader = new SFE.AppLoader(USERDATA);
+Loader.checkUserData()
+.then(() => Loader.loadLibrary())
+// .then(() => Loader.startApp())
+.then(() => startPlayer()); */

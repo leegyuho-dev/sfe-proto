@@ -44,6 +44,22 @@ function json5_decode($source, $associative = false, $depth = 512, $options = 0)
     return \Json5\Json5Decoder::decode($source, $associative, $depth, $options);
 }
 
+// console.log 
+function consoleLog($log)
+{
+    $log = json_encode($log);
+
+    $script = implode("\n", [
+        '<script id="backendLog">',
+        '   var log = JSON.parse(\''.$log.'\');',
+        '   console.log(log);',
+        '   backendLog.remove();',
+        '</script>',
+    ]);
+
+    echo $script;
+}
+
 // print
 function debug($expression, $return = null)
 {
@@ -143,7 +159,11 @@ function valueExists($key, $array = array())
 // JSON 파일 가져오기
 function getJsonFile($file)
 {
-    return json5_decode(getFileContents($file), true);
+    if (fileExists($file)) {
+        return json5_decode(getFileContents($file), true);
+    } else {
+        return array();
+    }
 }
 // json_decode
 function decodeJson($source, $associative = false, $depth = 512, $options = 0)

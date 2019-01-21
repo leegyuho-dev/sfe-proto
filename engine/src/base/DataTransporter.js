@@ -1,10 +1,10 @@
 // DataTransporter.js
 const LAYER = 'SFE: ';
 
-import {
+/* import {
     getData,
     parseJson,
-} from '../common/functions.js';
+} from '../common/functions.js'; */
 
 export class DataTransporter {
 
@@ -15,8 +15,8 @@ export class DataTransporter {
     // 서버로부터 세션데이터를 받아온다
     async getSessionData() {
         try {
-            const data = await getData('/xhr.php?call=getSessionData');
-            return parseJson(data);
+            const data = await SFE.getData('/xhr.php?call=getSessionData');
+            return SFE.parseJson(data);
         } 
         catch (error) {
             throw Error(error);
@@ -35,12 +35,12 @@ export class DataTransporter {
 
         Server.addEventListener('message', function(event) {
             // console.log('SSE:', event);
-            let data = parseJson(event.data);
+            let data = SFE.parseJson(event.data);
             console.log('SSE:', data.log);
         });
         Server.addEventListener('session', function(event) {
             // console.log('SSE:', event);
-            let data = parseJson(event.data);
+            let data = SFE.parseJson(event.data);
             console.log('SSE:', data.log);
         });
     }

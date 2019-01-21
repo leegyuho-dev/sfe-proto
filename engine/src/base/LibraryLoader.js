@@ -1,15 +1,11 @@
 // LibraryLoader.js
 const LAYER = 'APPLOADER: ';
 
-import {
+/* import {
     isEmpty,
     isArray,
-    isObject,
-    getFileContents,
-    parseJson,
-    getFileStrFromUrl as getFile,
-    getPathDirFromUrl as getPath,
-} from '../common/functions.js';
+    getFileStrFromUrl,
+} from '../common/functions.js'; */
 
 // FIXME: min 파일 체크 요망
 export class LibraryLoader {
@@ -31,43 +27,44 @@ export class LibraryLoader {
 
         // 로드된 폰트
         let lodedFont = {}
-        // document.fonts.onloadingdone = (function() {}); 
-        for (var fontFace of document.fonts.values()) {
+        /* for (var fontFace of document.fonts.values()) {
+            lodedFont[fontFace.family] = fontFace.loaded;
+        } */
+        // 파이어폭스 호환성
+        var dFonts = document.fonts.values();
+        for (var i = 0; i < document.fonts.size; i++) {
+            var fontFace = dFonts.next().value;
             lodedFont[fontFace.family] = fontFace.loaded;
         }
-        this.lodedFont = lodedFont;       
+        this.lodedFont = lodedFont;
 
         // 로드된 CSS
-        let lodedStyle = {}
+        var lodedStyle = {}
         for (var key in document.styleSheets) {
-            let href = document.styleSheets[key].href
+            var href = document.styleSheets[key].href
             if (href !== undefined) {
-                let filename = getFile(href);
+                var filename = SFE.getFileStrFromUrl(href);
                 lodedStyle[filename] = href;
             }
         }
         this.lodedStyle = lodedStyle;
 
         // 로드된 스크립트
-        let lodedScript = {}
+        var lodedScript = {}
         for (var key in document.scripts) {
-            let src = document.scripts[key].src
+            var src = document.scripts[key].src
             if (src !== undefined) {
-                let filename = getFile(src);
+                var filename = SFE.getFileStrFromUrl(src);
                 lodedScript[filename] = src;
             }
         }
         this.lodedScript = lodedScript;
-
-        // log(this.lodedStyle);
-        // log(this.lodedScript);
 
     }
 
     async load() {
         var i = 0;
         let promises = []
-        let loader = this;
         /* await document.fonts.ready.then(function() {
             if (!isEmpty(loader.fonts)) {
                 for (var key in loader.fonts) {
@@ -76,23 +73,23 @@ export class LibraryLoader {
                 }
             }
         }); */
-        if (!isEmpty(loader.fonts)) {
-            for (var key in loader.fonts) {
-                loader.checkFont(loader.fonts[key]);
+        if (!SFE.isEmpty(this.fonts)) {
+            for (var key in this.fonts) {
+                this.checkFont(this.fonts[key]);
                 i++;
             }
         }
-        if (!isEmpty(this.styles)) {
+        if (!SFE.isEmpty(this.styles)) {
             for (var key in this.styles) {
                 this.checkStyle(this.styles[key]);
             }
         }
-        if (!isEmpty(this.scripts)) {
+        if (!SFE.isEmpty(this.scripts)) {
             for (var key in this.scripts) {
                 this.checkScript(this.scripts[key]);
             }
         }
-        if (!isEmpty(this.modules)) {
+        if (!SFE.isEmpty(this.modules)) {
             for (var key in this.modules) {
                 promises[i] = this.checkModule(this.modules[key]);
                 i++;
@@ -100,7 +97,7 @@ export class LibraryLoader {
         }
 
         return Promise.all(promises)
-        .then(function(){
+        .then(function () {
             // 라이브러리 로디드 플래그
             window.USERDATA.libs.Loaded = true;
             console.log(LAYER + 'LIBRARY LOADED');
@@ -109,10 +106,10 @@ export class LibraryLoader {
     }
 
     checkFont(font) {
-        let filename = getFile(font.src)
+        let filename = SFE.getFileStrFromUrl(font.src)
         /* if(document.fonts.check('18px ' + font.fontFamily) === false) {
             this.injectCSS(font.css); */
-        if(this.lodedFont[font.fontFamily] === undefined) {
+        if (this.lodedFont[font.fontFamily] === undefined) {
             this.injectCSS(font.css);
         } else {
             // log(LAYER + 'FONT CHECKED:', filename);
@@ -120,7 +117,7 @@ export class LibraryLoader {
     }
 
     checkStyle(style) {
-        let filename = getFile(style)
+        let filename = SFE.getFileStrFromUrl(style)
         if (this.lodedStyle[filename] === undefined) {
             // log(LAYER + 'STYLE LOAD:', filename);
             this.injectCSS(style);
@@ -130,31 +127,31 @@ export class LibraryLoader {
     }
 
     checkScript(script) {
-        let filename = getFile(script);
+        let filename = SFE.getFileStrFromUrl(script);
         if (this.lodedScript[filename] === undefined) {
             // log(LAYER + 'SCRIPT LOAD:', filename);
             this.injectScript(script);
         } else {
             // log(LAYER + 'SCRIPT CHECKED:', filename);
-        }     
+        }
     }
 
     async checkModule(script) {
-        
+
         let loader = this;
         if (check(script.id) === undefined) {
             return load(loader, script);
         } else {
             if (script.src !== undefined) {
-                // log(LAYER + 'MODULE CHECKED:', getFile(script.src));
+                // log(LAYER + 'MODULE CHECKED:', SFE.getFileStrFromUrl(script.src));
             } else if (script.roader !== undefined) {
-                // log(LAYER + 'MODULE CHECKED:', getFile(script.roader));
+                // log(LAYER + 'MODULE CHECKED:', SFE.getFileStrFromUrl(script.roader));
             }
         }
-        
+
         function check(objectId) {
             // TODO: objectId 배열이 2개 초과일 경우 처리 수정.
-            if (isArray(objectId)) {
+            if (SFE.isArray(objectId)) {
                 if (window[objectId[0]] !== undefined) {
                     return window[objectId[0]][objectId[1]];
                 }
@@ -166,14 +163,14 @@ export class LibraryLoader {
 
         async function load(loader, script) {
             if (script.src !== undefined) {
-                // log(LAYER + 'MODULE LOAD:', getFile(script.src));
+                // log(LAYER + 'MODULE LOAD:', SFE.getFileStrFromUrl(script.src));
             }
             if (script.roader !== undefined) {
-                // log(LAYER + 'MODULE LOAD:', getFile(script.roader));
+                // log(LAYER + 'MODULE LOAD:', SFE.getFileStrFromUrl(script.roader));
             }
             return loader.loadModule(loader.basePath, script);
         }
-        
+
     }
 
     injectCSS(src) {
@@ -189,21 +186,22 @@ export class LibraryLoader {
         let head = document.querySelector('head');
         let scriptTag = document.createElement('script');
         scriptTag.type = 'text/javascript';
-        scriptTag.src = this.basePath+src;
+        scriptTag.src = this.basePath + src;
         head.insertBefore(scriptTag, head.lastChild.nextSibling);
     }
 
     async loadModule(basePath, script) {
 
         // ES6 임포트 (기본 함수)
-        let importModule = (function(src) {
-            return import(src);
+        let importModule = (function (src) {
+            // return import(src);
+            return SystemJS.import(src);
         });
 
         // 전역객체 등록
-        let registerModule = (function(objectId, result) {
+        let registerModule = (function (objectId, result) {
             let OBJECT = {}
-            if (isArray(objectId)) {
+            if (SFE.isArray(objectId)) {
                 window[objectId[0]][objectId[1]] = OBJECT;
                 Object.assign(OBJECT, result);
             } else {
@@ -217,22 +215,22 @@ export class LibraryLoader {
             this.injectScript(script.src);
         } else if (script.type === 'ES5') {
             // ES5 일 경우 임포트함수를 SystemJS로 변경
-            importModule = (function(src) {
+            importModule = (function (src) {
                 return SystemJS.import(src);
             });
         }
-        
+
         let module;
         if (script.type === 'ES5' || script.type === 'ES6') {
             if (script.src !== undefined) {
                 module = importModule(basePath + script.src);
                 if (script.register === true) {
-                    module.then(function(result){
+                    module.then(function (result) {
                         return registerModule(script.id, result);
                     });
                 }
                 if (script.roader !== undefined) {
-                    module.then(function(){
+                    module.then(function () {
                         return importModule(basePath + script.roader);
                     });
                 }

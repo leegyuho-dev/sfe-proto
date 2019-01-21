@@ -1,11 +1,9 @@
-// Vue.js UI Modeler
+// VueUIModeler.js
 const LAYER = 'SFEPlayer: ';
 
-import {
+/* import {
     isEmpty,
-    isArray,
-    padNumber,
-} from '../../common/functions.js';
+} from '../../common/functions.js'; */
 
 export class VueUIModeler {
 
@@ -33,7 +31,7 @@ export class VueUIModeler {
 
         // UI 엘리먼트 검사
         let elementId = options.ui.elementId;
-        if (isEmpty(elementId)) {
+        if (SFE.isEmpty(elementId)) {
             console.error(LAYER + 'VueUI:', 'ELEMENTID REQUIRED');
             return false;
         }
@@ -53,12 +51,12 @@ export class VueUIModeler {
             data: this.VueData,
             methods: {
                 touch: function (event) {
-                    if (!isEmpty(this.ui.events) && typeof this.ui.events.touch === "function") {
+                    if (!SFE.isEmpty(this.ui.events) && typeof this.ui.events.touch === "function") {
                         this.ui.events.touch(event);
                     }
                 },
                 mouseInput: function (event) {
-                    if (!isEmpty(this.ui.events) && typeof this.ui.events.mouseInput === "function") {
+                    if (!SFE.isEmpty(this.ui.events) && typeof this.ui.events.mouseInput === "function") {
                         this.ui.events.mouseInput(event);
                     }
                 },
@@ -563,37 +561,37 @@ export class VueUIModeler {
         // 이벤트 메소드
         const methods = {
             click: function (event) {
-                if (!isEmpty(this.data.events) && typeof this.data.events.click === "function") {
+                if (!SFE.isEmpty(this.data.events) && typeof this.data.events.click === "function") {
                     this.data.events.click(event, this.data);
                 }
             },
             hover: function (event) {
-                if (!isEmpty(this.data.events) && typeof this.data.events.hover === "function") {
+                if (!SFE.isEmpty(this.data.events) && typeof this.data.events.hover === "function") {
                     this.data.events.hover(event, this.data);
                 }
             },
             touch: function (event) {
-                if (!isEmpty(this.data.events) && typeof this.data.events.touch === "function") {
+                if (!SFE.isEmpty(this.data.events) && typeof this.data.events.touch === "function") {
                     this.data.events.touch(event);
                 }
             },
             input: function (event) {
-                if (!isEmpty(this.data.events) && typeof this.data.events.input === "function") {
+                if (!SFE.isEmpty(this.data.events) && typeof this.data.events.input === "function") {
                     this.data.events.input(event, this.data);
                 }
             },
             mouseInput: function (event) {
-                if (!isEmpty(this.data.events) && typeof this.data.events.mouseInput === "function") {
+                if (!SFE.isEmpty(this.data.events) && typeof this.data.events.mouseInput === "function") {
                     this.data.events.mouseInput(event, this.data);
                 }
             },
             change: function (event) {
-                if (!isEmpty(this.data.events) && typeof this.data.events.change === "function") {
+                if (!SFE.isEmpty(this.data.events) && typeof this.data.events.change === "function") {
                     this.data.events.change(event, this.data);
                 }
             },
             transition: function (event) {
-                if (!isEmpty(this.data.events) && typeof this.data.events.transition === "function") {
+                if (!SFE.isEmpty(this.data.events) && typeof this.data.events.transition === "function") {
                     this.data.events.transition(event, this.data);
                 }
             },
@@ -744,14 +742,14 @@ export class VueUIModeler {
                 title: function () {
                     const category = this.$parent.data.name;
                     const name = this.data.name;
-                    return LANGS[category][name];
+                    return SFE.getLang(() => LANGS[category], name);
                 },
                 classes: function () {
                     return [
                         this.data.name,
                         {
                             active: this.data.active,
-                            deactive: (this.data.deactive || isEmpty(this.data.events.click)),
+                            deactive: (this.data.deactive || SFE.isEmpty(this.data.events.click)),
                         }
                     ]
                 },
@@ -809,7 +807,7 @@ export class VueUIModeler {
             computed: {
                 title: function () {
                     let title = this.data.title;
-                    if (isEmpty(title)) {
+                    if (SFE.isEmpty(title)) {
                         title = this.data.model;
                     }
                     // FIXME: 임시코드, 차후 앱 체인지 기능 추가후 교체
@@ -1008,20 +1006,14 @@ export class VueUIModeler {
                     var category = this.$parent.data.name;
                     var name = this.data.name;
                     return {
-                        title: LANGS[category][name],
-                        info: LANGS[category][name+'_info'],
-                        copyUrl: LANGS.share.copyUrl,
-                        autoStart: LANGS.player.autoStart,
-                        startTime: LANGS.player.startTime,
+                        title: SFE.getLang(() => LANGS[category], name),
+                        info: SFE.getLang(() => LANGS[category], name+'_info'),
+                        copyUrl: SFE.getLang(() => LANGS.share, 'copyUrl'),
+                        autoStart: SFE.getLang(() => LANGS.player, 'autoStart'),
+                        startTime: SFE.getLang(() => LANGS.player, 'startTime'),
                     };
                 },
                 startTime: function() {
-                    // console.log(VueData.player.time)
-                    /* if (this.playMode === 'time') {
-                        return this.$parent.data.time;
-                    } else if (this.playMode === 'frame') {
-                        return this.$parent.data.frame;
-                    } */
                     return VueData.player.time;
                 },
                 url: function() {
@@ -1139,9 +1131,9 @@ export class VueUIModeler {
                         },
                         title: function () {
                             if (this.mode === 'time') {
-                                return LANGS['player']['realTime'];
+                                return SFE.getLang(() => LANGS.player, 'realtime');
                             } else if (this.mode === 'frame') {
-                                return LANGS['player']['keyFrame'];
+                                return SFE.getLang(() => LANGS.player, 'keyframe');
                             }
                         },
                     },
@@ -1163,7 +1155,7 @@ export class VueUIModeler {
                             <span class="title"><i :class="icons"></i>{{ text.title }}</span>
                             <button name="closeMenu" class="icon small close" v-on:click="click"><i class="xi xi-close"></i></button>
                         </div>
-                        <div v-if="text.info" class="info">{{ text.info }}</div>
+                        <!-- <div v-if="text.info" class="info">{{ text.info }}</div> -->
                         <div class="info">
                             <label>{{ text.infom }}</label>
                             <i :class="playInfo.timeScale.icon"></i>
@@ -1228,10 +1220,10 @@ export class VueUIModeler {
                             </div>
                             <div class="item buttons continuous">
                                 <button name="playMode" value="time" class="text" :class="playMode.time" v-on:click="click">
-                                    {{ text.realTime }}
+                                    {{ text.realtime }}
                                 </button>
                                 <button name="playMode" value="frame" class="text" :class="playMode.frame" v-on:click="click">
-                                    {{ text.keyFrame }}
+                                    {{ text.keyframe }}
                                 </button>
                             </div>
                         </div>
@@ -1268,20 +1260,20 @@ export class VueUIModeler {
                     var category = this.$parent.data.name;
                     var name = this.data.name;
                     return {
-                        title: LANGS[category][name],
-                        info: LANGS[category][name+'_info'],
+                        title: SFE.getLang(() => LANGS[category], name),
+                        info: SFE.getLang(() => LANGS[category], name+'_info'),
 
-                        infom: LANGS.info,
-                        playSpeed: LANGS.player.playSpeed,
-                        loopMode: LANGS.player.loopMode,
-                        playMode: LANGS.player.playMode,
-                        forwardPlay: LANGS.player.forwardPlay,
-                        backwardPlay: LANGS.player.backwardPlay,
-                        realTime: LANGS.player.realTime,
-                        keyFrame: LANGS.player.keyFrame,
-                        once: LANGS.player.repeatOne,
-                        repeat: LANGS.player.repeatInfinity,
-                        pingpong: LANGS.player.repeatPingpong,
+                        infom: SFE.getLang(() => LANGS, 'info'),
+                        playSpeed: SFE.getLang(() => LANGS.player, 'playSpeed'),
+                        loopMode: SFE.getLang(() => LANGS.player, 'loopMode'),
+                        playMode: SFE.getLang(() => LANGS.player, 'playMode'),
+                        forwardPlay: SFE.getLang(() => LANGS.player, 'forwardPlay'),
+                        backwardPlay: SFE.getLang(() => LANGS.player, 'backwardPlay'),
+                        realtime: SFE.getLang(() => LANGS.player, 'realtime'),
+                        keyframe: SFE.getLang(() => LANGS.player, 'keyframe'),
+                        once: SFE.getLang(() => LANGS.player, 'repeatOne'),
+                        repeat: SFE.getLang(() => LANGS.player, 'repeatInfinity'),
+                        pingpong: SFE.getLang(() => LANGS.player, 'repeatPingpong'),
                     };
                 },
                 playInfo: function () {
@@ -1620,7 +1612,7 @@ export class VueUIModeler {
                             <span class="title"><i :class="icons"></i>{{ text.title }}</span>
                             <button name="closeMenu" class="icon small close" v-on:click="click"><i class="xi xi-close"></i></button>
                         </div>
-                        <div v-if="text.info" class="info">{{ text.info }}</div>
+                        <!-- <div v-if="text.info" class="info">{{ text.info }}</div> -->
                         <div class="info">
                             <label>{{ text.infom }}</label>
                             <i :class="displayInfo.screen.icon"></i>
@@ -1658,7 +1650,7 @@ export class VueUIModeler {
                         </div>
 
                         <div class="ui row">
-                            <label>시야각</label>
+                            <label>{{ text.fieldOfView }}</label>
                             <div class="item input slide horizontal">
                                 <input name="fieldOfView" type="range"
                                     step="1" min="0" max="180" :value="display.fieldOfView"
@@ -1680,7 +1672,7 @@ export class VueUIModeler {
                             <label>{{ text.aspectRatio }}</label>
                             <div class="item buttons continuous center">
                                 <button name="aspectRatio" value="auto" class="text small" :class="aspectRatio.auto" v-on:click="click">
-                                    자동
+                                    {{ text.auto }}
                                 </button>
                                 <button name="aspectRatio" value="1" class="text small" :class="aspectRatio._1_1" v-on:click="click">
                                     1:1
@@ -1721,7 +1713,7 @@ export class VueUIModeler {
                                 </div>
                                 <div class="item input">
                                     <label>
-                                        <span class="label">감마 보정</span>
+                                        <span class="label">{{ text.gammaCorrection }}</span>
                                         <input type="checkbox" name="gammaCorrection" id="gammaCorrection"
                                             :checked="display.gammaCorrection"
                                             v-on:change="change"
@@ -1764,15 +1756,17 @@ export class VueUIModeler {
                     var category = this.$parent.data.name;
                     var name = this.data.name;
                     return {
-                        title: LANGS[category][name],
-                        info: LANGS[category][name+'_info'],
+                        title: SFE.getLang(() => LANGS[category], name),
+                        info: SFE.getLang(() => LANGS[category], name+'_info'),
+                        infom: SFE.getLang(() => LANGS, 'info'),
 
-                        infom: LANGS.info,
-                        smoothing: LANGS.setting.smoothing,
-                        fitScreen: LANGS.setting.fitScreen,
-                        fitScreen: LANGS.setting.fitScreen,
-                        resolution: LANGS.setting.resolution,
-                        aspectRatio: LANGS.setting.aspectRatio,
+                        auto: SFE.getLang(() => LANGS.setting, 'auto'),
+                        smoothing: SFE.getLang(() => LANGS.setting, 'smoothing'),
+                        fitScreen: SFE.getLang(() => LANGS.setting, 'fitScreen'),
+                        resolution: SFE.getLang(() => LANGS.setting, 'resolution'),
+                        aspectRatio: SFE.getLang(() => LANGS.setting, 'aspectRatio'),
+                        fieldOfView: SFE.getLang(() => LANGS.setting, 'fieldOfView'),
+                        gammaCorrection: SFE.getLang(() => LANGS.setting, 'gammaCorrection'),
                     };
                 },
 
@@ -1891,18 +1885,15 @@ export class VueUIModeler {
                             <span class="title"><i :class="icons"></i>{{ text.title }}</span>
                             <button name="closeMenu" class="icon small close" v-on:click="click"><i class="xi xi-close"></i></button>
                         </div>
-                        <div v-if="text.info" class="info">{{ text.info }}</div>
+                        <!-- <div v-if="text.info" class="info">{{ text.info }}</div> -->
                         <div class="info">
-
                         </div>
                     </div>
                     
                     <div class="items">
 
-                        <!-- <div class="item label">라벨</div> -->
-
                         <div class="ui row">
-                            <label>퀵 쉐이딩 모드</label>
+                            <label>{{ text.quickShading }}</label>
                             <div class="item buttons continuous left">
                                 <button name="changeShading" value="default" class="text small" :class="shadingMode.default" v-on:click="click">
                                     Default
@@ -1915,7 +1906,7 @@ export class VueUIModeler {
                                 </button>
                             </div>
                             <label>
-                                <span class="label">아웃라인</span>
+                                <span class="label">{{ text.outline }}</span>
                                 <input type="checkbox" name="outlineEnabled" id="outlineEnabled"
                                     :checked="rendering.outlineEnabled"
                                     v-on:change="change"
@@ -1926,7 +1917,7 @@ export class VueUIModeler {
                         <div class="ui row">
                             <div class="item input">
                                 <label>
-                                    <span class="label">텍스쳐 필터링</span>
+                                    <span class="label">{{ text.textureFiltering }}</span>
                                     <input type="checkbox" name="textureFilter" id="textureFilter"
                                         :checked="rendering.textureFilter"
                                         v-on:change="change"
@@ -1935,7 +1926,7 @@ export class VueUIModeler {
                             </div>
                             <div class="item input">
                                 <label>
-                                    <span class="label">밉맵</span>
+                                    <span class="label">{{ text.mipmap }}</span>
                                     <input type="checkbox" name="textureMipMap" id="textureMipMap"
                                         :checked="rendering.textureMipMap"
                                         v-on:change="change"
@@ -1943,7 +1934,7 @@ export class VueUIModeler {
                                 </label>
                             </div>
                             <div class="item input">
-                                <label>이방성 필터링</label>
+                                <label>{{ text.anisotropicFiltering }}</label>
                                 <input name="anisotropicFilter" id="anisotropicFilter" type="number" 
                                     min="0" max="16"
                                     :value="rendering.anisotropicFilter"
@@ -1954,7 +1945,7 @@ export class VueUIModeler {
 
                         <div class="ui row">
                             <label>
-                                <span class="label">쉐도우맵</span>
+                                <span class="label">{{ text.shadowMap }}</span>
                                 <input type="checkbox" name="shadowMapEnabled" id="shadowMapEnabled"
                                     :checked="rendering.shadowMapEnabled"
                                     v-on:change="change"
@@ -2026,10 +2017,16 @@ export class VueUIModeler {
                     var category = this.$parent.data.name;
                     var name = this.data.name;
                     return {
-                        title: LANGS[category][name],
-                        info: LANGS[category][name+'_info'],
+                        title: SFE.getLang(() => LANGS[category], name),
+                        info: SFE.getLang(() => LANGS[category], name+'_info'),
+                        infom: SFE.getLang(() => LANGS, 'info'),
 
-                        infom: LANGS.info,
+                        quickShading: SFE.getLang(() => LANGS.setting, 'quickShading'),
+                        outline: SFE.getLang(() => LANGS.setting, 'outline'),
+                        textureFiltering: SFE.getLang(() => LANGS.setting, 'textureFiltering'),
+                        mipmap: SFE.getLang(() => LANGS.setting, 'mipmap'),
+                        anisotropicFiltering: SFE.getLang(() => LANGS.setting, 'anisotropicFiltering'),
+                        shadowMap: SFE.getLang(() => LANGS.setting, 'shadowMap'),
                     };
                 },
 

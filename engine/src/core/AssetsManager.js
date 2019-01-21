@@ -1,14 +1,6 @@
-// Viewer Assets Loader
+// AssetsManager.js
 const LAYER = 'AssetsManager: ';
 
-/* import {
-    isEmpty,
-    isArray,
-    isObject,
-    padNumber,
-    wait,
-    getAssetsFile,
-} from '../common/functions.js'; */
 import { TaskManager } from './TaskManager.js';
 
 export class AssetsManager {
@@ -33,7 +25,7 @@ export class AssetsManager {
             // basePath: USERDATA.BASEPATH,
             basePath: '/engine/src/',
         });
-        this.Cache = this.Tasks.make('workers/localforage.worker.js');
+        // this.Cache = this.Tasks.make('workers/localforage.worker.js');
         this.FBXParser = this.Tasks.make('workers/FBXLoader.custom.worker.js');
 
         // TODO: DB 삭제
@@ -118,7 +110,9 @@ export class AssetsManager {
 
     async getCache(asset) {
 
-        var cachedFile = await this.Cache.post('getItem', { key: asset.name });
+        return null;
+        // var cachedFile = await localforage.getItem(asset.name);
+        // var cachedFile = await this.Cache.post('getItem', { key: asset.name });
 
         // corrupted data
         if (!cachedFile || cachedFile.size === 0 || cachedFile.modified === 0 ||
@@ -130,6 +124,8 @@ export class AssetsManager {
     }
 
     async setCache(asset) {
+
+        return false;
 
         var item = {
             name: asset.name,
@@ -147,10 +143,10 @@ export class AssetsManager {
         } */
 
         // localforage.setItem(asset.name, item);
-        this.Cache.post('setItem', { 
+        /* this.Cache.post('setItem', { 
             key: asset.name,
             item: item 
-        });
+        }); */
     }
 
 }
@@ -280,9 +276,6 @@ async function updateTexture(texture, Assets, forceUpdate = false) {
         var cachedFile = null;
     }
 
-    /* var clock = new THREE.Clock();
-    clock.start(); */
-
     // TODO: dds 텍스쳐 지원 추가
     // https://github.com/mrdoob/three.js/pull/13227
     try {
@@ -354,10 +347,6 @@ async function updateTexture(texture, Assets, forceUpdate = false) {
     catch (error) {
         throw Error(error);
     }
-
-    /* clock.getDelta();
-    console.log(texture.name, clock.elapsedTime);
-    clock = null; */
 
     if (typeof texture.onLoad === 'function') {
         texture.onLoad();

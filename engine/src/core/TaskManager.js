@@ -1,18 +1,11 @@
-
+// TaskManager.js
 const LAYER = 'TaskManager: ';
 
-import {
-    isEmpty,
-    isArray,
-	isObject,
+/* import {
     getFileStrFromUrl,
-    getPathDirFromUrl,
     getFileStrFromDir,
-    getPathDirFromDir,
-    getFileName,
-    getFileExt,
     genUUID,
-} from '../common/functions.js';
+} from '../common/functions.js'; */
 
 /* var option = {
     name: processName,
@@ -33,7 +26,7 @@ export class TaskManager {
     }
 
     make(workerScript) {
-        var uuid = genUUID();
+        var uuid = SFE.genUUID();
         this.taskList[uuid] = new Task(this.basePath + workerScript, this);
         this.taskList[uuid].uuid = uuid;
         return this.taskList[uuid];
@@ -50,9 +43,9 @@ class Task {
         // super();
         this.name = '';
         if (workerScript.indexOf('/') !== -1) {
-            this.name = getFileStrFromUrl(workerScript);
+            this.name = SFE.getFileStrFromUrl(workerScript);
         } else if (workerScript.indexOf('\\') !== -1) {
-            this.name = getFileStrFromDir(workerScript);
+            this.name = SFE.getFileStrFromDir(workerScript);
         } else {
             this.name = workerScript;
         }

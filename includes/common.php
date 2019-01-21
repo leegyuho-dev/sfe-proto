@@ -4,6 +4,34 @@
 // APP 공통 함수
 // 글로벌 변수 필수
 
+// 컨피그 파일 겟
+// .user 파일 검사후 병합
+function getConfig($confPath, $file, $strict = false)
+{
+    $config = getJsonFile($confPath.$file);
+
+    if (pregMatch('/(.+)\.(.+)/i', $file, $matches)) {
+        $fileName = $matches[1];
+        $fileExt = $matches[2];
+    }
+
+    $userFile = $confPath.$fileName.'.user.'.$fileExt;
+    if (@fileExists($userFile)) {
+        $userConfig = getJsonFile($userFile);
+        foreach ($userConfig as $key => $value) {
+            if ($strict) {
+                if (array_key_exists($key, $config)) {
+                    $config[$key] = $value;
+                }
+            } else {
+                $config[$key] = $value;
+            }
+        }
+    }
+
+    return $config;
+}
+
 function returnToApp($targetApp, $request=false)
 {
     $requestURL = '';

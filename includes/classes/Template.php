@@ -13,9 +13,6 @@ class Template
     // 템플릿 로드
     public function load()
     {
-        global $APPID, $APPMODE, $INFO, $CONF, $PREFS, $ENGINE, $LANG, $LANGS;
-        global $LIBS;
-
         global $SFEData;
         
         // 템플릿 경로 상수 선언
@@ -27,7 +24,6 @@ class Template
         // 세션 데이터 생성
         // TODO: 세션데이터 클래스로 연결
         $_SESSION['SFEData'] = $SFEData;
-        // print_r ($_SESSION['data']);
 
         // 서버 푸시
         $this->pushPreLoad();
@@ -80,11 +76,11 @@ class Template
         $tplPath = $SFEData['paths']['tplPath'];
 
         // 라이브러리 컨피그                                 
-        $libraries = getJsonFile($paths['conf'].'libraries.json5');
-        $tplLibraries = getJsonFile($tplPath.'tpllibraries.json5');
-        $appLibraries = getJsonFile($appPath.'configs/'.'applibraries.json5');
+        $libraries = getConfig($paths['conf'], 'libraries.json5');
+        $tplLibraries = getConfig($tplPath, 'tpllibraries.json5');
+        $appLibraries = getConfig($appPath.'configs/', 'applibraries.json5');
 
-        $iconConfig = getJsonFile($paths['icons'].$conf['icon'].'/'.'iconconfig.json5');
+        $iconConfig = getConfig($paths['icons'].$conf['icon'].'/', 'iconconfig.json5');
         $fontConfig = $libraries['fonts'];      
         $styleConfig = array(
             'common' => $libraries['styles'],
@@ -100,20 +96,23 @@ class Template
 
         // 메타헤더
         $metaHeader = array();
-        $metaHeader[] = '<meta charset="UTF-8">'."\n".
-                        '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+        $metaHeader[] = implode("\n", [
+            '<meta charset="UTF-8">',
+            '<meta http-equiv="X-UA-Compatible" content="IE=edge">',
+        ]);
+
         // 타이틀
         // VueSiteModeler.js 에서 처리
-        // $metaHeader[] = '<title>'.$info['title'].(!empty($appMode) ? ':'.$langs[$appMode] : '').'</title>';
-        $metaHeader[] = '<title>'.$info['siteName'].'</title>';
-        // $metaHeader[] = '<title>'.$info['title'].'</title>';
+        $metaHeader[] = '<title>'.$info['appName'].'</title>';
 
         // 캐시 삭제
-        if (!$INFO['useCache']) {
-            $metaHeader[] = '<meta http-equiv="Expires" content="Mon, 06 Jan 1970 00:00:01 GMT">'."\n".
-                            '<meta http-equiv="Expires" content="-1">'."\n".
-                            '<meta http-equiv="Pragma" content="no-cache">'."\n".
-                            '<meta http-equiv="Cache-Control" content="no-cache">';
+        if (!$info['useCache']) {
+            $metaHeader[] = implode("\n", [
+                '<meta http-equiv="Expires" content="Mon, 06 Jan 1970 00:00:01 GMT">',
+                '<meta http-equiv="Expires" content="-1">',
+                '<meta http-equiv="Pragma" content="no-cache">',
+                '<meta http-equiv="Cache-Control" content="no-cache">',
+            ]);
         }
 
         // 확대율 지정
@@ -125,12 +124,12 @@ class Template
         $metaHeader[] = $this->metaIcon($iconConfig);
 
         // 웹앱 매니페스트
-        if (fileExists(CONF.'manifest.json')) {
+        if (fileExists($paths['conf'].'manifest.json')) {
             $metaHeader[] = $this->metaManifest();
         }
 
         // 브라우저 컨픽
-        if (fileExists(CONF.'browserconfig.xml')) {
+        if (fileExists($paths['conf'].'browserconfig.xml')) {
             $metaHeader[] = $this->metaBrowserconfig();
         }
 
@@ -421,11 +420,6 @@ class Template
     private function printTemplate()
     {
         echo $this->html;
-    }
-
-    private function readyTemplate()
-    {
-        $_SESSION['DATA']['TPLS']['base'] = $this->html;
     }
 
     // 클래스 소멸

@@ -1,0 +1,75 @@
+<div id="viewer3d">
+
+	<v3d-canvas id="viewer3d_render"></v3d-canvas>
+
+	<div id="v3d_splash" v-ready>
+		<!-- LOADER -->
+		<v3d-progress :data="loader"></v3d-progress>
+		<!-- LOADER -->
+		<!-- <v3d-loader :data="loader"></v3d-loader> -->
+	</div>
+
+	<div id="viewer3d_ui" v-if="ui.use" 
+		:class="{ ready:ui.ready }" 
+		v-on:touchstart="touch($event)"
+		v-on:touchend="touch($event)"
+		v-on:mousedown="mouseInput($event)"
+		v-on:mouseup="mouseInput($event)">
+
+		<v3d-overlay :data="overlay" :message="message"></v3d-overlay>
+
+		<div id="ui_header" class="ui header column">
+			<div class="ui row">
+				<!-- TITLE -->
+				<v3d-title :data="info"></v3d-title>
+				<!-- SHARE -->
+				<v3d-share :data="share"></v3d-share>
+			</div>
+			<!-- DESCRIPTION -->
+			<v3d-description :data="info"></v3d-button>
+        </div>
+
+		<div id="ui_main" class="ui main">
+
+			<!-- <div class="ui top">
+				<div id="msgarea"></div>
+			</div> -->
+
+			<div class="ui left">
+			</div>
+			
+			<div class="ui center">
+				<!-- STATS -->
+				<v3d-stats :data="stats"></v3d-stats>
+				<!-- COPYRIGHT -->
+				<v3d-copyright :data="info"></v3d-copyright>
+			</div>
+
+			<div class="ui right">
+				<!-- CAMERA -->
+				<v3d-camera :data="camera"></v3d-camera>
+			</div>
+
+			<!-- <div class="ui bottom">
+			</div> -->
+
+        </div>
+
+		<div id="ui_footer" class="ui footer column">
+			<!-- TIMELINE -->
+			<v3d-timeline :data="player"></v3d-timeline>
+			<div class="ui row">
+				<!-- PLAYER -->
+				<v3d-animator :data="player"></v3d-animator>
+				<!-- PLAYER -->
+				<v3d-player :data="player"></v3d-player>
+				<!-- SETTING -->
+				<v3d-setting :data="setting"></v3d-setting>
+			</div>
+        </div>
+        
+        <div id="tempinput"></div>
+        
+	</div>
+
+</div>

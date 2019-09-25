@@ -1,0 +1,242 @@
+{
+    global: {
+        // 뷰어 상단 타이틀. 모델 제목.
+        // 입력되지 않을 경우 첫번째 모델이름으로 대체.
+        title: '',
+
+        // 모델 설명.
+        description: '',
+
+        // 저작자
+        // 입력할 경우 Copyright © 2018 { AUTHOR } 형식으로 저작권이 표시됨.
+        author: '',
+
+        // TODO: 저작권 및 라이센스 표시 추가     
+        // 저작권
+        // copyright: '',
+        // 라이센스
+        // licence: '',
+
+        // containerId: 뷰어가 표시될 엘리먼트 id
+        containerId: 'viewer3d',
+
+        // assetsPaths: 모델, 메시, 텍스쳐, 쉐이더, 샘플을 불러올 경로
+        // models: '/assets/models/',
+        assetsPaths: {
+            models: './assets/models/',
+            meshes: './assets/meshes/',
+            textures: './assets/textures/',
+            shaders: './assets/shaders/',
+            samples: './assets/samples/',
+        },
+
+        // mode: 뷰어의 초기 프리셋을 결정
+        // character, prop, background
+        mode: 'character',
+
+        // unit: 뷰어의 유닛 단위를 결정. 3D 툴에서 제작할때 사용한 단위와 같이 맞추길 권장함.
+        // cm, m, km, 
+        // 센티미터일 경우 unit=1, 미터일 경우 unit=100, 킬로미터일 경우 unit=100*1000 으로 계산됨.
+        unit: 'cm',
+
+        // close, default, far
+        camera: 'default',
+
+        // userConfig: 입력된 url 경로의 JSON 컨피그 파일을 사용함.
+        // 값이 없을 경우 디폴트 컨피그 'conf/viewer3d.default.json5' 사용.
+        // userConfig: 'conf/viewer3d.user.json5',
+        userConfig: '',
+
+        // useUrlOptions: URL 파라미터를 통해 옵션을 입력하게 함
+        // URL 파라미터로 입력 가능한 옵션 및 대응은 다음과 같음
+        // model = options.loader.model
+        // camera-position = options.camera.position
+        // camera-target = options.camera.target
+        // outline = options.effect.outline
+        useUrlOptions: false,
+
+        // multiViewer: 다중실행.
+        // 다중실행일 경우 컨피그 파일, 라이브러리 로드 등은 처음 한번만 실행
+        // URL 파라미터 옵션 입력은 자동으로 false
+        multiViewer: false,
+
+    },
+    player: {
+        // 자동 시작
+        autoStart: false,
+        // 시작 시간
+        startTime: 0,
+        // 타임스케일
+        timeScale: 1,
+        // 반복
+        // once = THREE.LoopOnce = 2200, 
+        // repeat = THREE.LoopRepeat = 2201, 
+        // pingpong = THREE.LoopPingPong = 2202 
+        loopMode: 'repeat',
+    },
+    ui: {
+        elementId: 'viewer3d_ui',
+        display: true,
+        stats: {
+            use: false,
+            statsId: 'ui_stats',
+            rendererInfo: true,
+            data: { // 리스트에서 true 값만 표시
+                bufferSize: true,
+                memory: true,
+                drawCalls: true,
+                lines: true,
+                points: true,
+                triangles: true,
+                frameCount: true,
+                frameTime: true,
+                FPS: true,
+            },
+        },
+
+    },
+    camera: {
+        position: [100, 200, 300],
+        target: [0, 100, 0],
+        fov: 45,
+        near: 1,
+        far: 1000000, // 10km
+        // 포커스 타겟
+        // free, center, root
+        focusTarget: 'free',
+        // 포커스 오프셋 (free 외)
+        focusOffset: [0, 0, 0],
+    },
+    controls: {
+        rotateSpeed: 0.3,
+        panSpeed: 0.25,
+        zoomSpeed: 1,
+        screenSpacePanning: true,
+        enableDamping: true,
+        dampingFactor: 0.2,
+    },
+    scene: {
+        // background: 0xa0a0a0,
+        background: 0x353535,
+        // fog: [0xa0a0a0, 200, 1000],
+        // fog: [0x353535, 200, 1000],
+        fog: [0x353535, 200, 2000],
+    },
+    light: {
+        directionalLight: {
+            color: 0xffffff,
+            intensity: 1,
+            position: [200, 300, 200],
+            lightTarget: {
+                position: [0, 0, 0]
+            },
+            castShadow: true,
+            shadow: {
+                mapSize: 512,
+                bias: -0.002,
+                radius: 1,
+                camera: {
+                    near: 0.5,
+                    far: 800,
+                    top: 200,
+                    bottom: -50,
+                    left: -100,
+                    right: 100,
+                }
+            }
+        },
+        hemisphereLight: {
+            skyColor: 0x3385ff,
+            groundColor: 0xffa024,
+            intensity: 0.75,
+            position: [0, 200, 0],
+        },
+        ambientLight: {
+            color: 0x381f38,
+            intensity: 0.25,
+        },
+        // 포인트라이트는 배열처리로 여러개를 만들수 있음
+        pointLights: [{
+
+        }],
+    },
+    groundMesh: {
+        use: true,
+        mesh: {
+            use: false,
+            size: [4000, 4000],
+            color: 0x999999,
+            depthWrite: false,
+            receiveShadow: true,
+        },
+        grid: {
+            use: true,
+            size: 4000,
+            divisions: 40,
+            colorCenterLine: 0x000000,
+            colorGrid: 0x000000,
+            opacity: 0.2,
+            transparent: true,
+        }
+    },
+    renderer: {
+        canvasId: 'viewer3d_render',
+        antialias: true,
+        gammaFactor: 2,
+        gammaInput: true,
+        gammaOutput: true,
+        shadowMap: {
+            enabled: true,
+            // BasicShadowMap, PCFShadowMap, PCFSoftShadowMap
+            type: 'PCFSoftShadowMap',
+        }
+    },
+    // 배열로 여러개를 로드. 없을 경우 디폴트모델 로드.
+    models: [{
+        // name: 'YBot_Walking.fbx',
+        // relativePath: '',
+        // category: 'character',
+        // position: [0, 0, 0],
+        // rotation: [0, 0, 0],
+        // scale: [1, 1, 1],
+    }],
+    defaultModel: {
+        name: 'YBot_Walking.fbx',
+        category: 'character',
+        relativePath: '',
+        position: [0, 0, 0],
+        rotation: [0, 0, 0],
+        scale: [1, 1, 1],
+        mesh: {
+            // https://threejs.org/docs/#api/en/core/Object3D.castShadow
+            castShadow: true,
+            // https://threejs.org/docs/#api/en/core/Object3D.receiveShadow
+            receiveShadow: true,
+            // https://threejs.org/docs/#api/en/core/Object3D.frustumCulled
+            frustumCulled: false,
+        },
+        material: {
+            fog: false,
+        },
+        texture: {
+            relativePath: '',
+            magFilter: 'LinearFilter',
+            minFilter: 'LinearMipMapLinearFilter',
+            anisotropy: 1,
+        },
+    },
+
+    effect: {
+        outline: {
+            enabled: false,
+            defaultThickness: 0.004,
+            defaultColor: [0, 0, 0], // black
+            defaultAlpha: 1.0,
+            defaultBlending: 1, // NormalBlending
+            defaultTransparent: false,
+            defaultPremultipliedAlpha: false,
+            defaultKeepAlive: false,
+        },
+    },
+
+}

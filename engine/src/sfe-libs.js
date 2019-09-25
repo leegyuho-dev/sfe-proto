@@ -17,6 +17,7 @@ import { THREE as FBXLoader } from './libs/three.js/loaders/FBXLoader.custom.mod
 import { THREE as TGALoader } from './libs/three.js/loaders/TGALoader.module.js';
 import { THREE as OrbitControls } from './libs/three.js/controls/OrbitControls.module.js';
 import { THREE as OutlineEffect } from './libs/three.js/effects/OutlineEffect.custom.module.js';
+import { THREE as SubdivisionModifier } from './libs/three.js/modifiers/SubdivisionModifier.module.js';
 import { THREE as Stats } from './libs/three.js/libs/Stats.js';
 
 window.THREE = {}
@@ -26,6 +27,7 @@ Object.assign(THREE, TGALoader);
 Object.assign(THREE, FBXLoader);
 Object.assign(THREE, OrbitControls);
 Object.assign(THREE, OutlineEffect);
+Object.assign(THREE, SubdivisionModifier);
 Object.assign(THREE, Stats);
 
 import { MeshOutlineMaterial } from './libs/three.js/materials/MeshOutlineMaterial.js';

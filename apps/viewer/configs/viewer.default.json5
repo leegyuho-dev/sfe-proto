@@ -148,13 +148,13 @@
         hemisphereLight: {
             skyColor: 0x3385ff,
             groundColor: 0xffa024,
-            intensity: 0.75,
+            intensity: 0.25,
             position: [0, 200, 0],
         },
-        ambientLight: {
+        /* ambientLight: {
             color: 0x381f38,
             intensity: 0.25,
-        },
+        }, */
         // 포인트라이트는 배열처리로 여러개를 만들수 있음
         pointLights: [{
 

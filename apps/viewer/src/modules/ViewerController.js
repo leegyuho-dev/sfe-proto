@@ -88,7 +88,7 @@ export class ViewerController {
             }
             // 모든 버튼
             for (const id in targets) {
-                if (targets[id].button !== undefined) {
+                if (targets[id] !== undefined && targets[id].button !== undefined) {
                     targets[id].button.events.hover = function(event, data) { 
                         Controller.togglePopup(event, data);
                     }

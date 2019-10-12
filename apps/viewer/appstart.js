@@ -26,12 +26,12 @@ function startViewer() {
                 use: true,
             }
         },
-        camera: {
+        /* camera: {
             // focusTarget: 'root',
             position: [-100, 120, 200],
             focusOffset: [0, 50, 0],
             fov: 60,
-        },
+        }, */
         light: {
             directionalLight: {
                 shadow: {
@@ -40,12 +40,7 @@ function startViewer() {
                 }
             },
         },
-        loader: {
-            model: 'Pink_master.fbx',
-            // character: 'Pink_master.fbx',
-            background: 'AudienceRoom_master.fbx',
-        },
-        models: [
+        /* models: [
             {
                 name: 'Pink_master.fbx',
                 category: 'character',
@@ -67,10 +62,10 @@ function startViewer() {
                     frustumCulled: true,
                 },
             }
-        ],
-        groundMesh: {
+        ], */
+        /* groundMesh: {
             use: false,  
-        }
+        } */
         /* renderer: {
             antialias: false,
             gammaInput: false,

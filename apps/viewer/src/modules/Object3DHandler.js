@@ -76,6 +76,7 @@ export class Object3DHandler {
                     }
                 }
             }
+            // console.log("Bone Length: ", Object.keys(model.bones).length);
             // 스켈레톤 헬퍼 추가
             /* this.helpers.skeleton = new THREE.SkeletonHelper( model.bones.root );
             // this.helpers.skeleton.material.linewidth = 10;

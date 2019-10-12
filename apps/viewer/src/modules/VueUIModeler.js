@@ -73,7 +73,10 @@ export class VueUIModeler {
 
         // UI 옵션
         const globalOptions = V3Doptions.global;
-        const modelsOptions = V3Doptions.models;
+        const modelsOptions = V3Doptions.models
+        if (SFE.isEmpty(modelsOptions[0])) {
+            modelsOptions[0] = V3Doptions.defaultModel;
+        }
         const uiOptions = V3Doptions.ui;
 
         // 스탯 데이터

@@ -80,7 +80,7 @@
         fog: [0x353535, 200, 1000],
     },
     light: {
-        directionalLight: {
+        /* directionalLight: {
             color: 0xffffff,
             intensity: 1,
             position: [200, 300, 200],
@@ -89,7 +89,7 @@
             },
             castShadow: true,
             shadow: {
-                mapSize: [1024, 1024],
+                mapSize: 512,
                 bias: -0.002,
                 radius: 2,
                 camera: {
@@ -116,7 +116,7 @@
         // 포인트라이트는 배열처리로 여러개를 만들수 있음
         pointLights: [{
 
-        }],
+        }], */
     },
     groundMesh: {
         mesh: {
@@ -154,7 +154,7 @@
             defaultKeepAlive: true,
         },
     },
-    loader: {
+    /* loader: {
         model: 'YBot.fbx',
         mesh: {
             castShadow: true,
@@ -163,5 +163,5 @@
         material: {
             fog: false
         }
-    },
+    }, */
 }

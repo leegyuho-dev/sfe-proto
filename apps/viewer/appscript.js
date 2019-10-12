@@ -250,6 +250,7 @@
                         }
                     }
                 }
+                // console.log("Bone Length: ", Object.keys(model.bones).length);
                 // 스켈레톤 헬퍼 추가
                 /* this.helpers.skeleton = new THREE.SkeletonHelper( model.bones.root );
                 // this.helpers.skeleton.material.linewidth = 10;
@@ -537,6 +538,9 @@
             // UI 옵션
             const globalOptions = V3Doptions.global;
             const modelsOptions = V3Doptions.models;
+            if (SFE.isEmpty(modelsOptions[0])) {
+                modelsOptions[0] = V3Doptions.defaultModel;
+            }
             const uiOptions = V3Doptions.ui;
 
             // 스탯 데이터
@@ -2724,7 +2728,7 @@
                 };
                 // 모든 버튼
                 for (const id in targets) {
-                    if (targets[id].button !== undefined) {
+                    if (targets[id] !== undefined && targets[id].button !== undefined) {
                         targets[id].button.events.hover = function(event, data) { 
                             Controller.togglePopup(event, data);
                         };
@@ -4340,11 +4344,17 @@
         loadAssets() {
             var firstLoad = true;
 
-            for (var index in this.options.models) {
-                var modelOption =  this.options.models[index];
+            if (!SFE.isEmpty(this.options.models[0])) {
+                for (var index in this.options.models) {
+                    var modelOption =  this.options.models[index];
+                    var model = this.Assets.makeModel(modelOption.name, modelOption.category, modelOption.relativePath);
+                    this.loadModel(model, modelOption, firstLoad);
+                    firstLoad = false;
+                }
+            } else {
+                var modelOption =  this.options.defaultModel;
                 var model = this.Assets.makeModel(modelOption.name, modelOption.category, modelOption.relativePath);
                 this.loadModel(model, modelOption, firstLoad);
-                firstLoad = false;
             }
         }
 

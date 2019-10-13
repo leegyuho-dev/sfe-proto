@@ -4578,7 +4578,7 @@
             // this.renderer.render(this.scene, this.camera);
             
             if (this.options.ui.stats.use === true) {
-                this.stats.refresh = true;
+                // this.stats.refresh = true;
                 this.updateStatData();
             }
 
@@ -4661,15 +4661,27 @@
 
             this.stats.update();
             if (this.stats.refresh === true) { // 일회성 업데이트
-                updateInfo('bufferSize', context.drawingBufferWidth + ' X ' + context.drawingBufferHeight);
+
+                // 본 개수 계산
+                var bonesTotalLength = 0;
+                var models = this.Assets.models;
+                for (var key in models) {
+                    var bonesLength = Object.keys(models[key].data.bones).length;
+                    if (bonesLength !== 0) {
+                        bonesTotalLength = bonesTotalLength + (bonesLength - 1);
+                    }
+                }
+
                 updateInfo('drawCalls', renderInfo.calls);
                 updateInfo('points', renderInfo.points);
                 updateInfo('lines', renderInfo.lines);
                 updateInfo('triangles', renderInfo.triangles);
+                updateInfo('bones', bonesTotalLength);
                 this.stats.refresh = false;
             }
 
             // 상시 업데이트
+            updateInfo('bufferSize', context.drawingBufferWidth + ' X ' + context.drawingBufferHeight);
             updateInfo('frameCount', renderInfo.frame);
             updateInfo('memory', Math.round(this.stats.memVal) + 'MB' + ' / ' + Math.round(this.stats.memMax) + 'MB');
             updateInfo('frameTime', Math.round(this.stats.ftime) + 'MS');

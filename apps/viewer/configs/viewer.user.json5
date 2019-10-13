@@ -52,10 +52,11 @@
             data: { // 리스트에서 true 값만 표시
                 bufferSize: true,
                 memory: true,
-                drawCalls: false,
+                triangles: true,
+                bones: true,
                 lines: false,
                 points: false,
-                triangles: true,
+                drawCalls: false,
                 frameCount: true,
                 frameTime: true,
                 FPS: true,

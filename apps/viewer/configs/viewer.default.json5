@@ -133,9 +133,9 @@
             },
             castShadow: true,
             shadow: {
-                mapSize: 512,
+                mapSize: 1024,
                 bias: -0.002,
-                radius: 1,
+                radius: 2,
                 camera: {
                     near: 0.5,
                     far: 800,

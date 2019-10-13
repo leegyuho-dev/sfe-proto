@@ -164,7 +164,7 @@
     groundMesh: {
         use: true,
         mesh: {
-            use: false,
+            use: true,
             size: [4000, 4000],
             color: 0x999999,
             depthWrite: false,
@@ -176,7 +176,7 @@
             divisions: 40,
             colorCenterLine: 0x000000,
             colorGrid: 0x000000,
-            opacity: 0.2,
+            opacity: 0.5,
             transparent: true,
         }
     },

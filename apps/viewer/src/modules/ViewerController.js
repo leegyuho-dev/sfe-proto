@@ -786,8 +786,7 @@ export class ViewerController {
             this.SFERenderer.shadowMap.type = THREE[value];
             this.SFERenderer.dispose();
         } else if (name === 'shadowMapSize') {
-            // console.log(value);
-            this.setting.shadowMapSize = [value, value];
+            this.setting.shadowMapSize = value;
             for (var key in this.SFEScene.children) {
                 var child = this.SFEScene.children[key];
                 if (child.type === 'DirectionalLight') {

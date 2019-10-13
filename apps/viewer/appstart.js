@@ -32,14 +32,14 @@ function startViewer() {
             focusOffset: [0, 50, 0],
             fov: 60,
         }, */
-        light: {
+        /* light: {
             directionalLight: {
                 shadow: {
                     mapSize: 1024,
                     radius: 2,
                 }
             },
-        },
+        }, */
         /* models: [
             {
                 name: 'Pink_master.fbx',
